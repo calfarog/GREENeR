@@ -1,0 +1,18 @@
+## ---- include = FALSE---------------------------------------------------------
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+
+## ----setup--------------------------------------------------------------------
+library(GREENeR)
+
+## -----------------------------------------------------------------------------
+data(catch_data_TN)
+data(annual_data_TN)
+data(sh_file)
+head(catch_data_TN)
+head(annual_data_TN)
+catch_data = catch_data_TN
+annual_data = annual_data_TN
+

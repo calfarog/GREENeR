@@ -1,0 +1,20 @@
+---
+title: "Geospatial Regression Equation for European Nutrient losses (GREEN)"
+output: rmarkdown::html_vignette
+bibliography: papers_RGreen.bib
+vignette: >
+  %\VignetteIndexEntry{Geospatial Regression Equation for European Nutrient losses (GREEN)}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(rgreen)
+```
