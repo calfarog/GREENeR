@@ -1,7 +1,0 @@
-{
-    "installOptions": {
-        "installFromRepository": false,
-        "libraryPath": "C:/Users/urjc/Documents/R/win-library/3.6",
-        "installDependencies": true
-    }
-}
