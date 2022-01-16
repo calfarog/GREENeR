@@ -17,6 +17,7 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![Travis build status](https://travis-ci.org/calfarog/GREENeR.svg?branch=master)](https://travis-ci.org/calfarog/GREENeR)
 <!-- badges: end -->
 
 The goal of GREENeR is to provide a conceptual model to assess nutrient loads (total nitrogen and total phosphorous) from a basin given diffuse and point emissions to the land and river network. The model comprises two major nutrient pathways: diffuse sources that undergo retention in the land phase (basin retention) before reaching the stream, and point sources that are directly discharged into surface waters. Once in the river network, all sources are reduced by the in-stream retention (river retention).
@@ -73,7 +74,7 @@ A calibration of TN in the Lay basin is performed with the parameters indicated 
 DF_calib_TN <- calib_green(catch_data_TN, annual_data_TN, n_iter, low, upp, years)
 ```
 
-The calibration function applies a Latin Hypercube sampling scheme to the three parameters within the possible range (defined by lower and upper limits) and evaluates model performance (predictions against available observations) for the calibration period (specified in ‘years’) by calculating several "goodness-of-fit" metrics. The function returns a dataframe with parameters and goodness-of-fit scores that can be further analyzed.
+The calibration function applies a Latin Hypercube sampling scheme to the three parameters within the possible range (defined by lower and upper limits) and evaluates model performance (predictions against available observations) for the calibration period (specified in â€˜yearsâ€™) by calculating several "goodness-of-fit" metrics. The function returns a dataframe with parameters and goodness-of-fit scores that can be further analyzed.
 
 The function applies the following goodness-of-fit metrics ([@althoff2021goodness]):
 
