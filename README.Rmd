@@ -33,7 +33,7 @@ devtools::install_github("calfarog/GREENeR")
 
 ## Illustrative Example
 
-This is a basic example which shows how GREENeR works, for a more detailed illustration, please see our [vignettes](https://calfarog.github.io/GREENeR/articles/greener_vignette.html).
+This is a basic example which shows how GREENeR works, for a more detailed illustration, please see our [vignettes](https://calfarog.github.io/GREENeR/articles/GREENeR.html).
 
 GREENeR functionalities are illustrated for the [Lay river](https://en.wikipedia.org/wiki/Lay_(river)) basin, in France. Please note that the basin data are extracted from a pan-European dataset (Grizzetti 2021) for the purpose of showing the package tools and the analysis steps for a generic region.
 
