@@ -7,6 +7,8 @@
 
 [![License: GPL
 v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![Travis build
+status](https://travis-ci.org/calfarog/GREENeR.svg?branch=master)](https://travis-ci.org/calfarog/GREENeR)
 <!-- badges: end -->
 
 The goal of GREENeR is to provide a conceptual model to assess nutrient
@@ -31,7 +33,7 @@ devtools::install_github("calfarog/GREENeR")
 
 This is a basic example which shows how GREENeR works, for a more
 detailed illustration, please see our
-[vignettes](https://calfarog.github.io/GREENeR/articles/greener_vignette.html).
+[vignettes](https://calfarog.github.io/GREENeR/articles/GREENeR.html).
 
 GREENeR functionalities are illustrated for the [Lay
 river](https://en.wikipedia.org/wiki/Lay_(river)) basin, in France.
@@ -98,9 +100,9 @@ The calibration function applies a Latin Hypercube sampling scheme to
 the three parameters within the possible range (defined by lower and
 upper limits) and evaluates model performance (predictions against
 available observations) for the calibration period (specified in
-‘years’) by calculating several “goodness-of-fit” metrics. The function
-returns a dataframe with parameters and goodness-of-fit scores that can
-be further analyzed.
+â€˜yearsâ€™) by calculating several “goodness-of-fit” metrics. The
+function returns a dataframe with parameters and goodness-of-fit scores
+that can be further analyzed.
 
 The function applies the following goodness-of-fit metrics
 (\[@althoff2021goodness\]):
