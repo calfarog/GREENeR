@@ -16,7 +16,6 @@ knitr::opts_chunk$set(
 # GREENeR
 
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/calfarog/GREENeR/workflows/R-CMD-check/badge.svg)](https://github.com/calfarog/GREENeR/actions)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 <!-- badges: end -->
 
