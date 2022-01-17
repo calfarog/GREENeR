@@ -164,12 +164,12 @@ scatter_plot(DF_calib_TN, Gof_mes)
 
 ## References
 
+Althoff, D., & Rodrigues, L. N. (2021). Goodness-of-fit criteria for
+hydrological models: Model calibration and performance assessment.
+Journal of Hydrology, 600, 126674.
+
 Grizzetti, B. and Vigiak, O. and Udias, A. and Aloe, A. and Zanni, M.
 and Bouraoui, F. and Pistocchi, A. and Dorati, C. and Friedland, R. and
 De Roo, A. and others (2021). How EU policies could reduce nutrient
 pollution in European inland and coastal waters. Global Environmental
 Change, 69, 102281. <https://doi.org/10.1016/j.gloenvcha.2021.102281>
-
-Althoff, D., & Rodrigues, L. N. (2021). Goodness-of-fit criteria for
-hydrological models: Model calibration and performance assessment.
-Journal of Hydrology, 600, 126674.

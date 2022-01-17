@@ -27,8 +27,7 @@
 #' \doi{doi:10.1016/j.jhydrol.2004.07.036}
 #'
 #' Grizzetti, B., Bouraoui, F., De Marsily, G., (2008). Assessing nitrogen
-#' pressures on European surface water. Global Biogeochem. Cycles 22.
-#' \doi{doi:10.1029/2007GB003085}.
+#' pressures on European surface water. Global Biogeochem. Cycles 22..
 #'
 #' Grizzetti, B., Bouraoui, F., & Aloe, A. (2012). Changes of nitrogen and
 #' phosphorus loads to E uropean seas. Global Change Biology, 18(2), 769-782.
