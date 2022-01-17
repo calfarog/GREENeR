@@ -90,7 +90,7 @@ goodness-of-fit metric</p>
 <span class="r-in"><span class="co"># execution of the calibration</span></span>
 <span class="r-in"><span class="va">df_calib</span> <span class="op">&lt;-</span> <span class="fu"><a href="calib_green.html">calib_green</a></span><span class="op">(</span><span class="va">catch_data_TN</span>, <span class="va">annual_data_TN</span>, <span class="va">n_iter</span>, <span class="va">low</span>, <span class="va">upp</span>,</span>
 <span class="r-in"><span class="va">years</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Elapsed time: 16.22"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Elapsed time: 6.59999999999997"</span>
 <span class="r-in"><span class="co"># Extract the best set of parameter according to a Goodnes of fit metric</span></span>
 <span class="r-in"><span class="va">gof_mes</span> <span class="op">&lt;-</span> <span class="st">"NSE"</span></span>
 <span class="r-in"><span class="va">NSE_bestParams</span> <span class="op">&lt;-</span> <span class="fu">select_params</span><span class="op">(</span><span class="va">df_calib</span>, <span class="va">gof_mes</span><span class="op">)</span></span>

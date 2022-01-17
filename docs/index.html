@@ -90,8 +90,8 @@
 <div class="section level2">
 <h2 id="illustrative-example">Illustrative Example<a class="anchor" aria-label="anchor" href="#illustrative-example"></a>
 </h2>
-<p>This is a basic example which shows how GREENeR works, for a more detailed illustration, please see our <a href="https://calfarog.github.io/GREENeR/articles/greener_vignette.html" class="external-link">vignettes</a>.</p>
-<p>GREENeR functionalities are illustrated for the <a href="https://en.wikipedia.org/wiki/Lay_(river)" class="external-link">Lay river</a> basin, in France. Please note that the basin data are extracted from a pan-European dataset (Grizzetti 2021) for the purpose of showing the package tools and the analysis steps for a generic region.</p>
+<p>This is a basic example which shows how GREENeR works, for a more detailed illustration, please see our <a href="https://calfarog.github.io/GREENeR/articles/GREENeR.html" class="external-link">vignettes</a>.</p>
+<p>GREENeR functionalities are illustrated for the <a href="https://en.wikipedia.org/wiki/Lay_(river)" class="external-link">Lay river</a> basin, in France. Please note that the basin data are extracted from a pan-European dataset (Grizzetti et al. 2021) for the purpose of showing the package tools and the analysis steps for a generic region.</p>
 </div>
 <div class="section level2">
 <h2 id="model-calibration">Model calibration<a class="anchor" aria-label="anchor" href="#model-calibration"></a>
@@ -127,8 +127,8 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># execution of the calibration  </span>
 <span class="va">DF_calib_TN</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/calib_green.html">calib_green</a></span><span class="op">(</span><span class="va">catch_data_TN</span>, <span class="va">annual_data_TN</span>, <span class="va">n_iter</span>, <span class="va">low</span>, <span class="va">upp</span>, <span class="va">years</span><span class="op">)</span></code></pre></div>
-<p>The calibration function applies a Latin Hypercube sampling scheme to the three parameters within the possible range (defined by lower and upper limits) and evaluates model performance (predictions against available observations) for the calibration period (specified in ‘years’) by calculating several “goodness-of-fit” metrics. The function returns a dataframe with parameters and goodness-of-fit scores that can be further analyzed.</p>
-<p>The function applies the following goodness-of-fit metrics ([@althoff2021goodness]):</p>
+<p>The calibration function applies a Latin Hypercube sampling scheme to the three parameters within the possible range (defined by lower and upper limits) and evaluates model performance (predictions against available observations) for the calibration period (specified in â€˜yearsâ€™) by calculating several “goodness-of-fit” metrics. The function returns a dataframe with parameters and goodness-of-fit scores that can be further analyzed.</p>
+<p>The function applies the following goodness-of-fit metrics (Althoff and Rodrigues 2021):</p>
 <ul>
 <li>NSE: Nash-Sutcliffe efficiency</li>
 <li>rNSE: Relative Nash-Sutcliffe efficiency</li>
@@ -185,6 +185,7 @@
 <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h2>
 <p>Grizzetti, B. and Vigiak, O. and Udias, A. and Aloe, A. and Zanni, M. and Bouraoui, F. and Pistocchi, A. and Dorati, C. and Friedland, R. and De Roo, A. and others (2021). How EU policies could reduce nutrient pollution in European inland and coastal waters. Global Environmental Change, 69, 102281. <a href="https://doi.org/10.1016/j.gloenvcha.2021.102281" class="external-link uri">https://doi.org/10.1016/j.gloenvcha.2021.102281</a></p>
+<p>Althoff, D., &amp; Rodrigues, L. N. (2021). Goodness-of-fit criteria for hydrological models: Model calibration and performance assessment. Journal of Hydrology, 600, 126674.</p>
 </div>
 </div>
   </div>
@@ -230,6 +231,7 @@
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://www.gnu.org/licenses/gpl-3.0" class="external-link"><img src="https://img.shields.io/badge/License-GPLv3-blue.svg" alt="License: GPL v3"></a></li>
+<li><a href="https://travis-ci.org/calfarog/GREENeR" class="external-link"><img src="https://travis-ci.org/calfarog/GREENeR.svg?branch=master" alt="Travis build status"></a></li>
 </ul>
 </div>
 
