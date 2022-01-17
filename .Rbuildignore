@@ -1,4 +1,12 @@
-^.*\.Rproj$
+^GREENeR\.Rproj$
 ^\.Rproj\.user$
 ^doc$
 ^README\.Rmd$
+^LICENSE\.md$
+^cran-comments\.md$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^\.travis\.yml$
+^\.github$
+^CRAN-RELEASE$
