@@ -20,6 +20,7 @@ Return the best calibration parameter set according to one
 goodness-of-fit metric
 }
 \examples{
+\donttest{
 # the data of the TN scenario
 data(catch_data_TN)
 data(annual_data_TN)
@@ -37,5 +38,6 @@ years)
 # Extract the best set of parameter according to a Goodnes of fit metric
 gof_mes <- "NSE"
 NSE_bestParams <- select_params(df_calib, gof_mes)
+}
 
 }

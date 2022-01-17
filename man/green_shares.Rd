@@ -33,6 +33,7 @@ Run GREEN model with selected parameter set and returns the
 nutrient load by each source for all catchments in the Basin.
 }
 \examples{
+\donttest{
 # the data of the TN scenario
 data(catch_data_TN)
 data(annual_data_TN)
@@ -45,5 +46,6 @@ loc_years <- 1990:2018
 # Computing the source apportionment
 basin_loads_s <- green_shares(catch_data_TN, annual_data_TN, alpha_p, alpha_l,
 sd_coef, loc_years)
+}
 
 }

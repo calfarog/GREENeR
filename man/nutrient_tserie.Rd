@@ -25,6 +25,7 @@ A plot
 Creates a time series plot showing basin model results
 }
 \examples{
+\donttest{
 # the data of the TN scenario
 data(catch_data_TN)
 data(annual_data_TN)
@@ -46,5 +47,6 @@ nutrient_tserie(basin_sa, sh_file, plotTitle, "gr1")
 nutrient_tserie(basin_sa, sh_file, plotTitle, "gr2")
 # Total Load in the Basin Outlet by source apportionment time series (lines)
 nutrient_tserie(basin_sa, sh_file, plotTitle, "gr3")
+}
 
 }

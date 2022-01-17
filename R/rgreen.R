@@ -106,6 +106,7 @@ append_empty_cols <- function(df){
 #' @importFrom magrittr %>%
 #'
 #' @examples
+#' \donttest{
 #' # the data of the TN scenario
 #' data(catch_data_TN)
 #' data(annual_data_TN)
@@ -120,6 +121,7 @@ append_empty_cols <- function(df){
 #' # execution of the calibration
 #' dF_calib <- calib_green(catch_data_TN, annual_data_TN, n_iter, low, upp,
 #' years)
+#' }
 #'
 #' @export
 calib_green <- function(catch_data, annual_data, n_iter, low, upp, years){
@@ -356,6 +358,7 @@ data_preparation <- function(catch_data, annual_data){
 #' @importFrom magrittr %>%
 #'
 #' @examples
+#' \donttest{
 #' # the data of the TN scenario
 #' data(catch_data_TN)
 #' data(annual_data_TN)
@@ -368,6 +371,7 @@ data_preparation <- function(catch_data, annual_data){
 #' # Computing the source apportionment
 #' basin_loads_s <- green_shares(catch_data_TN, annual_data_TN, alpha_p, alpha_l,
 #' sd_coef, loc_years)
+#' }
 #'
 #' @export
 #'

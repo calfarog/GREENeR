@@ -3,7 +3,7 @@ Type: Package
 Title: R Geospatial Regression Equation for European Nutrient Losses (GREEN)
 Version: 0.1.0
 Authors@R: c(person("A.", "Udias", role = c("aut", "cre"),
-                     email = "c.alfarog@gmail.com"),
+                     email = "angeludias@gmail.com"),
               person("B.", "Grizzetti", role = "aut", 
                      email = "bruna.grizzetti@jrc.it"), 
               person("O.", "Vigiak", role = "aut", 
@@ -16,7 +16,7 @@ Authors@R: c(person("A.", "Udias", role = c("aut", "cre"),
                      email = "alberto.aloe@jrc.it"))
 Author: A. Udias [aut, cre], B. Grizzetti [aut], O. Vigiak [aut], 
     J. Gomez [aut], C. Alfaro [aut], A. Aloe [aut]
-Maintainer: A. Udias <angeludias@gmail.com>
+Maintainer: C. Alfaro <c.alfarog@gmail.com>
 Description: Tools and methods to apply the model Geospatial Regression Equation
     for European Nutrient losses (GREEN); 
     Grizzetti et al. (2005) <doi:10.1016/j.jhydrol.2004.07.036>; 

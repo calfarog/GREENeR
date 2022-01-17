@@ -19,6 +19,7 @@ Multiple scatter plot
 Scatter plot of goodness-of-fit metric vs parameters
 }
 \examples{
+\donttest{
 # the data of the TN scenario
 data(catch_data_TN)
 data(annual_data_TN)
@@ -35,5 +36,6 @@ df_calib <- calib_green(catch_data_TN, annual_data_TN, n_iter, low, upp,
 years)
 gof_mes <- "NSE"
 scatter_plot(df_calib, gof_mes)
+}
 
 }

@@ -66,6 +66,7 @@ calculate_shreve <- function(catch_data) {
 #' @return Multiple boxplot
 #'
 #' @examples
+#' \donttest{
 #' # the data of the TN scenario
 #' data(catch_data_TP)
 #' data(annual_data_TP)
@@ -83,6 +84,7 @@ calculate_shreve <- function(catch_data) {
 #' # Generating the box plots
 #' rateBS <- 5 # rate of best set of parameter to include in the plots
 #' calib_boxplot(df_calib, rateBS)
+#' }
 #'
 #' @export
 #'
@@ -192,6 +194,7 @@ calib_boxplot <- function(df_cb, rate_bs) {
 #' @return Multiple dot plots
 #'
 #' @examples
+#' \donttest{
 #' # the data of the TN scenario
 #' data(catch_data_TN)
 #' data(annual_data_TN)
@@ -209,6 +212,7 @@ calib_boxplot <- function(df_cb, rate_bs) {
 #' # Generating the dot plots
 #' gof_mes <- "NSE"
 #' calib_dot(df_calib, gof_mes)
+#' }
 #'
 #' @export
 #'
@@ -1241,6 +1245,7 @@ multiple_map <- function(hydroSf, refN_P, long_basin, unit,
 #' @importFrom graphics par barplot
 #'
 #' @examples
+#' \donttest{
 #' # the data of the TN scenario
 #' data(catch_data_TN)
 #' data(annual_data_TN)
@@ -1265,6 +1270,7 @@ multiple_map <- function(hydroSf, refN_P, long_basin, unit,
 #' # Basin Output Specific Load by km2 Maps
 #' Lpos <- 1
 #' nutrient_maps(basin_sa, sh_file, mapTitle, "gr3", Lpos)
+#' }
 #'
 #' @export
 #'
@@ -1370,6 +1376,7 @@ nutrient_maps <- function(green_file, sh_file, basin_name, plot.type,
 #' @importFrom graphics par barplot
 #'
 #' @examples
+#' \donttest{
 #' # the data of the TN scenario
 #' data(catch_data_TN)
 #' data(annual_data_TN)
@@ -1391,6 +1398,7 @@ nutrient_maps <- function(green_file, sh_file, basin_name, plot.type,
 #' nutrient_tserie(basin_sa, sh_file, plotTitle, "gr2")
 #' # Total Load in the Basin Outlet by source apportionment time series (lines)
 #' nutrient_tserie(basin_sa, sh_file, plotTitle, "gr3")
+#' }
 #'
 #' @export
 #'
@@ -1675,6 +1683,7 @@ preproc_scenSummary <- function(annual_data){
 #' @return Multiple scatter plot
 #'
 #' @examples
+#' \donttest{
 #' # the data of the TN scenario
 #' data(catch_data_TN)
 #' data(annual_data_TN)
@@ -1691,6 +1700,7 @@ preproc_scenSummary <- function(annual_data){
 #' years)
 #' gof_mes <- "NSE"
 #' scatter_plot(df_calib, gof_mes)
+#' }
 #'
 #' @export
 #'
@@ -1726,6 +1736,7 @@ scatter_plot <- function(df_cb, param) {
 #' @return A vector with the 3 parameters
 #'
 #' @examples
+#' \donttest{
 #' # the data of the TN scenario
 #' data(catch_data_TN)
 #' data(annual_data_TN)
@@ -1743,6 +1754,7 @@ scatter_plot <- function(df_cb, param) {
 #' # Extract the best set of parameter according to a Goodnes of fit metric
 #' gof_mes <- "NSE"
 #' NSE_bestParams <- select_params(df_calib, gof_mes)
+#' }
 #'
 #' @export
 #'

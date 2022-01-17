@@ -29,6 +29,7 @@ One object, a data frame
 Runs GREEN model calibration
 }
 \examples{
+\donttest{
 # the data of the TN scenario
 data(catch_data_TN)
 data(annual_data_TN)
@@ -43,5 +44,6 @@ years <- 1990:2018
 # execution of the calibration
 dF_calib <- calib_green(catch_data_TN, annual_data_TN, n_iter, low, upp,
 years)
+}
 
 }

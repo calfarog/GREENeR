@@ -21,6 +21,7 @@ different goodness-of-fit measures, and also boxplot with the distribution of
  the parameters values.
 }
 \examples{
+\donttest{
 # the data of the TN scenario
 data(catch_data_TP)
 data(annual_data_TP)
@@ -38,5 +39,6 @@ years)
 # Generating the box plots
 rateBS <- 5 # rate of best set of parameter to include in the plots
 calib_boxplot(df_calib, rateBS)
+}
 
 }

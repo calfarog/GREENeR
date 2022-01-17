@@ -29,6 +29,7 @@ A map
 Creates maps showing basin output total or by source loads
 }
 \examples{
+\donttest{
 # the data of the TN scenario
 data(catch_data_TN)
 data(annual_data_TN)
@@ -53,5 +54,6 @@ nutrient_maps(basin_sa, sh_file, mapTitle, "gr2", Lpos)
 # Basin Output Specific Load by km2 Maps
 Lpos <- 1
 nutrient_maps(basin_sa, sh_file, mapTitle, "gr3", Lpos)
+}
 
 }
