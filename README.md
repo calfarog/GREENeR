@@ -38,8 +38,8 @@ detailed illustration, please see our
 GREENeR functionalities are illustrated for the [Lay
 river](https://en.wikipedia.org/wiki/Lay_(river)) basin, in France.
 Please note that the basin data are extracted from a pan-European
-dataset (Grizzetti 2021) for the purpose of showing the package tools
-and the analysis steps for a generic region.
+dataset (Grizzetti et al. 2021) for the purpose of showing the package
+tools and the analysis steps for a generic region.
 
 ## Model calibration
 
@@ -104,8 +104,8 @@ available observations) for the calibration period (specified in
 function returns a dataframe with parameters and goodness-of-fit scores
 that can be further analyzed.
 
-The function applies the following goodness-of-fit metrics
-(\[@althoff2021goodness\]):
+The function applies the following goodness-of-fit metrics (Althoff and
+Rodrigues 2021):
 
 -   NSE: Nash-Sutcliffe efficiency
 -   rNSE: Relative Nash-Sutcliffe efficiency
@@ -171,3 +171,7 @@ and Bouraoui, F. and Pistocchi, A. and Dorati, C. and Friedland, R. and
 De Roo, A. and others (2021). How EU policies could reduce nutrient
 pollution in European inland and coastal waters. Global Environmental
 Change, 69, 102281. <https://doi.org/10.1016/j.gloenvcha.2021.102281>
+
+Althoff, D., & Rodrigues, L. N. (2021). Goodness-of-fit criteria for
+hydrological models: Model calibration and performance assessment.
+Journal of Hydrology, 600, 126674.

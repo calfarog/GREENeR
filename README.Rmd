@@ -16,8 +16,8 @@ knitr::opts_chunk$set(
 # GREENeR
 
 <!-- badges: start -->
+[![R-CMD-check](https://github.com/calfarog/GREENeR/workflows/R-CMD-check/badge.svg)](https://github.com/calfarog/GREENeR/actions)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![Travis build status](https://travis-ci.org/calfarog/GREENeR.svg?branch=master)](https://travis-ci.org/calfarog/GREENeR)
 <!-- badges: end -->
 
 The goal of GREENeR is to provide a conceptual model to assess nutrient loads (total nitrogen and total phosphorous) from a basin given diffuse and point emissions to the land and river network. The model comprises two major nutrient pathways: diffuse sources that undergo retention in the land phase (basin retention) before reaching the stream, and point sources that are directly discharged into surface waters. Once in the river network, all sources are reduced by the in-stream retention (river retention).
@@ -35,7 +35,7 @@ devtools::install_github("calfarog/GREENeR")
 
 This is a basic example which shows how GREENeR works, for a more detailed illustration, please see our [vignettes](https://calfarog.github.io/GREENeR/articles/GREENeR.html).
 
-GREENeR functionalities are illustrated for the [Lay river](https://en.wikipedia.org/wiki/Lay_(river)) basin, in France. Please note that the basin data are extracted from a pan-European dataset (Grizzetti 2021) for the purpose of showing the package tools and the analysis steps for a generic region.
+GREENeR functionalities are illustrated for the [Lay river](https://en.wikipedia.org/wiki/Lay_(river)) basin, in France. Please note that the basin data are extracted from a pan-European dataset (Grizzetti et al. 2021) for the purpose of showing the package tools and the analysis steps for a generic region.
 
 ## Model calibration
 The quality of model calibration depends on the quality and number of available observations. To run the calibration process for a scenario (function **calib_green()**), the following settings must be defined:
@@ -76,7 +76,7 @@ DF_calib_TN <- calib_green(catch_data_TN, annual_data_TN, n_iter, low, upp, year
 
 The calibration function applies a Latin Hypercube sampling scheme to the three parameters within the possible range (defined by lower and upper limits) and evaluates model performance (predictions against available observations) for the calibration period (specified in â€˜yearsâ€™) by calculating several "goodness-of-fit" metrics. The function returns a dataframe with parameters and goodness-of-fit scores that can be further analyzed.
 
-The function applies the following goodness-of-fit metrics ([@althoff2021goodness]):
+The function applies the following goodness-of-fit metrics (Althoff and Rodrigues 2021):
 
 + NSE: Nash-Sutcliffe efficiency 
 + rNSE: Relative Nash-Sutcliffe efficiency 
@@ -139,3 +139,5 @@ knitr::include_graphics('man/figures/calibration_scatterTN.png')
 ## References
 
 Grizzetti, B. and Vigiak, O. and Udias, A. and Aloe, A. and Zanni, M. and Bouraoui, F. and Pistocchi, A. and Dorati, C. and Friedland, R. and De Roo, A. and others (2021). How EU policies could reduce nutrient pollution in European inland and coastal waters. Global Environmental Change, 69, 102281. https://doi.org/10.1016/j.gloenvcha.2021.102281
+
+Althoff, D., & Rodrigues, L. N. (2021). Goodness-of-fit criteria for hydrological models: Model calibration and performance assessment. Journal of Hydrology, 600, 126674.

@@ -317,7 +317,7 @@ DF_calib_TN <- calib_green(catch_data_TN, annual_data_TN, n_iter, low, upp, year
 
 The calibration function applies a Latin Hypercube sampling scheme to the three parameters within the possible range (defined by lower and upper limits) and evaluates model performance (predictions against available observations) for the calibration period (specified in ‘years’) by calculating several "goodness-of-fit" metrics. The function returns a dataframe with parameters and goodness-of-fit scores that can be further analyzed.
 
-The function applies the following goodness-of-fit metrics ([@althoff2021goodness]):
+The function applies the following goodness-of-fit metrics [@althoff2021goodness]:
 
 + NSE: Nash-Sutcliffe efficiency 
 + rNSE: Relative Nash-Sutcliffe efficiency 
