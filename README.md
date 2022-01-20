@@ -43,13 +43,13 @@ tools and the analysis steps for a generic region.
 
 The quality of model calibration depends on the quality and number of
 available observations. To run the calibration process for a scenario
-(function **calib\_green()**), the following settings must be defined:
+(function **calib_green()**), the following settings must be defined:
 
 1.  The expected range for each parameter. This range is defined by two
     vectors of three values, one for the lower limits and one for the
     upper limits of the three parameters. The values correspond to each
-    of the parameters of the model in sequence: alpha\_P, alpha\_L, and
-    sd\_coeff.
+    of the parameters of the model in sequence: alpha_P, alpha_L, and
+    sd_coeff.
 
 2.  The number of iterations to be performed during the calibration
     process. The higher the number of iterations, the more likely it is
