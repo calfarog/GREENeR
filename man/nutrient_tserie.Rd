@@ -25,7 +25,7 @@ A plot
 Creates a time series plot showing basin model results
 }
 \examples{
-\donttest{
+\dontrun{
 # the data of the TN scenario
 data(catch_data_TN)
 data(annual_data_TN)

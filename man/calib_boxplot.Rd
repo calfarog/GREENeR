@@ -21,7 +21,7 @@ different goodness-of-fit measures, and also boxplot with the distribution of
  the parameters values.
 }
 \examples{
-\donttest{
+\dontrun{
 # the data of the TN scenario
 data(catch_data_TP)
 data(annual_data_TP)

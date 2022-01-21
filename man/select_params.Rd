@@ -20,7 +20,7 @@ Return the best calibration parameter set according to one
 goodness-of-fit metric
 }
 \examples{
-\donttest{
+\dontrun{
 # the data of the TN scenario
 data(catch_data_TN)
 data(annual_data_TN)

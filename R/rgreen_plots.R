@@ -66,7 +66,7 @@ calculate_shreve <- function(catch_data) {
 #' @return Multiple boxplot
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' # the data of the TN scenario
 #' data(catch_data_TP)
 #' data(annual_data_TP)
@@ -194,7 +194,7 @@ calib_boxplot <- function(df_cb, rate_bs) {
 #' @return Multiple dot plots
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' # the data of the TN scenario
 #' data(catch_data_TN)
 #' data(annual_data_TN)
@@ -297,6 +297,7 @@ calib_dot <- function(df_cb, par) {
 #' @return A scatter plot
 #'
 #' @examples
+#' \dontrun{
 #' # the data of the TN scenario
 #' data(catch_data_TN)
 #' data(annual_data_TN)
@@ -321,6 +322,7 @@ calib_dot <- function(df_cb, par) {
 #' setPlabels <- c("bestNSE","bestR2")
 #' compare_calib(catch_data_TN, annual_data_TN, alpha_p , alpha_l, sd_coef,
 #' alpha_p2, alpha_l2, sd_coef2, years, nameBasin, setPlabels)
+#' }
 #'
 #' @export
 #'
@@ -671,6 +673,7 @@ gr_density_plot <- function(df_plot, plot_index, basin_name, cSD) {
 #' @importFrom gridExtra grid.arrange
 #'
 #' @examples
+#' \dontrun{
 #' # the data of the TN scenario
 #' data(catch_data_TN)
 #' data(annual_data_TN)
@@ -683,6 +686,7 @@ gr_density_plot <- function(df_plot, plot_index, basin_name, cSD) {
 #' # the Input Load Map by source type 2 (lines & area)
 #' input_maps (catch_data_TN, annual_data_TN, sh_file, mapTitle, "gr2",
 #' legend_position = 2)
+#' }
 #'
 #' @export
 input_maps <- function(catch_data, annual_data, sh_file, basin_name, plot.type,
@@ -876,6 +880,7 @@ input_plot <- function(annual_data, sh_file, basin_name, plot.type,
 #' @importFrom gridExtra grid.arrange
 #'
 #' @examples
+#' \dontrun{
 #' # the data of the TN scenario
 #' data(catch_data_TN)
 #' data(annual_data_TN)
@@ -890,6 +895,7 @@ input_plot <- function(annual_data, sh_file, basin_name, plot.type,
 #' input_Tserie(catch_data_TN, annual_data_TN, sh_file, plotTitle, "gr3")
 #' # the time serie plot 4 (by km2 and Shreve)
 #' input_Tserie(catch_data_TN, annual_data_TN, sh_file, plotTitle, "gr4")
+#' }
 #'
 #' @export
 input_Tserie <- function(catch_data, annual_data, sh_file, basin_name,
@@ -1245,7 +1251,7 @@ multiple_map <- function(hydroSf, refN_P, long_basin, unit,
 #' @importFrom graphics par barplot
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' # the data of the TN scenario
 #' data(catch_data_TN)
 #' data(annual_data_TN)
@@ -1376,7 +1382,7 @@ nutrient_maps <- function(green_file, sh_file, basin_name, plot.type,
 #' @importFrom graphics par barplot
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' # the data of the TN scenario
 #' data(catch_data_TN)
 #' data(annual_data_TN)
@@ -1529,6 +1535,7 @@ nutrient_tserie <- function(green_file, sh_file, basin_name, plot.type) {
 #' @importFrom networkD3 sankeyNetwork JS
 #'
 #' @examples
+#' \dontrun{
 #' # the data of the TN scenario
 #' data(catch_data_TN)
 #' data(annual_data_TN)
@@ -1543,6 +1550,7 @@ nutrient_tserie <- function(green_file, sh_file, basin_name, plot.type) {
 #' sd_coef, loc_years)
 #' # Plot the sankey plot with the result of the balance
 #' sank <- N4_sankey(nut_bal)
+#' }
 #'
 #' @export
 #'
@@ -1683,7 +1691,7 @@ preproc_scenSummary <- function(annual_data){
 #' @return Multiple scatter plot
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' # the data of the TN scenario
 #' data(catch_data_TN)
 #' data(annual_data_TN)
@@ -1736,7 +1744,7 @@ scatter_plot <- function(df_cb, param) {
 #' @return A vector with the 3 parameters
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' # the data of the TN scenario
 #' data(catch_data_TN)
 #' data(annual_data_TN)
@@ -1802,6 +1810,7 @@ select_params <- function(df_cb, par){
 #' @return Multiple scatter plot
 #'
 #' @examples
+#' \dontrun{
 #'# the data of the TN scenario
 #' data(catch_data_TN)
 #' data(annual_data_TN)
@@ -1815,6 +1824,7 @@ select_params <- function(df_cb, par){
 #' name_basin <- "Lay NSE"
 #' simobs_annual_plot(catch_data_TN, annual_data_TN, alpha_p, alpha_l,
 #' sd_coef, years, name_basin)
+#' }
 #'
 #' @export
 #'

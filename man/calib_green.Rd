@@ -29,7 +29,7 @@ One object, a data frame
 Runs GREEN model calibration
 }
 \examples{
-\donttest{
+\dontrun{
 # the data of the TN scenario
 data(catch_data_TN)
 data(annual_data_TN)

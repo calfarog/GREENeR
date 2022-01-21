@@ -29,7 +29,7 @@ A map
 Creates maps showing basin output total or by source loads
 }
 \examples{
-\donttest{
+\dontrun{
 # the data of the TN scenario
 data(catch_data_TN)
 data(annual_data_TN)

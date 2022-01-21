@@ -106,7 +106,7 @@ append_empty_cols <- function(df){
 #' @importFrom magrittr %>%
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' # the data of the TN scenario
 #' data(catch_data_TN)
 #' data(annual_data_TN)
@@ -358,7 +358,7 @@ data_preparation <- function(catch_data, annual_data){
 #' @importFrom magrittr %>%
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' # the data of the TN scenario
 #' data(catch_data_TN)
 #' data(annual_data_TN)
@@ -525,6 +525,7 @@ launch_green <- function(catch_data, annual_data, alpha_p, alpha_l, sd_coef,
 #' @importFrom magrittr %>%
 #'
 #' @examples
+#' \dontrun{
 #' # the data of the TN scenario
 #' data(catch_data_TN)
 #' data(annual_data_TN)
@@ -537,6 +538,7 @@ launch_green <- function(catch_data, annual_data, alpha_p, alpha_l, sd_coef,
 #' # Computing the nutrient balance
 #' basin_loads_b <- nut_balance(catch_data_TN, annual_data_TN, alpha_p, alpha_l,
 #' sd_coef, loc_years)
+#' }
 #'
 #' @export
 #'

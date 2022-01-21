@@ -57,6 +57,7 @@ Returns a scatter plot comparing observed versus modeled loads
 obtained with two model parameter sets
 }
 \examples{
+\dontrun{
 # the data of the TN scenario
 data(catch_data_TN)
 data(annual_data_TN)
@@ -81,5 +82,6 @@ nameBasin <- "Lay"
 setPlabels <- c("bestNSE","bestR2")
 compare_calib(catch_data_TN, annual_data_TN, alpha_p , alpha_l, sd_coef,
 alpha_p2, alpha_l2, sd_coef2, years, nameBasin, setPlabels)
+}
 
 }

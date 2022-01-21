@@ -42,6 +42,7 @@ Chosen style: one of "fixed", "sd", "equal", "pretty", "quantile", "kmeans",
 Map showing the mean load input by source
 }
 \examples{
+\dontrun{
 # the data of the TN scenario
 data(catch_data_TN)
 data(annual_data_TN)
@@ -54,5 +55,6 @@ legend_position = 2)
 # the Input Load Map by source type 2 (lines & area)
 input_maps (catch_data_TN, annual_data_TN, sh_file, mapTitle, "gr2",
 legend_position = 2)
+}
 
 }

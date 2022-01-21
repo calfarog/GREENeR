@@ -17,6 +17,7 @@ A Sankey diagram
 Nutrient balance flow in Sankey plot
 }
 \examples{
+\dontrun{
 # the data of the TN scenario
 data(catch_data_TN)
 data(annual_data_TN)
@@ -31,5 +32,6 @@ nut_bal <- nut_balance(catch_data_TN, annual_data_TN, alpha_p, alpha_l,
 sd_coef, loc_years)
 # Plot the sankey plot with the result of the balance
 sank <- N4_sankey(nut_bal)
+}
 
 }

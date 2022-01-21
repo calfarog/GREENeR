@@ -33,7 +33,7 @@ Run GREEN model with selected parameter set and returns the
 nutrient load by each source for all catchments in the Basin.
 }
 \examples{
-\donttest{
+\dontrun{
 # the data of the TN scenario
 data(catch_data_TN)
 data(annual_data_TN)

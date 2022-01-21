@@ -41,6 +41,7 @@ Multiple scatter plot
 Plot
 }
 \examples{
+\dontrun{
 # the data of the TN scenario
 data(catch_data_TN)
 data(annual_data_TN)
@@ -54,5 +55,6 @@ years <- 1990:2018
 name_basin <- "Lay NSE"
 simobs_annual_plot(catch_data_TN, annual_data_TN, alpha_p, alpha_l,
 sd_coef, years, name_basin)
+}
 
 }

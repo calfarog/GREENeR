@@ -28,6 +28,7 @@ Creates a time series plot showing basin inputs by
 source
 }
 \examples{
+\dontrun{
 # the data of the TN scenario
 data(catch_data_TN)
 data(annual_data_TN)
@@ -42,5 +43,6 @@ input_Tserie(catch_data_TN, annual_data_TN, sh_file, plotTitle, "gr2")
 input_Tserie(catch_data_TN, annual_data_TN, sh_file, plotTitle, "gr3")
 # the time serie plot 4 (by km2 and Shreve)
 input_Tserie(catch_data_TN, annual_data_TN, sh_file, plotTitle, "gr4")
+}
 
 }

@@ -42,6 +42,7 @@ One object, a data frame
 Computes the basin nutrient balance.
 }
 \examples{
+\dontrun{
 # the data of the TN scenario
 data(catch_data_TN)
 data(annual_data_TN)
@@ -54,5 +55,6 @@ loc_years <- 1990:2018
 # Computing the nutrient balance
 basin_loads_b <- nut_balance(catch_data_TN, annual_data_TN, alpha_p, alpha_l,
 sd_coef, loc_years)
+}
 
 }
