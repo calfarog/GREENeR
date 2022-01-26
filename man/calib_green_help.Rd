@@ -21,7 +21,7 @@ year and catchments.}
 into account the limits.}
 }
 \value{
-A matrix.
+A matrix
 }
 \description{
 This is a help function for calib_green function

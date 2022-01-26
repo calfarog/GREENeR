@@ -23,13 +23,13 @@ by km2 (kt/year/km2).}
 "bottom"; 2: "left", "up"; 3: "right", "bottom"; 4: "right", "up".}
 }
 \value{
-A map
+No return value, called for the side effect of drawing a plot
 }
 \description{
 Creates maps showing basin output total or by source loads
 }
 \examples{
-\dontrun{
+\donttest{
 # the data of the TN scenario
 data(catch_data_TN)
 data(annual_data_TN)

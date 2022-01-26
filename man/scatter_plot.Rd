@@ -19,7 +19,7 @@ Multiple scatter plot
 Scatter plot of goodness-of-fit metric vs parameters
 }
 \examples{
-\dontrun{
+\donttest{
 # the data of the TN scenario
 data(catch_data_TN)
 data(annual_data_TN)

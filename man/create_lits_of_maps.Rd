@@ -27,6 +27,9 @@ plot. (Default: 1)}
 
 \item{style}{character. The style of the plot.}
 }
+\value{
+A list with maps
+}
 \description{
 This function blah, blah, blah....
 }

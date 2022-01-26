@@ -38,11 +38,14 @@ Chosen style: one of "fixed", "sd", "equal", "pretty", "quantile", "kmeans",
 \item{legend_position}{numeric. Legend position: 1 (default): "right",
 "bottom"; 2: "left", "up"; 3: "right", "bottom"; 4: "right", "up".}
 }
+\value{
+No return value, called for the side effect of drawing a plot
+}
 \description{
 Map showing the mean load input by source
 }
 \examples{
-\dontrun{
+\donttest{
 # the data of the TN scenario
 data(catch_data_TN)
 data(annual_data_TN)
@@ -53,7 +56,7 @@ mapTitle <- "Time series for the Lay Basin"
 input_maps(catch_data_TN, annual_data_TN, sh_file, mapTitle, "gr1",
 legend_position = 2)
 # the Input Load Map by source type 2 (lines & area)
-input_maps (catch_data_TN, annual_data_TN, sh_file, mapTitle, "gr2",
+input_maps(catch_data_TN, annual_data_TN, sh_file, mapTitle, "gr2",
 legend_position = 2)
 }
 

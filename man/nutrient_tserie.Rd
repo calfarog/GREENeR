@@ -19,13 +19,13 @@ source; gr1: Basin average by Shreve (t/y/km2); gr2: Outlet total (kt/y);
 gr3: Outlet by source apportionment (kt/y).}
 }
 \value{
-A plot
+No return value, called for the side effect of drawing a plot
 }
 \description{
 Creates a time series plot showing basin model results
 }
 \examples{
-\dontrun{
+\donttest{
 # the data of the TN scenario
 data(catch_data_TN)
 data(annual_data_TN)

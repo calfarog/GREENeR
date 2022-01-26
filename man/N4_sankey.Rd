@@ -11,13 +11,13 @@ N4_sankey(Nbalance_out)
 function}
 }
 \value{
-A Sankey diagram
+A Sankey diagram and a data frame with the some variable values
 }
 \description{
 Nutrient balance flow in Sankey plot
 }
 \examples{
-\dontrun{
+\donttest{
 # the data of the TN scenario
 data(catch_data_TN)
 data(annual_data_TN)

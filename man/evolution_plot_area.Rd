@@ -33,6 +33,9 @@ evolution_plot_area(
 
 \item{wrap}{character. The name of variable in data to represent wrap}
 }
+\value{
+A plot
+}
 \description{
 This function blah, blah, blah....
 }

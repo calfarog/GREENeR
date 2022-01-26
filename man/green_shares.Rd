@@ -26,14 +26,15 @@ sources that reaches the stream network.}
 \item{loc_years}{integer. Years in which the model should be executed.}
 }
 \value{
-One object, a data frame.
+One object, a data frame with the nutrient load by each source for
+all catchments in the Basin
 }
 \description{
 Run GREEN model with selected parameter set and returns the
 nutrient load by each source for all catchments in the Basin.
 }
 \examples{
-\dontrun{
+\donttest{
 # the data of the TN scenario
 data(catch_data_TN)
 data(annual_data_TN)

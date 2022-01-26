@@ -10,7 +10,7 @@ check_colnames_catch(df)
 \item{df}{data frame.}
 }
 \value{
-A data frame.
+A data frame
 }
 \description{
 This function checks that all column names for the annual_data

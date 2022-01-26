@@ -20,7 +20,7 @@ Density plot (“D”).}
 \item{coef_SD}{numeric. The standard deviation coefficient.}
 }
 \value{
-A plot
+No return value, called for the side effect of drawing a plot
 }
 \description{
 A grouped barplot representing the average input load by source

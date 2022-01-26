@@ -50,14 +50,15 @@ the stream network of the second set of parameters.}
 \item{setPlabels}{character. Labels identifying each set of parameter.}
 }
 \value{
-A scatter plot
+A scatter plot and a list with two data frames with model GREEN
+applied to two model parameter sets
 }
 \description{
 Returns a scatter plot comparing observed versus modeled loads
 obtained with two model parameter sets
 }
 \examples{
-\dontrun{
+\donttest{
 # the data of the TN scenario
 data(catch_data_TN)
 data(annual_data_TN)

@@ -97,16 +97,15 @@ append_empty_cols <- function(df){
 #' @param upp numeric. Upper bounds of the calibration parameters.
 #' @param years integer. Years to be used in the calibration. For sequences use
 #' c(yearini:yearend).
-#' @return One object, a data frame
+#' @return One object, a data frame with the model calibration
 #'
 #' @importFrom parallel detectCores parSapply
-#' @importFrom doParallel registerDoParallel stopImplicitCluster
-#' @importFrom foreach foreach %dopar%
+#' @importFrom parallelly availableCores
 #' @importFrom dplyr rename bind_cols
 #' @importFrom magrittr %>%
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # the data of the TN scenario
 #' data(catch_data_TN)
 #' data(annual_data_TN)
@@ -134,14 +133,7 @@ calib_green <- function(catch_data, annual_data, n_iter, low, upp, years){
   par_range <- data.frame(min = low, max = upp)
   latin_range <- as.data.frame(FME::Latinhyper(par_range, n_iter))
 
-  chk <- Sys.getenv("_R_CHECK_LIMIT_CORES_", "")
-
-  if (nzchar(chk) && chk == "TRUE") {
-    n_cores <- 2L
-  } else {
-    n_cores <- parallel::detectCores() - 1
-  }
-
+  n_cores <- parallelly::availableCores()
   cluster <- parallel::makeCluster(n_cores)
   parallel::clusterExport(cluster, list("launch_green", "check_colnames_annual",
                                         "check_colnames_catch",
@@ -179,7 +171,7 @@ calib_green <- function(catch_data, annual_data, n_iter, low, upp, years){
 #' @param latin_range data frame. It defines the values for the params taking +
 #' into account the limits.
 #' @param years integer. It defines the years of interest.
-#' @return A matrix.
+#' @return A matrix
 #'
 #' @importFrom hydroGOF gof
 #' @keywords internal
@@ -202,7 +194,6 @@ calib_green_help <- function(task, catch_data, annual_data, years, latin_range){
                   alpha_P = alpha_p,
                   alpha_L = alpha_l,
                   sd_coeff = sd_c)
-  # rownames(result) <- rownames(gof_val)
 
   result
 }
@@ -214,7 +205,7 @@ calib_green_help <- function(task, catch_data, annual_data, years, latin_range){
 #' data frame are correct.
 #'
 #' @param df data frame.
-#' @return A matrix.
+#' @return A data frame
 #'
 #' @importFrom dplyr select
 #' @importFrom magrittr %>%
@@ -255,7 +246,7 @@ check_colnames_annual <- function(df){
 #' data frame are correct.
 #'
 #' @param df data frame.
-#' @return A data frame.
+#' @return A data frame
 #'
 #' @importFrom dplyr select
 #' @importFrom magrittr %>%
@@ -349,16 +340,18 @@ data_preparation <- function(catch_data, annual_data){
 #' @param sd_coef numeric. Third model parameter, fraction of domestic diffuse
 #' sources that reaches the stream network.
 #' @param loc_years integer. Years in which the model should be executed.
-#' @return One object, a data frame.
+#' @return One object, a data frame with the nutrient load by each source for
+#' all catchments in the Basin
 #'
 #' @importFrom parallel makeCluster detectCores clusterExport clusterEvalQ
 #' parLapply stopCluster
 #' @importFrom reshape2 dcast
 #' @importFrom dplyr rename bind_rows bind_cols
 #' @importFrom magrittr %>%
+#' @importFrom parallelly availableCores
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # the data of the TN scenario
 #' data(catch_data_TN)
 #' data(annual_data_TN)
@@ -395,14 +388,7 @@ green_shares <- function(catch_data, annual_data, alpha_p, alpha_l, sd_coef,
   })
   names(inputs_df) <- inputs
 
-  chk <- Sys.getenv("_R_CHECK_LIMIT_CORES_", "")
-
-  if (nzchar(chk) && chk == "TRUE") {
-    n_cores <- 2L
-  } else {
-    n_cores <- parallel::detectCores() - 1
-  }
-
+  n_cores <- parallelly::availableCores()
   cluster <- parallel::makeCluster(n_cores)
   parallel::clusterExport(cluster, list("launch_green", "check_colnames_annual",
                                         "check_colnames_catch",
@@ -518,14 +504,14 @@ launch_green <- function(catch_data, annual_data, alpha_p, alpha_l, sd_coef,
 #' sources that reaches the stream network.
 #' @param loc_years integer. Years in which the model should be executed.
 #' @param atm_coeff numeric. A value for atmospheric attenuation coefficient.
-#' @return One object, a data frame
+#' @return One object, a data frame with the basin nutrient balance
 #'
 #' @importFrom data.table as.data.table setkey
 #' @importFrom dplyr rename bind_cols
 #' @importFrom magrittr %>%
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # the data of the TN scenario
 #' data(catch_data_TN)
 #' data(annual_data_TN)

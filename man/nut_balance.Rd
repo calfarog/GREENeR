@@ -36,13 +36,13 @@ sources that reaches the stream network.}
 \item{atm_coeff}{numeric. A value for atmospheric attenuation coefficient.}
 }
 \value{
-One object, a data frame
+One object, a data frame with the basin nutrient balance
 }
 \description{
 Computes the basin nutrient balance.
 }
 \examples{
-\dontrun{
+\donttest{
 # the data of the TN scenario
 data(catch_data_TN)
 data(annual_data_TN)

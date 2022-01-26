@@ -23,13 +23,13 @@ catchments.}
 c(yearini:yearend).}
 }
 \value{
-One object, a data frame
+One object, a data frame with the model calibration
 }
 \description{
 Runs GREEN model calibration
 }
 \examples{
-\dontrun{
+\donttest{
 # the data of the TN scenario
 data(catch_data_TN)
 data(annual_data_TN)

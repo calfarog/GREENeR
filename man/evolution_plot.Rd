@@ -32,7 +32,10 @@ evolution_plot(
 
 \item{wrap}{character. The name of variable in data to represent wrap}
 }
+\value{
+No return value, called for the side effect of drawing a plot
+}
 \description{
-This function blah, blah, blah....
+This function plot the evolution of the data
 }
 \keyword{internal}

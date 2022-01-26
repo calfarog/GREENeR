@@ -35,13 +35,14 @@ sources that reaches the stream network.}
 \item{name_basin}{character. The title of the plot.}
 }
 \value{
-Multiple scatter plot
+Multiple scatter plot and a data frame with annual nutrient
+(nitrogen or phosphorus) load for all catchments in the basin
 }
 \description{
 Plot
 }
 \examples{
-\dontrun{
+\donttest{
 # the data of the TN scenario
 data(catch_data_TN)
 data(annual_data_TN)

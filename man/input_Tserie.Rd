@@ -28,7 +28,7 @@ Creates a time series plot showing basin inputs by
 source
 }
 \examples{
-\dontrun{
+\donttest{
 # the data of the TN scenario
 data(catch_data_TN)
 data(annual_data_TN)

@@ -13,7 +13,7 @@ calib_boxplot(df_cb, rate_bs)
 produced in the calibration.}
 }
 \value{
-Multiple boxplot
+Multiple boxplots
 }
 \description{
 Returns boxplots of best model parameters ranked according to
@@ -21,7 +21,7 @@ different goodness-of-fit measures, and also boxplot with the distribution of
  the parameters values.
 }
 \examples{
-\dontrun{
+\donttest{
 # the data of the TN scenario
 data(catch_data_TP)
 data(annual_data_TP)

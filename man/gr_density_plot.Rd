@@ -16,7 +16,7 @@ gr_density_plot(df_plot, plot_index, basin_name, cSD)
 \item{cSD}{numeric. The standard deviation}
 }
 \value{
-A plot
+No return value, called for the side effect of drawing a plot
 }
 \description{
 This function blah, blah, blah....

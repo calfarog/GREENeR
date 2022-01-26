@@ -63,10 +63,10 @@ calculate_shreve <- function(catch_data) {
 #'
 #' @importFrom graphics par boxplot points
 #'
-#' @return Multiple boxplot
+#' @return Multiple boxplots
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # the data of the TN scenario
 #' data(catch_data_TP)
 #' data(annual_data_TP)
@@ -124,6 +124,8 @@ calib_boxplot <- function(df_cb, rate_bs) {
 
   unique(bes_par$metric)
 
+  oldpar <- par(no.readonly = TRUE)
+  on.exit(par(oldpar))
   graphics::par(mfrow = c(3, 3), mar = c(4.1, 4.1, 2.1, 2.1))
   graphics::boxplot(top_best$cp ~ top_best$metric,
                     las = 2,
@@ -194,7 +196,7 @@ calib_boxplot <- function(df_cb, rate_bs) {
 #' @return Multiple dot plots
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # the data of the TN scenario
 #' data(catch_data_TN)
 #' data(annual_data_TN)
@@ -229,6 +231,8 @@ calib_dot <- function(df_cb, par) {
               include.lowest = TRUE)
   df_cb$colors <- rbPal(min(nrow(df_cb), 6))[as.numeric(cuts)]
 
+  oldpar <- par(no.readonly = TRUE)
+  on.exit(par(oldpar))
   graphics::par(mar = c(4.1, 4.1, 2.1, 2.1))
 
   graphics::layout(mat = matrix(c(1, 2, 3, 4),
@@ -294,10 +298,11 @@ calib_dot <- function(df_cb, par) {
 #' @importFrom hydroGOF gof
 #' @importFrom graphics par plot abline legend
 #'
-#' @return A scatter plot
+#' @return A scatter plot and a list with two data frames with model GREEN
+#' applied to two model parameter sets
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # the data of the TN scenario
 #' data(catch_data_TN)
 #' data(annual_data_TN)
@@ -357,6 +362,8 @@ compare_calib <- function(catch_data, annual_data, alpha_p1, alpha_l1,
   names(result) <-c("index", setPlabels[1], setPlabels[2])
   result$gl <- apply( result , 1 , paste , collapse = "  " )
 
+  oldpar <- par(no.readonly = TRUE)
+  on.exit(par(oldpar))
   graphics::par(mfrow = c(1, 1))
   graphics::plot(df_observ_g$ObsLoad,
                  df_observ_g$PredictLoad,
@@ -428,6 +435,7 @@ create_levels <- function(df, no_sf){
 #' @param style character. The style of the plot.
 #' @param legend_position numeric. It indicates de position of the legend of the
 #' plot. (Default: 1)
+#' @return A list with maps
 #'
 #' @keywords internal
 #'
@@ -501,7 +509,7 @@ create_map <- function(hydroSf, var_name, style_map, scale_barRefs,
 #
 #' @title Evolution plot
 #'
-#' @description This function blah, blah, blah....
+#' @description This function plot the evolution of the data
 #'
 #' @param data data frame.
 #' @param title character. The plot title
@@ -511,6 +519,7 @@ create_map <- function(hydroSf, var_name, style_map, scale_barRefs,
 #' @param y character. The name of variable in data to represent in y axis
 #' @param colour character. The name of variable in data to represent colour
 #' @param wrap character. The name of variable in data to represent wrap
+#' @return No return value, called for the side effect of drawing a plot
 #'
 #' @importFrom ggplot2 ggplot aes_string geom_line theme_bw labs
 #' scale_color_brewer facet_wrap
@@ -553,6 +562,7 @@ evolution_plot <- function(data, title = NULL, xaxis.title = NULL, yaxis.title,
 #' @param y character. The name of variable in data to represent in y axis
 #' @param colour character. The name of variable in data to represent colour
 #' @param wrap character. The name of variable in data to represent wrap
+#' @return A plot
 #'
 #' @importFrom ggplot2 ggplot aes_string geom_area theme_bw labs
 #' scale_fill_brewer theme element_blank
@@ -599,7 +609,7 @@ evolution_plot_area <- function(annual_data, data, title = NULL,
 #' @param plot_index numeric. The indexes to plot
 #' @param basin_name character. The name of the basin
 #' @param cSD numeric. The standard deviation
-#' @return A plot
+#' @return No return value, called for the side effect of drawing a plot
 #'
 #' @importFrom graphics legend plot lines
 #' @importFrom stats density sd
@@ -664,6 +674,8 @@ gr_density_plot <- function(df_plot, plot_index, basin_name, cSD) {
 #' @param legend_position numeric. Legend position: 1 (default): "right",
 #' "bottom"; 2: "left", "up"; 3: "right", "bottom"; 4: "right", "up".
 #'
+#' @return No return value, called for the side effect of drawing a plot
+#'
 #' @importFrom sf st_area
 #' @importFrom tidyselect everything
 #' @importFrom dplyr group_by summarise across
@@ -673,7 +685,7 @@ gr_density_plot <- function(df_plot, plot_index, basin_name, cSD) {
 #' @importFrom gridExtra grid.arrange
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # the data of the TN scenario
 #' data(catch_data_TN)
 #' data(annual_data_TN)
@@ -684,11 +696,12 @@ gr_density_plot <- function(df_plot, plot_index, basin_name, cSD) {
 #' input_maps(catch_data_TN, annual_data_TN, sh_file, mapTitle, "gr1",
 #' legend_position = 2)
 #' # the Input Load Map by source type 2 (lines & area)
-#' input_maps (catch_data_TN, annual_data_TN, sh_file, mapTitle, "gr2",
+#' input_maps(catch_data_TN, annual_data_TN, sh_file, mapTitle, "gr2",
 #' legend_position = 2)
 #' }
 #'
 #' @export
+#'
 input_maps <- function(catch_data, annual_data, sh_file, basin_name, plot.type,
                        style_map = "fisher", scale_barTextS = 0.7,
                        legend_position = 1){
@@ -780,7 +793,7 @@ input_maps <- function(catch_data, annual_data, sh_file, basin_name, plot.type,
 #' @param plot.type character. Possible values: Bar plot ("B") or
 #' Density plot (“D”).
 #' @param coef_SD numeric. The standard deviation coefficient.
-#' @return A plot
+#' @return No return value, called for the side effect of drawing a plot
 #'
 #' @importFrom sf st_area
 #' @importFrom graphics par barplot
@@ -799,6 +812,7 @@ input_maps <- function(catch_data, annual_data, sh_file, basin_name, plot.type,
 #' input_plot(annual_data_TN, sh_file, basin_name, "D")
 #'
 #' @export
+#'
 input_plot <- function(annual_data, sh_file, basin_name, plot.type,
                        coef_SD = 1.0){
 
@@ -810,6 +824,8 @@ input_plot <- function(annual_data, sh_file, basin_name, plot.type,
   annual_data <- merge(annual_data, df_no_sf, by = "HydroID")
 
   if (plot.type == "D") {
+    oldpar <- par(no.readonly = TRUE)
+    on.exit(par(oldpar))
     graphics::par(mfrow=c(1, 3))
     gr_density_plot(annual_data, c(7, 6), basin_name, coef_SD)
     indexD1 <- c(length(annual_data) - 6, length(annual_data) - 5)
@@ -837,6 +853,8 @@ input_plot <- function(annual_data, sh_file, basin_name, plot.type,
       names(LoadAvg)<- c("Atm","Min","Man","Fix","Soil","Sd","PS")
     }
 
+    oldpar <- par(no.readonly = TRUE)
+    on.exit(par(oldpar))
     graphics::par(mfrow=c(1, 1))
     graphics::barplot(LoadAvg / 1000,
                       col = grDevices::rainbow(7),
@@ -880,7 +898,7 @@ input_plot <- function(annual_data, sh_file, basin_name, plot.type,
 #' @importFrom gridExtra grid.arrange
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # the data of the TN scenario
 #' data(catch_data_TN)
 #' data(annual_data_TN)
@@ -1237,7 +1255,7 @@ multiple_map <- function(hydroSf, refN_P, long_basin, unit,
 #' by km2 (kt/year/km2).
 #' @param legend_position numeric. Legend position: 1 (default): "right",
 #' "bottom"; 2: "left", "up"; 3: "right", "bottom"; 4: "right", "up".
-#' @return A map
+#' @return No return value, called for the side effect of drawing a plot
 #'
 #' @importFrom sf st_area
 #' @importFrom reshape2 melt
@@ -1251,7 +1269,7 @@ multiple_map <- function(hydroSf, refN_P, long_basin, unit,
 #' @importFrom graphics par barplot
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # the data of the TN scenario
 #' data(catch_data_TN)
 #' data(annual_data_TN)
@@ -1368,7 +1386,7 @@ nutrient_maps <- function(green_file, sh_file, basin_name, plot.type,
 #' @param plot.type character. Alternative of the plot: output load (t) by
 #' source; gr1: Basin average by Shreve (t/y/km2); gr2: Outlet total (kt/y);
 #' gr3: Outlet by source apportionment (kt/y).
-#' @return A plot
+#' @return No return value, called for the side effect of drawing a plot
 #'
 #' @importFrom sf st_area
 #' @importFrom reshape2 melt
@@ -1382,7 +1400,7 @@ nutrient_maps <- function(green_file, sh_file, basin_name, plot.type,
 #' @importFrom graphics par barplot
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # the data of the TN scenario
 #' data(catch_data_TN)
 #' data(annual_data_TN)
@@ -1530,12 +1548,12 @@ nutrient_tserie <- function(green_file, sh_file, basin_name, plot.type) {
 #' @param Nbalance_out data frame. Nutrient balance result from the Nutbalance()
 #' function
 #'
-#' @return A Sankey diagram
+#' @return A Sankey diagram and a data frame with the some variable values
 #'
 #' @importFrom networkD3 sankeyNetwork JS
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # the data of the TN scenario
 #' data(catch_data_TN)
 #' data(annual_data_TN)
@@ -1691,7 +1709,7 @@ preproc_scenSummary <- function(annual_data){
 #' @return Multiple scatter plot
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # the data of the TN scenario
 #' data(catch_data_TN)
 #' data(annual_data_TN)
@@ -1714,6 +1732,8 @@ preproc_scenSummary <- function(annual_data){
 #'
 scatter_plot <- function(df_cb, param) {
 
+  oldpar <- par(no.readonly = TRUE)
+  on.exit(par(oldpar))
   graphics::par(mfrow = c(1, 3))
   if (param == "PBIAS..") {
     df_cb[, param] <- abs(df_cb[, param])
@@ -1744,7 +1764,7 @@ scatter_plot <- function(df_cb, param) {
 #' @return A vector with the 3 parameters
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # the data of the TN scenario
 #' data(catch_data_TN)
 #' data(annual_data_TN)
@@ -1807,10 +1827,11 @@ select_params <- function(df_cb, par){
 #' @importFrom ggplot2 ggplot ggtitle aes geom_point theme_bw geom_abline
 #' facet_wrap
 #'
-#' @return Multiple scatter plot
+#' @return Multiple scatter plot and a data frame with annual nutrient
+#' (nitrogen or phosphorus) load for all catchments in the basin
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #'# the data of the TN scenario
 #' data(catch_data_TN)
 #' data(annual_data_TN)

@@ -19,7 +19,7 @@ Multiple dot plots
 Dot plot of goodness-of-fit metric vs parameters value
 }
 \examples{
-\dontrun{
+\donttest{
 # the data of the TN scenario
 data(catch_data_TN)
 data(annual_data_TN)
