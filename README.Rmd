@@ -16,6 +16,8 @@ knitr::opts_chunk$set(
 # GREENeR
 
 <!-- badges: start -->
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/GREENeR?color=green)](https://cran.r-project.org/package=GREENeR)
+[![](http://cranlogs.r-pkg.org/badges/grand-total/GREENeR?color=green)](https://cran.r-project.org/package=GREENeR)
 [![R-CMD-check](https://github.com/calfarog/GREENeR/workflows/R-CMD-check/badge.svg)](https://github.com/calfarog/GREENeR/actions)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 <!-- badges: end -->
@@ -24,7 +26,13 @@ The goal of GREENeR is to provide a conceptual model to assess nutrient loads (t
 
 ## Installation
 
-You can install the development version of GREENeR from GitHub with:
+Install the GREENeR package via CRAN:
+
+```{r, eval=FALSE}
+install.packages("GREENeR")
+```
+
+You can also install the development version of GREENeR from GitHub with:
 
 ```{r installation, eval=FALSE}
 # install.packages("devtools")
