@@ -1,15 +1,16 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# GREENeR
+# GREENeR <img src='man/figures/logo.png' align="right" height="139" />
 
 <!-- badges: start -->
 
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/GREENeR?color=green)](https://cran.r-project.org/package=GREENeR)
-[![](http://cranlogs.r-pkg.org/badges/grand-total/GREENeR?color=green)](https://cran.r-project.org/package=GREENeR)
-[![R-CMD-check](https://github.com/calfarog/GREENeR/workflows/R-CMD-check/badge.svg)](https://github.com/calfarog/GREENeR/actions)
+[![Package
+checks](https://github.com/calfarog/GREENeR/workflows/R-CMD-check/badge.svg)](https://github.com/calfarog/GREENeR/actions)
 [![License: GPL
 v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![](http://cranlogs.r-pkg.org/badges/grand-total/GREENeR?color=green)](https://cran.r-project.org/package=GREENeR)
 <!-- badges: end -->
 
 The goal of GREENeR is to provide a conceptual model to assess nutrient

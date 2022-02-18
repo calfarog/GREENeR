@@ -13,13 +13,13 @@ knitr::opts_chunk$set(
 )
 ```
 
-# GREENeR
+# GREENeR <img src='man/figures/logo.png' align="right" height="139" />
 
 <!-- badges: start -->
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/GREENeR?color=green)](https://cran.r-project.org/package=GREENeR)
-[![](http://cranlogs.r-pkg.org/badges/grand-total/GREENeR?color=green)](https://cran.r-project.org/package=GREENeR)
-[![R-CMD-check](https://github.com/calfarog/GREENeR/workflows/R-CMD-check/badge.svg)](https://github.com/calfarog/GREENeR/actions)
+[![Package checks](https://github.com/calfarog/GREENeR/workflows/R-CMD-check/badge.svg)](https://github.com/calfarog/GREENeR/actions)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![](http://cranlogs.r-pkg.org/badges/grand-total/GREENeR?color=green)](https://cran.r-project.org/package=GREENeR)
 <!-- badges: end -->
 
 The goal of GREENeR is to provide a conceptual model to assess nutrient loads (total nitrogen and total phosphorous) from a basin given diffuse and point emissions to the land and river network. The model comprises two major nutrient pathways: diffuse sources that undergo retention in the land phase (basin retention) before reaching the stream, and point sources that are directly discharged into surface waters. Once in the river network, all sources are reduced by the in-stream retention (river retention).
