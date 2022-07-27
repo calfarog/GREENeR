@@ -51,5 +51,6 @@ BugReports: https://github.com/calfarog/GREENeR/issues
 Suggests: 
     testthat,
     knitr,
-    rmarkdown
+    rmarkdown,
+    codetools
 VignetteBuilder: knitr
