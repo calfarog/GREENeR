@@ -28,7 +28,7 @@ sd_coef <- 0.2
 # years in which the model should be executed
 loc_years <- 1990:2018
 # Computing the nutrient balance
-nut_bal <- nut_balance(catch_data_TN, annual_data_TN, alpha_p, alpha_l,
+nut_bal <- region_nut_balance(catch_data_TN, annual_data_TN, alpha_p, alpha_l,
 sd_coef, loc_years)
 # Plot the sankey plot with the result of the balance
 sank <- N4_sankey(nut_bal)

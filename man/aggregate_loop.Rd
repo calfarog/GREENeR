@@ -7,7 +7,7 @@
 aggregate_loop(listaShrt, cdat_greenLt, years, type)
 }
 \arguments{
-\item{listaShrt, cdat_greenLt}{A data frame}
+\item{listaShrt, }{cdat_greenLt A data frame}
 
 \item{years}{A vector of integer}
 

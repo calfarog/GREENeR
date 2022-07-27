@@ -3,7 +3,7 @@
 #'
 #' @description This function aggregate the variables of data frame.
 #'
-#' @param listaShrt,cdat_greenLt A data frame
+#' @param listaShrt, cdat_greenLt A data frame
 #' @param years A vector of integer
 #' @param type A character with values "L" when running launch_green and "N"
 #' when running nut_balance
@@ -522,13 +522,13 @@ launch_green <- function(catch_data, annual_data, alpha_p, alpha_l, sd_coef,
 #' # year in which the model should be executed
 #' loc_years <- 1990:2018
 #' # Computing the nutrient balance
-#' basin_loads_b <- nut_balance(catch_data_TN, annual_data_TN, alpha_p, alpha_l,
+#' basin_loads_b <- region_nut_balance(catch_data_TN, annual_data_TN, alpha_p, alpha_l,
 #' sd_coef, loc_years)
 #' }
 #'
 #' @export
 #'
-nut_balance <- function(catch_data, annual_data, alpha_p, alpha_l, sd_coef,
+region_nut_balance <- function(catch_data, annual_data, alpha_p, alpha_l, sd_coef,
                       loc_years, atm_coeff = 0.38) {
 
   years <- check_years(loc_years, unique(annual_data$YearValue))
@@ -586,4 +586,183 @@ nut_balance <- function(catch_data, annual_data, alpha_p, alpha_l, sd_coef,
   cdat_total <- aggregate_loop(listaShrt, cdat_greenLt, years, type)
 
   cdat_total
+}
+
+#'
+#' @title Read NS data
+#'
+#' @description Function to read the data and return the data frame for GREEN
+#' execution.
+#'
+#' @param path string. A string with the path of the CSV files.
+#' @param tsn file. A CSV file with nine variables YearValue (integer),
+#' HydroID (integer), Atm (float), Min (float), Man (float), Fix (float),
+#' Soil (float), Sd (float) and Ps (float).
+#' @param obs file. A CSV file with three variables YearValue (integer),
+#' HydroID (integer) and YearlyMass (float).
+#' @param ff file. A CSV file with three variables YearValue (integer),
+#' HydroID (integer) and ForestFraction (float).
+#' @param rain file. A CSV file with three variables YearValue (integer),
+#' HydroID (integer) and Rain (float).
+#' @param topo file. A CSV file with two variables HydroID (integer) and
+#' Next_HydroID (integer).
+#' @param lr file. A CSV file with three variables HydroID (integer),
+#' AvgDepth (float) and ResTime (float).
+#' @param length file. A CSV file with two variables HydroID (integer) and
+#' LengthKm (float).
+#'
+#' @return One object, a list with two data frame. First position of the list
+#' contains the catch data and the second one the annual data.
+#'
+#' @importFrom utils read.csv
+#'
+#' @examples
+#' \donttest{
+#' path <- "https://raw.githubusercontent.com/calfarog/GREENeR/main/data/csv/"
+#' ns_data <- read_NSdata(path, "TS_nutrients.csv", "Obs_monitoring.csv",
+#' "ForestFr.csv", "Precipitation.csv", "Topology.csv", "LakeProperties.csv",
+#' "Length.csv")
+#' }
+#'
+#' @export
+#'
+read_NSdata <- function(path, tsn, obs, ff, rain, topo, lr, length) {
+
+  tsn <- read.csv(paste0(path, tsn), T)
+
+  if (length(tsn) == 9){
+    type_SC <- "TN"
+  }else{
+    type_SC <- "TP"
+  }
+
+  topodat <- read.csv(paste0(path, topo), T)
+  lakprop <- read.csv(paste0(path, lr), T)
+  length <- read.csv(paste0(path, length), T)
+
+  if (type_SC == "TN"){
+    lakeR_par <- 7.3
+  }else{
+    lakeR_par <- 26
+  }
+
+  lakprop$lakeret <- 1 - 1 / (1 + lakeR_par / lakprop$AvgDepth *
+                                lakprop$ResTime)
+  lakprop$lakeret[is.na(lakprop$lakeret)] <- 0
+  lakprop$lakeret[lakprop$lakeret > 0.1] <- 0.1
+
+  lakprop$AvgDepth <- NULL
+  lakprop$ResTime <- NULL
+
+  length$NrmLengthKm <- length$LengthKm / max(length$LengthKm)
+  length$LengthKm <- NULL
+
+  names(topodat)[2] <- c("To_catch")
+
+  topodat <- shreve(topodat)
+
+  scen1 <- merge(topodat, lakprop, by = "HydroID")
+  scen1 <- merge(scen1, length, by = "HydroID")
+
+  lr <- read.csv(paste0(path, obs), T)
+  ff <- read.csv(paste0(path, ff), T)
+  pre <- read.csv(paste0(path, rain), T)
+
+  minRain <- 50
+  pre$InvNrmRain <- (1 / apply(cbind(minRain, pre$Rain), 1, max)) /
+    (1 / minRain)
+
+  scen2 <- merge(tsn, lr, by = c("YearValue", "HydroID"), all.x= TRUE)
+  scen2 <- merge(scen2, ff, by = c("YearValue", "HydroID"),all.x= TRUE)
+  scen2 <- merge(scen2, pre[, c(1,2,4)], by = c("YearValue", "HydroID"),
+                 all.x= TRUE)
+
+  scen2 <- merge(scen2, scen1[, c(1:2)], by = "HydroID")
+
+  scen2$BasinID <- c(1234)
+
+  if(length(scen2) == 14){
+    scen2 <- scen2[, c(14,2,1,13,3,4,5,6,7,8,9,10,11,12)]
+  }else{
+    scen2 <- scen2[, c(12,2,1,11,3,4,5,6,7,8,9,10)]
+  }
+
+  names(scen2)[4] <- c("NextDownID")
+
+  l_scen <- list(scen1, scen2)
+
+  return(l_scen)
+}
+
+#'
+#' @title Read geometry
+#'
+#' @description Function to read the geometry file.
+#'
+#' @param path string. A string with the path of the shp file.
+#' @param name string. A string with the name of the geometry file.
+#'
+#' @return One object, a sf file.
+#'
+#' @importFrom sf st_read
+#'
+#' @export
+#'
+read_geometry<- function(path, name){
+
+  filename <- paste0(name, ".shp")
+  the_sf_shape <- st_read(filename)
+
+  return(the_sf_shape)
+
+}
+
+
+#'
+#' @title Shreve
+#'
+#' @description Function to read the data and return the data frame for GREEN
+#' execution.
+#'
+#' @param the_SC table. A table with topology data.
+#'
+#' @return One object, a data frame with the shreve.
+#'
+shreve <- function(the_SC){
+
+  the_SC$Shreve<-NA
+
+  AllOrig <- unique(the_SC$HydroID)
+  AllDesting <- unique(the_SC$To_catch)
+  WholeHydroID <- unique(c(AllOrig, AllDesting))
+  WholeHydroID <- setdiff(WholeHydroID, -1)
+  remai_hydroId <- WholeHydroID
+
+  shr1 <- setdiff(AllOrig, AllDesting)
+
+  the_SC$Shreve[the_SC$HydroID %in% shr1] <- 1
+  TheSrhTable <- rbind(data.frame(HydroID = shr1, shreve = 1))
+
+  remai_hydroId <- setdiff(remai_hydroId, shr1)
+
+  while(length(remai_hydroId)>0){
+
+    the_Scen2 <- the_SC[the_SC$To_catch %in% remai_hydroId[], ]
+    DestToRemov <- the_Scen2$To_catch[is.na(the_Scen2$Shreve)]
+    the_Scen3 <- the_Scen2[!(the_Scen2$To_catch %in% DestToRemov),]
+
+    NexShr <- aggregate(the_Scen3$Shreve, by = list(the_Scen3$To_catch), max)
+    names(NexShr) <-c("HydroID ", "Shreve")
+
+    NexShr$Shreve <- NexShr$Shreve + 1
+
+    the_SC$Shreve[the_SC$HydroID %in% NexShr$HydroID ] <- NexShr$Shreve
+
+    remai_hydroId <- setdiff(remai_hydroId,NexShr$HydroID)
+    print(length(remai_hydroId))
+
+  }
+
+  return(the_SC)
+
 }

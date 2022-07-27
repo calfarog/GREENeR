@@ -154,7 +154,7 @@ calib_boxplot <- function(df_cb, rate_bs) {
                     ylab = "")
   graphics::boxplot(top_best$PBIAS.. ~ top_best$metric,
                     las = 2,
-                    main ="PBIAS..",
+                    main ="PBIAS",
                     xlab = "",
                     ylab = "")
 
@@ -1164,11 +1164,11 @@ load_SA_map <- function(hydroSf_merge, refN_P, long_basin, unity,
   c_tot <- c("CatchLoad_1", "CatchLoad", "-viridis")
 
   if(refN_P == 24) {
-    c_atm <- c("Atm_1", "Atmosferic", "YlOrRd")
+    c_atm <- c("Atm_1", "Atmospheric", "YlOrRd")
 
-    c_soil <- c("Soil_1", "Atmosferic", "YlOrRd")
+    c_soil <- c("Soil_1", "Atmospheric", "YlOrRd")
 
-    c_fix <- c("Fix_1", "PlantF.", "YlOrRd")
+    c_fix <- c("Fix_1", "Fix", "YlOrRd")
 
     param_list <- list(c_man, c_min, c_ps, c_sd, c_fix, c_atm, c_soil, c_tot)
     map_list <- create_lits_of_maps(hydroSf_merge, long_basin, unity,
@@ -1219,8 +1219,8 @@ multiple_map <- function(hydroSf, refN_P, long_basin, unit,
 
   if (refN_P == 16) {
     c_ps <- c("Ps", "PointS", "-magma")
-    c_fix <- c("Fix", "PlantF.", "YlOrRd")
-    c_atm <- c("Atm", "Atmosferic", "YlOrRd")
+    c_fix <- c("Fix", "Fix", "YlOrRd")
+    c_atm <- c("Atm", "Atmospheric", "YlOrRd")
     c_soil <- c("Soil", "Soil", "YlOrRd")
 
     param_list <- list(c_man, c_min, c_fix, c_sd, c_atm, c_soil, c_tot, c_ps)
@@ -1564,7 +1564,7 @@ nutrient_tserie <- function(green_file, sh_file, basin_name, plot.type) {
 #' # years in which the model should be executed
 #' loc_years <- 1990:2018
 #' # Computing the nutrient balance
-#' nut_bal <- nut_balance(catch_data_TN, annual_data_TN, alpha_p, alpha_l,
+#' nut_bal <- region_nut_balance(catch_data_TN, annual_data_TN, alpha_p, alpha_l,
 #' sd_coef, loc_years)
 #' # Plot the sankey plot with the result of the balance
 #' sank <- N4_sankey(nut_bal)
