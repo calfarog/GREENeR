@@ -12,7 +12,7 @@ aggregate_loop(listaShrt, cdat_greenLt, years, type)
 \item{years}{A vector of integer}
 
 \item{type}{A character with values "L" when running launch_green and "N"
-when running nut_balance}
+when running region_nut_balance}
 }
 \value{
 A matrix

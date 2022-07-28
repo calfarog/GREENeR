@@ -32,8 +32,8 @@ AvgDepth (float) and ResTime (float).}
 LengthKm (float).}
 }
 \value{
-One object, a list with two data frame. First position of the list contains the catch data and
-the second one the annual data.
+One object, a list with two data frame. First position of the list
+contains the catch data and the second one the annual data.
 }
 \description{
 Function to read the data and return the data frame for GREEN
@@ -41,7 +41,7 @@ execution.
 }
 \examples{
 \donttest{
-path <- "https://raw.githubusercontent.com/calfarog/GREENeR/main/data/csv/"
+path <- "https://raw.githubusercontent.com/calfarog/GREENeR_data/main/data/csv/"
 ns_data <- read_NSdata(path, "TS_nutrients.csv", "Obs_monitoring.csv",
 "ForestFr.csv", "Precipitation.csv", "Topology.csv", "LakeProperties.csv",
 "Length.csv")
