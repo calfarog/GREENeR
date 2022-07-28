@@ -412,7 +412,7 @@ create_levels <- function(df, no_sf){
                     df$Shreve <= theQuantile[5], ]$HydroID
 
   df$shrLevel <- NA
-  if (class(df$shrLevel) != "logical") {
+  if(!is.logical(df$shrLevel)) {
     df$shrLevel <- as.character(df$shrLevel)
   }
   df[df$HydroID %in% ShrLevel1, ]$shrLevel <- "level1"
