@@ -6,7 +6,7 @@
 #' @param listaShrt, cdat_greenLt A data frame
 #' @param years A vector of integer
 #' @param type A character with values "L" when running launch_green and "N"
-#' when running nut_balance
+#' when running region_nut_balance
 #' @return A matrix
 #'
 #' @importFrom data.table := setkey
@@ -618,7 +618,7 @@ region_nut_balance <- function(catch_data, annual_data, alpha_p, alpha_l, sd_coe
 #'
 #' @examples
 #' \donttest{
-#' path <- "https://raw.githubusercontent.com/calfarog/GREENeR/main/data/csv/"
+#' path <- "https://raw.githubusercontent.com/calfarog/GREENeR_data/main/data/csv/"
 #' ns_data <- read_NSdata(path, "TS_nutrients.csv", "Obs_monitoring.csv",
 #' "ForestFr.csv", "Precipitation.csv", "Topology.csv", "LakeProperties.csv",
 #' "Length.csv")
@@ -727,6 +727,8 @@ read_geometry<- function(path, name){
 #' @param the_SC table. A table with topology data.
 #'
 #' @return One object, a data frame with the shreve.
+#'
+#' @export
 #'
 shreve <- function(the_SC){
 
