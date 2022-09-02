@@ -646,12 +646,12 @@ read_NSdata <- function(path, tsn, obs, ff, rain, topo, lr, length) {
     lakeR_par <- 26
   }
 
-  lakprop$lakeret <- 1 - 1 / (1 + lakeR_par / lakprop$AvgDepth *
-                                lakprop$ResTime)
-  lakprop$lakeret[is.na(lakprop$lakeret)] <- 0
-  lakprop$lakeret[lakprop$lakeret > 0.1] <- 0.1
+  lakprop$LakeFrRet <- 1 - 1 / (1 + lakeR_par / lakprop$AvgDepth_m *
+                                  lakprop$ResTime)
+  lakprop$LakeFrRet[is.na(lakprop$LakeFrRet)] <- 0
+  lakprop$LakeFrRet[lakprop$LakeFrRet > 0.1] <- 0.1
 
-  lakprop$AvgDepth <- NULL
+  lakprop$AvgDepth_m <- NULL
   lakprop$ResTime <- NULL
 
   length$NrmLengthKm <- length$LengthKm / max(length$LengthKm)
@@ -692,6 +692,7 @@ read_NSdata <- function(path, tsn, obs, ff, rain, topo, lr, length) {
   l_scen <- list(scen1, scen2)
 
   return(l_scen)
+
 }
 
 #'
@@ -711,7 +712,7 @@ read_NSdata <- function(path, tsn, obs, ff, rain, topo, lr, length) {
 read_geometry<- function(path, name){
 
   filename <- paste0(name, ".shp")
-  the_sf_shape <- st_read(filename)
+  the_sf_shape <- st_read(paste0(path, filename))
 
   return(the_sf_shape)
 

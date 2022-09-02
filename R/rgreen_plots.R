@@ -1160,13 +1160,13 @@ load_SA_map <- function(hydroSf_merge, refN_P, long_basin, unity,
   c_man <- c("Man_1", "Manure", "YlOrRd")
   c_min <- c("Min_1", "Mineral", "YlOrRd")
   c_sd <- c("Sd_1", "Sc.Dwellings", "YlOrRd")
-  c_ps <- c("Ps_1", "Sc.Dwellings", "YlOrRd")
+  c_ps <- c("Ps_1", "PointS", "YlOrRd")
   c_tot <- c("CatchLoad_1", "CatchLoad", "-viridis")
 
   if(refN_P == 24) {
     c_atm <- c("Atm_1", "Atmospheric", "YlOrRd")
 
-    c_soil <- c("Soil_1", "Atmospheric", "YlOrRd")
+    c_soil <- c("Soil_1", "Soil", "YlOrRd")
 
     c_fix <- c("Fix_1", "Fix", "YlOrRd")
 
@@ -1823,6 +1823,7 @@ select_params <- function(df_cb, par){
 #' sources that reaches the stream network.
 #' @param name_basin character. The title of the plot.
 #' @param years numeric. Years to be shown in the plot.
+#' @param maxvalue numeric. The maximum value for x and y axis.
 #'
 #' @importFrom ggplot2 ggplot ggtitle aes geom_point theme_bw geom_abline
 #' facet_wrap
@@ -1841,16 +1842,17 @@ select_params <- function(df_cb, par){
 #' sd_coef <- 0.2
 #' # years in which the plot will we shown
 #' years <- 1990:2018
+#' maxvalue <- 10
 #' # generating the scatter plot comparing observed vs modeled loads by year
 #' name_basin <- "Lay NSE"
 #' simobs_annual_plot(catch_data_TN, annual_data_TN, alpha_p, alpha_l,
-#' sd_coef, years, name_basin)
+#' sd_coef, years, name_basin, maxvalue)
 #' }
 #'
 #' @export
 #'
 simobs_annual_plot <- function(catch_data, annual_data, alpha_p, alpha_l,
-                            sd_coef, years, name_basin) {
+                            sd_coef, years, name_basin, maxvalue) {
 
   df_scen_global <- launch_green(catch_data, annual_data, alpha_p, alpha_l,
                                 sd_coef, years)
@@ -1865,7 +1867,9 @@ simobs_annual_plot <- function(catch_data, annual_data, alpha_p, alpha_l,
                                     y = PredictLoad)) +
     ggplot2::ggtitle(name_basin)  +
     ggplot2::geom_point() +
-    ggplot2::theme_bw(base_size = 10  ) +
+    ggplot2::xlim(0, maxvalue) +
+    ggplot2::ylim(0, maxvalue) +
+    ggplot2::theme_bw(base_size = 10) +
     ggplot2::geom_abline(intercept = 0, slope = 1) +
     ggplot2::facet_wrap(~Year)
 
