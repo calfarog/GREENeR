@@ -1,5 +1,38 @@
+## New version
+This is a new version of the library. In this version we have:
+
+* Add three new functions: read_NSdata, read_geometry and shreve.
+* Change the name of the function nut_balace to region_nut_balance.
+* Edit some typos in legend of plots.
+
+## Test environments
+* local OS (windows) install, R 4.1.0
+* ubuntu-latest (on GitHub Actions), R release, devel, oldrel-1
+* windows-latest (on GitHub Actions), R release
+* R-hub Windows Server 2022 (r-release)
+
+## R CMD check results
+
+> On ubuntu-latest (release, devel, oldrel-1)
+
+0 errors | 0 warnings | 0 notes
+
+> On windows-latest (release)
+
+0 errors | 0 warnings | 0 notes
+
+> On windows-x86_64-devel (r-devel)
+
+0 errors v | 0 warnings v | 0 notes v
+
+> On ubuntu-gcc-devel (r-devel)
+
+0 errors v | 0 warnings v | 0 notes v
+
+## Previous cran-comments
+
 ## Resubmission
-This is a resubmission. In this version I have:
+This is a resubmission. In this version we have:
 
 * Updated the title.
 * Added \value to exported methods.
@@ -45,10 +78,8 @@ checking for detritus in the temp directory ... NOTE
 
 0 errors | 0 warnings | 0 notes
 
-## Previous cran-comments
-
 ## Resubmission
-This is a resubmission. In this version I have:
+This is a resubmission. In this version we have:
 
 * Added the dontrun{} environment to those examples with CPU or elapsed time > 5s.
 

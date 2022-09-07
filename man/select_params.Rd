@@ -4,12 +4,12 @@
 \alias{select_params}
 \title{Selection of best calibration parameters}
 \usage{
-select_params(df_cb, par)
+select_params(df_cb, param)
 }
 \arguments{
 \item{df_cb}{data frame. The result of the calibration process.}
 
-\item{par}{numeric. Goodness-of-fit measures. "NSE", "rNSE", "NSE",
+\item{param}{numeric. Goodness-of-fit measures. "NSE", "rNSE", "NSE",
 "mNSE", "MAE", "PBIAS", "cp", "R2",...}
 }
 \value{

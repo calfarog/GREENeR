@@ -4,12 +4,12 @@
 \alias{calib_dot}
 \title{Dot plot of goodness-of-fit metric vs parameter value}
 \usage{
-calib_dot(df_cb, par)
+calib_dot(df_cb, param)
 }
 \arguments{
 \item{df_cb}{data frame. A table with the result of the calibration process.}
 
-\item{par}{character. Goodness of fit measures. See alternatives link "NSE"
+\item{param}{character. Goodness of fit measures. See alternatives link "NSE"
 "rNSE", "NSE", "mNSE", "MAE", "PBIAS", "cp", "R2".}
 }
 \value{

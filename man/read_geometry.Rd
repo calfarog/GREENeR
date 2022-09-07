@@ -4,12 +4,10 @@
 \alias{read_geometry}
 \title{Read geometry}
 \usage{
-read_geometry(path, name)
+read_geometry(file)
 }
 \arguments{
-\item{path}{string. A string with the path of the shp file.}
-
-\item{name}{string. A string with the name of the geometry file.}
+\item{file}{string. A string with the name and extension of the geometry file.}
 }
 \value{
 One object, a sf file.
