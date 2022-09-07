@@ -75,9 +75,7 @@ This is a basic example which shows you how to solve a common problem:
 
 ``` r
 library(GREENeR)
-#> Registered S3 method overwritten by 'xts':
-#>   method     from
-#>   as.zoo.xts zoo
+#> Warning: package 'GREENeR' was built under R version 4.1.3
 
 data("catch_data_TN")
 data("annual_data_TN")
@@ -108,10 +106,10 @@ DF_calib_TN <- calib_green(catch_data_TN, annual_data_TN, n_iter, low, upp, year
 The calibration function applies a Latin Hypercube sampling scheme to
 the three parameters within the possible range (defined by lower and
 upper limits) and evaluates model performance (predictions against
-available observations) for the calibration period (specified in
-â€˜yearsâ€™) by calculating several “goodness-of-fit” metrics. The
-function returns a dataframe with parameters and goodness-of-fit scores
-that can be further analyzed.
+available observations) for the calibration period (specified in years)
+by calculating several “goodness-of-fit” metrics. The function returns a
+dataframe with parameters and goodness-of-fit scores that can be further
+analyzed.
 
 The function applies the following goodness-of-fit metrics (Althoff and
 Rodrigues 2021):

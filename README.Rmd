@@ -82,7 +82,7 @@ A calibration of TN in the Lay basin is performed with the parameters indicated 
 DF_calib_TN <- calib_green(catch_data_TN, annual_data_TN, n_iter, low, upp, years)
 ```
 
-The calibration function applies a Latin Hypercube sampling scheme to the three parameters within the possible range (defined by lower and upper limits) and evaluates model performance (predictions against available observations) for the calibration period (specified in â€˜yearsâ€™) by calculating several "goodness-of-fit" metrics. The function returns a dataframe with parameters and goodness-of-fit scores that can be further analyzed.
+The calibration function applies a Latin Hypercube sampling scheme to the three parameters within the possible range (defined by lower and upper limits) and evaluates model performance (predictions against available observations) for the calibration period (specified in years) by calculating several "goodness-of-fit" metrics. The function returns a dataframe with parameters and goodness-of-fit scores that can be further analyzed.
 
 The function applies the following goodness-of-fit metrics (Althoff and Rodrigues 2021):
 
