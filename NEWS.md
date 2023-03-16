@@ -1,3 +1,13 @@
+# GREENeR 0.1.2
+
+* Solved warning messages in calib_boxplot function.
+
+# GREENeR 0.1.1
+
+* Add three new functions: read_NSdata, read_geometry and shreve.
+* Change the name of the function nut_balace to region_nut_balance.
+* Edit some typos in legend of plots.
+
 # GREENeR 0.1.0
 
 * a newer version may be available on https://github.com/calfarog/GREENeR
