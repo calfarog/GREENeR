@@ -1,7 +1,7 @@
 Package: GREENeR
 Type: Package
 Title: Geospatial Regression Equation for European Nutrient Losses (GREEN)
-Version: 0.1.1
+Version: 0.1.2
 Authors@R: c(person("A.", "Udias", role = "aut",
                      email = "angeludias@gmail.com"),
               person("B.", "Grizzetti", role = "aut", 
