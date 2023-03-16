@@ -117,7 +117,7 @@ calib_boxplot <- function(df_cb, rate_bs) {
       top_best <-
         rbind(top_best,
               data.frame(metric = names(df_cb)[ind],
-                         df_cb[order(-df_cb[ind])[1:num_best] ,]))
+                         df_cb[order(-df_cb[[ind]])[1:num_best],]))
     }
 
   }
