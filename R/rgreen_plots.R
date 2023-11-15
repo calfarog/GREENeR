@@ -295,7 +295,6 @@ calib_dot <- function(df_cb, param) {
 #' @param years numeric. Years to be shown in the plot.
 #' @param setPlabels character. Labels identifying each set of parameter.
 #'
-#' @importFrom hydroGOF gof
 #' @importFrom graphics par plot abline legend
 #'
 #' @return A scatter plot and a list with two data frames with model GREEN
@@ -349,12 +348,13 @@ compare_calib <- function(catch_data, annual_data, alpha_p1, alpha_l1,
   df_observ_g <- df_observ_g %>%
     rename(PredictLoad = CatchLoad)
 
-  gof_glo <- hydroGOF::gof(sim = df_observ_g$PredictLoad,
-                           obs = df_observ_g$ObsLoad,
-                           digits = 4)
-  gof_loc <- hydroGOF::gof(sim = df_observ_l$CatchLoad,
-                           obs = df_observ_l$ObsLoad,
-                           digits = 4)
+  gof_glo <- gof(sim = df_observ_g$PredictLoad,
+                 obs = df_observ_g$ObsLoad,
+                 digits = 4)
+  gof_loc <- gof(sim = df_observ_l$CatchLoad,
+                 obs = df_observ_l$ObsLoad,
+                 digits = 4)
+
   result <- cbind(as.data.frame(gof_glo), as.data.frame(gof_loc))
   result$index <- rownames(result)
   result <- result[, c(3, 1, 2)]
@@ -745,7 +745,7 @@ input_maps <- function(catch_data, annual_data, sh_file, basin_name, plot.type,
       print(multiple_map(hydroSf_merge,
                          length(annual_data_aux),
                          long_basin,
-                         unit = "kt/y",
+                         unit = "t/y",
                          legend_position = legend_position))
     },
     "gr2" = {
@@ -770,7 +770,7 @@ input_maps <- function(catch_data, annual_data, sh_file, basin_name, plot.type,
       sf_mergeSkm <- merge(sh_file, df_load_hydroSkm[,c(1,3:index3)],
                            by = "HydroID")
       print(multiple_map(sf_mergeSkm, length(annual_data_aux), long_basin,
-                         unit = "kt/y/km2", legend_position = legend_position))
+                         unit = "t/y/km2", legend_position = legend_position))
     },
     {
       stop("Variable type.plot should be 'gr1' or 'gr2'")
@@ -841,7 +841,7 @@ input_plot <- function(annual_data, sh_file, basin_name, plot.type,
 
     df_load_tot_type_year <- annual_data[, c(3, 5:index1)] %>%
       dplyr::group_by(YearValue) %>%
-      dplyr::summarise(dplyr::across(tidyselect::everything(), list(mean)))
+      dplyr::summarise(dplyr::across(tidyselect::everything(), list(sum)))
 
     df_load_tot_type_year <- data.frame(df_load_tot_type_year)
 
@@ -955,7 +955,7 @@ input_Tserie <- function(catch_data, annual_data, sh_file, basin_name,
 
   df_load_tot_type_year <- annual_data[, c(3, 5:index1)] %>%
     dplyr::group_by(YearValue) %>%
-    dplyr::summarise(dplyr::across(tidyselect::everything(), list(mean)))
+    dplyr::summarise(dplyr::across(tidyselect::everything(), list(sum)))
 
   df_load_tot_type_year <- data.frame(df_load_tot_type_year)
 
@@ -1330,7 +1330,7 @@ nutrient_maps <- function(green_file, sh_file, basin_name, plot.type,
            numvar <- length(hydroSf_SA_merge)
 
            load_SA_map(hydroSf_merge = hydroSf_SA_merge, refN_P = numvar,
-                       long_basin = long_basin, unity = "(kt/y)",
+                       long_basin = long_basin, unity = "(t/y)",
                        legend_position = legend_position)
          },
          "gr2" = {
@@ -1344,7 +1344,7 @@ nutrient_maps <- function(green_file, sh_file, basin_name, plot.type,
            hydroSf_merge <- merge(sh_file, df_load_hydro[,c("HydroID", "CatchLoad")],
                                   by = "HydroID")
 
-           title <- "Total load (kt/y) log10 scale"
+           title <- "Total load (t/y) log10 scale"
            load_map(hydroSf_merge, long_basin, title, "log10",
                     legend_position = legend_position)
          },
@@ -1363,7 +1363,7 @@ nutrient_maps <- function(green_file, sh_file, basin_name, plot.type,
                                     df_load_hydro_DA[, c("HydroID", "CatchLoad")],
                                     by = "HydroID")
 
-           title <- "Specific load (kt/km2/y)"
+           title <- "Specific load (t/km2/y)"
            load_map(hydroSf_mergeDA, long_basin, title, "fisher",
                     legend_position = legend_position)
          },
@@ -1667,7 +1667,6 @@ N4_sankey <- function(Nbalance_out) {
 #' @param annual_data data frame.
 #' @return A data frame with the total load by year and type
 #'
-#' @importFrom hydroGOF gof
 #' @importFrom ggplot2 ggplot aes ggtitle facet_wrap geom_point geom_abline
 #' @importFrom graphics abline legend plot points
 #' @importFrom stats quantile

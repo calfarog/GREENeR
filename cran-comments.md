@@ -1,7 +1,8 @@
 ## New version
 This is a new version of the library. In this version we have:
 
-* Solved warning messages in calib_boxplot function.
+* The dependency on the hydroGOF package has been removed, since it has been 
+archived in CRAN.
 
 ## Test environments
 * local OS (windows) install, R 4.1.0
@@ -28,6 +29,35 @@ This is a new version of the library. In this version we have:
 0 errors v | 0 warnings v | 0 notes v
 
 ## Previous cran-comments
+
+## New version
+This is a new version of the library. In this version we have:
+
+* Solved warning messages in calib_boxplot function.
+
+## Test environments
+* local OS (windows) install, R 4.1.0
+* ubuntu-latest (on GitHub Actions), R release, devel, oldrel-1
+* windows-latest (on GitHub Actions), R release
+* R-hub Windows Server 2022 (r-release)
+
+## R CMD check results
+
+> On ubuntu-latest (release, devel, oldrel-1)
+
+0 errors | 0 warnings | 0 notes
+
+> On windows-latest (release)
+
+0 errors | 0 warnings | 0 notes
+
+> On windows-x86_64-devel (r-devel)
+
+0 errors v | 0 warnings v | 0 notes v
+
+> On ubuntu-gcc-devel (r-devel)
+
+0 errors v | 0 warnings v | 0 notes v
 
 ## New version
 This is a new version of the library. In this version we have:

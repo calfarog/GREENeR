@@ -173,7 +173,6 @@ calib_green <- function(catch_data, annual_data, n_iter, low, upp, years){
 #' @param years integer. It defines the years of interest.
 #' @return A matrix
 #'
-#' @importFrom hydroGOF gof
 #' @keywords internal
 #'
 calib_green_help <- function(task, catch_data, annual_data, years, latin_range){
@@ -186,9 +185,10 @@ calib_green_help <- function(task, catch_data, annual_data, years, latin_range){
   df_res_calib <- df_model_res[!is.na(df_model_res$ObsLoad), ]
   df_res_calib <- df_res_calib[order(df_res_calib$Year,
                                      df_res_calib$HydroID),]
-  gof_val <- hydroGOF::gof(sim = df_res_calib$CatchLoad,
-                           obs = df_res_calib$ObsLoad,
-                           digits = 4)
+
+  gof_val <- gof(sim = df_res_calib$CatchLoad,
+                 obs = df_res_calib$ObsLoad,
+                 digits = 4)
 
   result <- rbind(as.data.frame(gof_val),
                   alpha_P = alpha_p,
