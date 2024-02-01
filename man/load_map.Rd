@@ -11,12 +11,12 @@ load_map(hydroSf, long_basin, title, style_map, legend_position = 1)
 
 \item{long_basin}{numeric.}
 
+\item{title}{string. The title of the map}
+
 \item{style_map}{character. The style of the map}
 
 \item{legend_position}{numeric. It indicates de position of the legend of the
 plot. (Default: 1)}
-
-\item{unity}{character. The units of hydroSf}
 }
 \value{
 A plot with map of the basin

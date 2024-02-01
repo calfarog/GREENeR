@@ -2,7 +2,7 @@
 % Please edit documentation in R/rgreen_plots.R
 \name{simobs_annual_plot}
 \alias{simobs_annual_plot}
-\title{Scatter plot comparing observed vs modeled loads by year}
+\title{Facet year plot}
 \usage{
 simobs_annual_plot(
   catch_data,
@@ -12,7 +12,7 @@ simobs_annual_plot(
   sd_coef,
   years,
   name_basin,
-  max_value
+  maxvalue
 )
 }
 \arguments{
@@ -31,36 +31,16 @@ coefficient.}
 \item{sd_coef}{numeric. Third model parameter, fraction of domestic diffuse
 sources that reaches the stream network.}
 
-\item{years}{numeric. Years to be shown in the plot.}
+\item{years}{integer. Years to be used in the calibration. For sequences use
+c(yearini:yearend).}
 
-\item{name_basin}{character. The title of the plot.}
+\item{name_basin}{character. The name of the basin}
 
-\item{max_value}{numeric. The maximum value for x and y axis.}
+\item{maxvalue}{numeric. The maximum value}
 }
 \value{
-Multiple scatter plot and a data frame with annual nutrient
-(nitrogen or phosphorus) load for all catchments in the basin
+One object, a data frame
 }
 \description{
-Plot
-}
-\examples{
-\donttest{
-# the data of the TN scenario
-data(catch_data_TN)
-data(annual_data_TN)
-# the parameter to assess the basin model
-alpha_p <- 35.09
-alpha_l <- 0.02
-sd_coef <- 0.2
-# years in which the plot will we shown
-years <- 1990:2018
-maxvalue <- 10
-# generating the scatter plot comparing observed vs modeled loads by year
-name_basin <- "Lay NSE"
-max_value <- 10
-simobs_annual_plot(catch_data_TN, annual_data_TN, alpha_p, alpha_l,
-sd_coef, years, name_basin, max_value)
-}
-
+This function blah, blah, blah....
 }

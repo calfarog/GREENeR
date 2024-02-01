@@ -4,7 +4,14 @@
 \alias{load_SA_map}
 \title{Load SA map}
 \usage{
-load_SA_map(hydroSf_merge, refN_P, long_basin, unity, legend_position = 1)
+load_SA_map(
+  hydroSf_merge,
+  refN_P,
+  long_basin,
+  unity,
+  style_map,
+  legend_position = 1
+)
 }
 \arguments{
 \item{hydroSf_merge}{data frame.}
@@ -14,6 +21,8 @@ load_SA_map(hydroSf_merge, refN_P, long_basin, unity, legend_position = 1)
 \item{long_basin}{numeric.}
 
 \item{unity}{character. The units of hydroSf}
+
+\item{style_map}{character. The style of the map}
 
 \item{legend_position}{numeric. It indicates de position of the legend of the
 plot. (Default: 1)}

@@ -34,7 +34,7 @@ data(sh_file)
 # The name of the basin
 basin_name <- "Lay"
 # the barplot
-input_plot(annual_data_TN, sh_file, basin_name, "B")
+input_plot(annual_data = annual_data_TN, basin_name = basin_name, plot.type = "B")
 # the density plots
 input_plot(annual_data_TN, sh_file, basin_name, "D")
 

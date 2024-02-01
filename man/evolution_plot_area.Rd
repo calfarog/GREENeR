@@ -6,8 +6,8 @@
 \usage{
 evolution_plot_area(
   annual_data,
-  data,
-  title = NULL,
+  new_data,
+  title_plot = NULL,
   xaxis.title = NULL,
   yaxis.title,
   x,
@@ -17,9 +17,9 @@ evolution_plot_area(
 )
 }
 \arguments{
-\item{annual_data, data}{data frame.}
+\item{annual_data, new_data}{data frame.}
 
-\item{title}{character. The plot title}
+\item{title_plot}{character. The plot title}
 
 \item{xaxis.title}{character. The title of x axis}
 

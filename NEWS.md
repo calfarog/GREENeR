@@ -1,3 +1,11 @@
+# GREENeR 1.0.0
+
+* Added some new functions, generally to summarize information
+* Modified other functions to modularize code
+* Parallelized the simobs_annual_plot function to speed up the generation of 
+the figure
+* Fixed some minor bugs
+
 # GREENeR 0.1.3
 
 * The dependency on the hydroGOF package has been removed, since it has been 

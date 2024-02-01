@@ -34,25 +34,27 @@ aggregate_loop <- function(listaShrt, cdat_greenLt, years, type){
 
     data.table::setkey(cdat_greenLt_Year, "To_catch")
 
-    for (iShr in 2:(length(listaShrt))) {
-      shr_hydro_IDt <- listaShrt[[iShr]][Year == yr]$HydroID
-      df_agt <- cdat_greenLt_Year[.(shr_hydro_IDt)]
-      df_agt <- df_agt[, .(To_catch, CatchLoad)]
-      df_agt <- df_agt[, .(CatchLoad = sum(CatchLoad)), .(HydroID = To_catch)]
+    if(length(listaShrt)>1){
+      for (iShr in 2:(length(listaShrt))) {
+        shr_hydro_IDt <- listaShrt[[iShr]][Year == yr]$HydroID
+        df_agt <- cdat_greenLt_Year[.(shr_hydro_IDt)]
+        df_agt <- df_agt[, .(To_catch, CatchLoad)]
+        df_agt <- df_agt[, .(CatchLoad = sum(CatchLoad)), .(HydroID = To_catch)]
 
-      cdat_greenLt_Year[match(df_agt$HydroID,cdat_greenLt_Year$HydroID),
-                        CatchLoad := df_agt$CatchLoad]
-      cdat_greenLt_Year[cdat_greenLt_Year$HydroID %in% shr_hydro_IDt,
-                        CatchLoad := (1 - LakeFrRet) *
-                          (CatchToRiver + CatchLoad) * BB]
-      if (type == "N"){
+        cdat_greenLt_Year[match(df_agt$HydroID,cdat_greenLt_Year$HydroID),
+                          CatchLoad := df_agt$CatchLoad]
         cdat_greenLt_Year[cdat_greenLt_Year$HydroID %in% shr_hydro_IDt,
-                          CatchRivRet := (CatchToRiver + CatchLoad) * (1 - BB)]
-        cdat_greenLt_Year[cdat_greenLt_Year$HydroID %in% shr_hydro_IDt,
-                          CatchLakeRet := LakeFrRet *
+                          CatchLoad := (1 - LakeFrRet) *
                             (CatchToRiver + CatchLoad) * BB]
-      }
+        if (type == "N"){
+          cdat_greenLt_Year[cdat_greenLt_Year$HydroID %in% shr_hydro_IDt,
+                            CatchRivRet := (CatchToRiver + CatchLoad) * (1 - BB)]
+          cdat_greenLt_Year[cdat_greenLt_Year$HydroID %in% shr_hydro_IDt,
+                            CatchLakeRet := LakeFrRet *
+                              (CatchToRiver + CatchLoad) * BB]
+        }
 
+      }
     }
 
     cdat_total <- rbind(cdat_total, cdat_greenLt_Year)
@@ -190,10 +192,14 @@ calib_green_help <- function(task, catch_data, annual_data, years, latin_range){
                  obs = df_res_calib$ObsLoad,
                  digits = 4)
 
+  S_OutLoad <- sum(df_model_res[df_model_res$To_catch== -1,
+                                c(CatchToRiver)] )
+
   result <- rbind(as.data.frame(gof_val),
                   alpha_P = alpha_p,
                   alpha_L = alpha_l,
-                  sd_coeff = sd_c)
+                  sd_coeff = sd_c,
+                  SumOutLoad = S_OutLoad)
 
   result
 }
@@ -407,17 +413,17 @@ green_shares <- function(catch_data, annual_data, alpha_p, alpha_l, sd_coef,
   names(results) <- inputs
 
   results2 <- dplyr::bind_rows(results, .id = "group")
-  results2_cast <- reshape2::dcast(results2[, c(1, 2, 8, 11)],
-                                   HydroID + Year ~ group,
+  results2_cast <- reshape2::dcast(results2[, c("group","HydroID","To_catch","Year","CatchLoad")],
+                                   HydroID + To_catch + Year ~ group,
                                    value.var = "CatchLoad")
 
-  if (length(results2_cast) == 7) {
-    results2_cast$CatchLoad <- rowSums(results2_cast[, c(3:7)])
-  } else if(length(results2_cast) == 9) {
-    results2_cast$CatchLoad <- rowSums(results2_cast[, c(3:9)])
+  if (length(results2_cast) == 8) {
+    results2_cast$CatchLoad <- rowSums(results2_cast[, c(4:8)])
+  } else if(length(results2_cast) == 10) {
+    results2_cast$CatchLoad <- rowSums(results2_cast[, c(4:10)])
   }
 
-  results2_cast
+  return(results2_cast)
 }
 
 #

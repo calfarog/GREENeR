@@ -8,7 +8,6 @@ input_maps(
   catch_data,
   annual_data,
   sh_file,
-  basin_name,
   plot.type,
   style_map = "fisher",
   scale_barTextS = 0.7,
@@ -23,8 +22,6 @@ catchments.}
 catchments.}
 
 \item{sh_file}{sf object. The spatial information.}
-
-\item{basin_name}{character. The title of the map}
 
 \item{plot.type}{character. Alternatives of the map: input load (kt) by type
 divided by year and catchment. “gr1”: by km2; “gr2”: by year/km2.}
@@ -50,13 +47,11 @@ Map showing the mean load input by source
 data(catch_data_TN)
 data(annual_data_TN)
 data(sh_file)
-# The title of the plot
-mapTitle <- "Time series for the Lay Basin"
 # the Input Load Map by source type 1 (lines)
-input_maps(catch_data_TN, annual_data_TN, sh_file, mapTitle, "gr1",
+input_maps(catch_data_TN, annual_data_TN, sh_file, plot.type = "gr1",
 legend_position = 2)
 # the Input Load Map by source type 2 (lines & area)
-input_maps(catch_data_TN, annual_data_TN, sh_file, mapTitle, "gr2",
+input_maps(catch_data_TN, annual_data_TN, sh_file, plot.type = "gr2",
 legend_position = 2)
 }
 

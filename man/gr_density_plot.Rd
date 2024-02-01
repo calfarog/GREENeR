@@ -21,4 +21,103 @@ No return value, called for the side effect of drawing a plot
 \description{
 This function blah, blah, blah....
 }
+\details{
+#
+#' @title Facet year plot
+#'
+#' @description This function blah, blah, blah....
+#'
+#' @param catch_data data frame. Definition of the topological sequence of
+#' catchments.
+#' @param annual_data data frame. Sources of nutrient for each year and
+#' catchments.
+#' @param alpha_p numeric. First model parameter, the basin retention
+#' coefficient.
+#' @param alpha_l numeric. Second model parameter, the river retention
+#' coefficient.
+#' @param sd_coef numeric. Third model parameter, fraction of domestic diffuse
+#' sources that reaches the stream network.
+#'
+#'
+#'
+#' @param plot_index numeric. The indexes to plot
+#' @param name_basin character. The name of the basin
+#' @param maxvalue numeric. The maximum value
+#' @return One object, a data frame
+#'
+#' @importFrom ggplot2 ggplot ggtitle geom_point xlim ylim theme_bw geom_abline facet_wrap
+#' @importFrom parallelly availableCores
+#' @importFrom parallel makeCluster clusterExport clusterEvalQ parLapply stopCluster
+#'
+#' @export
+#'
+facet_year_plot <- function(catch_data, annual_data, alpha_p, alpha_l,
+                            sd_coef, years, name_basin, maxvalue) {
+
+  years <- lapply(years, function(x){x})
+
+  n_cores <- parallelly::availableCores()
+  cluster <- parallel::makeCluster(n_cores)
+  parallel::clusterExport(cluster, list("launch_green", "check_colnames_annual",
+                                        "check_colnames_catch",
+                                        "aggregate_loop", "check_years",
+                                        "append_empty_cols",
+                                        "data_preparation"),
+                          envir = environment())
+  parallel::clusterEvalQ(cluster, c(library("data.table"), library("dplyr")))
+  DF_ScenGlobal <- parallel::parLapply(cluster, years, launch_green,
+                                 annual_data = annual_data,
+                                 catch_data = catch_data,
+                                 alpha_p = alpha_p,
+                                 alpha_l = alpha_l,
+                                 sd_coef = sd_coef)
+  parallel::stopCluster(cluster)
+  DF_ScenGlobal <- do.call("rbind", DF_ScenGlobal)
+
+  # DF_ScenGlobal <- launch_green(catch_data, annual_data, alpha_p, alpha_l,
+  #                               sd_coef, years)
+
+  DF_ObservadoG <- DF_ScenGlobal[!is.na(DF_ScenGlobal$ObsLoad), ]
+
+  names(DF_ObservadoG)
+  p <- ggplot2::ggplot(data = DF_ObservadoG, ggplot2::aes(x = ObsLoad,
+                                                          y = CatchLoad)) +
+    ggplot2::ggtitle(name_basin)  +
+    ggplot2::geom_point() +
+    ggplot2::xlim(0, maxvalue) +
+    ggplot2::ylim(0, maxvalue) +
+    ggplot2::theme_bw(base_size = 10  ) +
+    ggplot2::geom_abline(intercept = 0, slope = 1) +
+    ggplot2::facet_wrap(~Year)
+  print(p)
+
+  return(DF_ScenGlobal)
+
+}
+
+# ELIMINAR SI LA VERSION PARALELA ES DEFINITIVA
+facet_year_plot2 <- function(catch_data, annual_data, alpha_p, alpha_l,
+                            sd_coef, years, name_basin, maxvalue) {
+
+  DF_ScenGlobal <- launch_green(catch_data, annual_data, alpha_p, alpha_l,
+                                sd_coef, years)
+
+  DF_ObservadoG <- DF_ScenGlobal[!is.na(DF_ScenGlobal$ObsLoad), ]
+
+  names(DF_ObservadoG)
+  p <- ggplot2::ggplot(data = DF_ObservadoG, ggplot2::aes(x = ObsLoad,
+                                                          y = CatchLoad)) +
+    ggplot2::ggtitle(name_basin)  +
+    ggplot2::geom_point() +
+    ggplot2::xlim(0, maxvalue) +
+    ggplot2::ylim(0, maxvalue) +
+    ggplot2::theme_bw(base_size = 10  ) +
+    ggplot2::geom_abline(intercept = 0, slope = 1) +
+    ggplot2::facet_wrap(~Year)
+  print(p)
+
+  return(DF_ScenGlobal)  #
+
+}
+}
 \keyword{internal}

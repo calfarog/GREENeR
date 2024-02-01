@@ -34,7 +34,7 @@ knitr::opts_chunk$set(
 
 ## Description of the tool
 
-GREENeR is an open-source R package for assessing annual time series of nutrient loads in a river network and at the basin outlets, and contributions of nutrient sources to these loads. The package provides tools and methods to apply the model Geospatial Regression Equation for European Nutrient losses (GREEN; [@grizzetti2005statistical; @grizzetti2008assessing; @grizzetti2012changes; @grizzetti2021eu]) to an area of interest. A brief description of the model, including sources and parameters, can be found at the end of this document.
+GREENeR [@RJ-2023-065] is an open-source R package for assessing annual time series of nutrient loads in a river network and at the basin outlets, and contributions of nutrient sources to these loads. The package provides tools and methods to apply the model Geospatial Regression Equation for European Nutrient losses (GREEN; [@grizzetti2005statistical; @grizzetti2008assessing; @grizzetti2012changes; @grizzetti2021eu]) to an area of interest. A brief description of the model, including sources and parameters, can be found at the end of this document.
 
 The package includes functions to perform graphical summaries of model inputs, calibrate model parameters, run sensitivity analysis checks, and visualize model inputs and outputs through graphs and maps of total loads and contributions by source. The package works for both total nitrogen (TN) and total phosphorus (TP). It allows the analysis of different scenarios of nutrient input in the river basin or region of study. The package is parallel-capable to alleviate the computational burden in large basins.
 
@@ -70,7 +70,7 @@ The fields are defined as follow:
 + HydroID (integer): unique identifier of the catchment 
 
 + To_catch (integer): unique identifier of the catchment to which the catchment 
-goes. Note that for the outlet To_catch== -1
+goes. Note that for the outlet To_catch == -1
 
 + Shreve (integer positive): this indicates the Shreve order of the topological 
 sequence in the stream network. GREEN resolves sequentially all loads for 
@@ -161,12 +161,12 @@ knitr::include_graphics('figures/barplot_LayTN.png')
 knitr::include_graphics('figures/barplot_LayTP.png')
 ```
 
-By selecting option "D", input_plot() returns density plots of nutrient loads per catchment. These are useful to see the distribution of nutrient source inputs in the Basin.
+By selecting option "D", input_plot() returns density plots of nutrient loads per catchment. These are useful to see the distribution of nutrient source inputs in the Basin. The coef_SD parameter is a scale factor for the standard deviation of the data. This can be useful for defining the limits on a graph, for example. If cSD is 2, then xlim will be calculated as the mean plus two standard deviations, which could represent, for example, 95% of the data in a normal distribution.
 
 ```{r, message=FALSE, eval=FALSE}
 # the density plots for the Lay TN and TP Scenarios
-input_plot(annual_data_TN, sh_file, "Lay", "D")
-input_plot(annual_data_TP, sh_file, "Lay", "D")
+input_plot(annual_data_TN, "Lay", "D",coef_SD=1, sh_file)
+input_plot(annual_data_TP, "Lay", "D",coef_SD=1, sh_file)
 ```
 
 ```{r, echo=FALSE, out.width='100%', fig.cap="Density plot for the Lay TN scenario."}
@@ -177,46 +177,66 @@ knitr::include_graphics('figures/densityplot_LayTN.png')
 knitr::include_graphics('figures/densityplot_LayTP.png')
 ```
 
-The function **input_Tserie()** allows to examine the temporal evolution of the inputs. There are three options: displaying cumulative total amounts ("gr1"), total amounts ("gr2"), or total amounts per unit area ("gr3"). The latter graph is particularly useful when catchment sizes are when the range of catchment areas is large to compare nutrient application intensity between catchments. 
-
-In the Lay river example, these graphs show, among other things, how the amount of P from mineral fertilization (Min) has decreased over time, whereas the amount of P from manure has increased.
+The function **input_Tserie()** allows to examine the temporal evolution of the inputs. There are two options, the first, displaying cumulative
+total amounts by source ("gr1"). 
 
 ```{r, message=FALSE, eval=FALSE}
 # the time serie plot type 1 (areas)
-input_Tserie(catch_data_TN, annual_data_TN, sh_file, "Lay", "gr1")
-input_Tserie(catch_data_TP, annual_data_TP, sh_file, "Lay", "gr1")
+input_Tserie(catch_data_TN, annual_data_TN, "Lay", "gr1")
+input_Tserie(catch_data_TP, annual_data_TP, "Lay", "gr1")
 ```
 
 ```{r, echo=FALSE, out.width="45%", out.height="25%",fig.cap="Time series plot type 1 (areas) for TN and TP.",fig.show='hold',fig.align='center'}
 knitr::include_graphics(c("figures/timeserieTN_type1.png","figures/timeserieTP_type1.png"))
 ``` 
 
+The second, total amounts and by source total amount("gr2")
+
 ```{r, message=FALSE, eval=FALSE}
 # the time serie plot type 2 (lines)
-input_Tserie(catch_data_TN, annual_data_TN, sh_file, "Lay", "gr2")
-input_Tserie(catch_data_TP, annual_data_TP, sh_file, "Lay", "gr2")
+input_Tserie(catch_data_TN, annual_data_TN,  "Lay", "gr2")
+input_Tserie(catch_data_TP, annual_data_TP,  "Lay", "gr2")
 ```
 
 ```{r, echo=FALSE, out.width="45%", out.height="25%",fig.cap="Time series plot type 2 (lines) for TN and TP.",fig.show='hold',fig.align='center'}
 knitr::include_graphics(c("figures/timeserieTN_type2.png","figures/timeserieTP_type2.png"))
 ```
 
+The function **input_Tserie_area()** allows to examine the temporal
+evolution of the inputs in relation to the area. There are also two
+options, the first, displaying cumulative total amounts by source per
+unit area ("gr1")
+
 ```{r, echo=FALSE, eval=FALSE}
 # the time serie plot type 3 (areas by year and km2)
-input_Tserie(catch_data_TN, annual_data_TN, sh_file, "Lay", "gr3")
-input_Tserie(catch_data_TP, annual_data_TP, sh_file, "Lay", "gr3")
+input_Tserie_area(catch_data_TN, annual_data_TN, sh_file, "Lay", "gr1")
+input_Tserie_area(catch_data_TP, annual_data_TP, sh_file, "Lay", "gr1")
 ```
 
 ```{r, echo=FALSE, out.width="45%", out.height="25%",fig.cap="Time series plot type 3 (areas by year and km2) for TN and TP.",fig.show='hold',fig.align='center'}
 knitr::include_graphics(c("figures/timeserieTN_type3.png","figures/timeserieTP_type3.png"))
 ```
 
-There is a fourth alternative for the function input_Tseries(), "gr4". This option compares the levels of nutrient inputs in three zones of the basin (upper, middle and lower part). The upper zone includes the catchments up to the median (50%) shreve value, the middle zone includes the catchments from 50% to 75% of the shreve values, and the lower part includes the catchments from 75% to 100%. At the top of each graph, the corresponding area of each part is indicated. In the example below, it can be seen that differences in N inputs between the upper and lower part of the basin are noticeable over the whole period.
+The latter graph is particularly useful when the range of catchment
+areas is large to compare nutrient application intensity between
+catchments. In the Lay river example, these graphs show, among other
+things, how the amount of P from mineral fertilization (Min) has
+decreased over time, whereas the amount of P from manure has increased.
+
+There is a second alternative for the function input_Tseries_area(),
+"gr2". This option compares the levels of nutrient inputs in three zones
+of the basin (upper, middle and lower part). The upper zone includes the
+catchments up to the median (50%) shreve value, the middle zone includes
+the catchments from 50% to 75% of the shreve values, and the lower part
+includes the catchments from 75% to 100%. At the top of each graph, the
+corresponding area of each part is indicated. In the example below, it
+can be seen that differences in N inputs between the upper and lower
+part of the basin are noticeable over the whole period.
 
 ```{r, message=FALSE, eval=FALSE}
 # the time serie plot type 4 (by km2 and Shreve)
-input_Tserie(catch_data_TN, annual_data_TN, sh_file, "Lay", "gr4")
-input_Tserie(catch_data_TP, annual_data_TP, sh_file, "Lay", "gr4")
+input_Tserie_area(catch_data_TN, annual_data_TN, sh_file, "Lay", "gr2")
+input_Tserie_area(catch_data_TP, annual_data_TP, sh_file, "Lay", "gr2")
 ```
 
 ```{r, echo=FALSE, out.width="45%", out.height="25%",fig.cap="Time series plot type 4, thatcompares the levels of nutrient inputs in three zones of the basin.",fig.show='hold',fig.align='center'}
@@ -228,22 +248,20 @@ The function **input_maps()** shows nutrient inputs distribution in the Basin. T
 
 
 ```{r, message=FALSE, eval=FALSE}
-# The title of the plot
-mapTitle <- "Lay Basin"
-
 # the Input Load Map by source type 1 (kt/year)
-input_maps(catch_data_TN, annual_data_TN, sh_file, mapTitle, "gr1", legend_position = 3)
+input_maps(catch_data_TN, annual_data_TN, sh_file, "gr1", legend_position = 3)
 ```
 ```{r, echo=FALSE, out.width='100%', fig.cap="Input map by source type 1 for TN scenario"}
 #![Input maps.](figures/input_maps.png){width=75%} #300px for HTML
 knitr::include_graphics('figures/input_mapsTN_type1.png')
 ```
 
-For the TP scenario:
+The legend_position parameter allows you to modify the position where
+the legend will be located in the figure. For the TP scenario:
 
 ```{r, message=FALSE, eval=FALSE}
 # the Input Load Map by source type 1 (kt/year)
-input_maps(catch_data_TP, annual_data_TP, sh_file, mapTitle, "gr1", legend_position = 3)
+input_maps(catch_data_TP, annual_data_TP, sh_file, "gr1", legend_position = 3)
 ```
 ```{r, echo=FALSE, out.width='100%', fig.cap="Input map by source type 1 for TP scenario"}
 #![Input maps.](figures/input_maps.png){width=75%} #300px for HTML
@@ -254,45 +272,82 @@ Option "gr2" shows inputs per area (in kt/y/km2):
 
 ```{r, message=FALSE, eval=FALSE}
 # the Input Load Map by source type 2 (kt/y/km2)
-input_maps(catch_data_TN, annual_data_TN, sh_file, mapTitle, "gr2", legend_position = 3)
+input_maps(catch_data_TN, annual_data_TN, sh_file, "gr2", legend_position = 3)
 ```
 ```{r, echo=FALSE, out.width='100%', fig.cap="Input map by source type 2 for TN scenario"}
 knitr::include_graphics('figures/input_mapsTN_type2.png')
 ```
 
+For the TP scenario:
+
 ```{r, message=FALSE, eval=FALSE}
 # the Input Load Map by source type 2 (kt/y/km2)
-input_maps(catch_data_TP, annual_data_TP, sh_file, mapTitle, "gr2", legend_position = 3)
+input_maps(catch_data_TP, annual_data_TP, sh_file, "gr2", legend_position = 3)
 ```
 ```{r, echo=FALSE, out.width='100%', fig.cap="Input map by source type 2 for TP scenario"}
 knitr::include_graphics('figures/input_mapsTP_type2.png')
 ```
 
-## Model calibration
-The quality of model calibration depends on the quality and number of available observations. Before diving into calibration it is thus useful to start by exploring observations.
+## Lake Retention
 
-```{r, message=FALSE}
-# Lay Basin scenario calibration for TN
-# subset of data rows with reference values to be used in the calibration
-TN_ref_values <- annual_data_TN[!is.na(annual_data_TN$YearlyMass),]
-TN_ref_values
+In the Lake Retention section, we note that the scenarios for TN or TP
+are also linked with information about lake retention. This data is
+often not dependent on the model used to generate the scenario and
+includes actual field data. Therefore, viewing the distribution of lake
+retention data can be insightful because it directly impacts the
+outcomes of the entire GREEN model. The function that carries out this
+analysis is **LakeRetent_plot**().
 
-# number of reference data
-nrow(TN_ref_values)
-
-# distribution of the references by year and location
-table(TN_ref_values$HydroID,TN_ref_values$YearValue)
+```{r, message=FALSE, eval=FALSE}
+LakeRetent_plot(catch_data_TN)
 ```
 
-In the example basin there are 22 observations (derived from publicly available dataset of European Environment Agency, [EEA](https://www.eea.europa.eu/data-and-maps/data/waterbase-water-quality-icm-1) for 6 different stations from 2003 to 2009; note however that only one station has references for all years. (For the TP case there are 58 observations, collected in eight catchments from 1997 to 2012, with one complete time-series).
+```{r, echo=FALSE, out.width='100%', fig.cap="Lake retention values distribution for TN scenario"}
+knitr::include_graphics('figures/LakeRetent_plot.png')
+```
 
-To run the calibration process for a scenario (function **calib_green()**), the following settings must be defined:
+## Observed Load
 
-1. The expected range for each parameter. This range is defined by two vectors of three values, one for the lower limits and one for the upper limits of the three parameters. The values correspond to each of the parameters of the model in sequence: alpha_P (eq 4), alpha_L (eq 5), and sd_coeff (eqs 6 and 7).
+Under the Observed Load section, we discuss the importance of
+information on the annual total nitrogen load (TN ton/yr) or total
+phosphorous (TN ton/yr) gathered from monitoring station data, wherever
+available. If no data is available for a particular catchment and year,
+it is noted as NA. This information is crucial for the calibration
+process of the model, as it allows the adjustment of model parameters.
+Therefore, having a substantial amount of observed loads is essential
+for the calibration process. The package includes a function called
+**references_plot()**, which can be used to create a preliminary summary
+of the data available at the monitoring stations. Before diving into
+calibration it is thus useful to start by exploring observations.
 
-2. The number of iterations to be performed during the calibration process. The higher the number of iterations, the more likely it is to achieve quality parameters, but the longer the computation time required.  Although it depends on the catchment and the proposed intervals, it is recommended to run at least 200 iterations to have enough information to continue the calibration process.
+```{r, message=FALSE, eval=FALSE}
+TN_ref_values <- annual_data_TN[!is.na(annual_data_TN$YearlyMass),]
+nrow(TN_ref_values)
+table(TN_ref_values$HydroID,TN_ref_values$YearValue)
+  
+references_plot(annual_data_TN)
+```
 
-3. The years to be included in the calibration process.
+```{r, echo=FALSE, out.width='100%', fig.cap="Observed references distribution for TN scenario"}
+knitr::include_graphics('figures/references.png')
+```
+
+In the example basin there are 22 observations (derived from publicly
+available dataset of European Environment Agency,
+[EEA](https://www.eea.europa.eu/data-and-maps/data/waterbase-water-quality-icm-1)
+for 6 different stations from 2003 to 2009; note however that only one
+station has references for all years. (For the TP case there are 58
+observations, collected in eight catchments from 1997 to 2012, with one
+complete time-series).
+
+## Model calibration
+
+To run the calibration process for a scenario (function
+**calib_green()**), the following settings must be defined:
+
+#. The expected range for each parameter. This range is defined by two vectors of three values, one for the lower limits and one for the upper limits of the three parameters. The values correspond to each of the parameters of the model in sequence: alpha_P (eq 4), alpha_L (eq 5), and sd_coeff (eqs 6 and 7).
+#. The number of iterations to be performed during the calibration process. The higher the number of iterations, the more likely it is to achieve quality parameters, but the longer the computation time required. Although it depends on the catchment and the proposed intervals, it is recommended to run at least 200 iterations to have enough information to continue the calibration process.
+#. The years to be included in the calibration process.
 
 ```{r, message=FALSE}
 # Parameter for the calibration of the model
@@ -302,40 +357,51 @@ low <- c(10, 0.000, 0.1)
 upp <- c(50, 0.08, 0.9)       
 
 # number of iterations
-n_iter <- 2000    
+n_iter <- 200 
 
 # years in which the model should be executed
 years <- c(2003:2009)
 ```
 
-In the example below, a calibration of TN in the Lay basin is performed with the parameters indicated above. The process is parallelised and will use all the cores of the computer. The computation time depends on the computer, the basin, and the number of iterations.
+In the example below, a calibration of TN in the Lay basin is performed
+with the parameters indicated above. The process is parallelised and
+will use all the cores of the computer. The computation time depends on
+the computer, the basin, and the number of iterations.
 
 ```{r, message=FALSE, eval=FALSE}
 # execution of the calibration  
 DF_calib_TN <- calib_green(catch_data_TN, annual_data_TN, n_iter, low, upp, years)
+DF_calib <- data.frame(DF_calib)
 ```
 
-The calibration function applies a Latin Hypercube sampling scheme to the three parameters within the possible range (defined by lower and upper limits) and evaluates model performance (predictions against available observations) for the calibration period (specified in ‘years’) by calculating several "goodness-of-fit" metrics. The function returns a dataframe with parameters and goodness-of-fit scores that can be further analyzed.
+The calibration function applies a Latin Hypercube sampling scheme to
+the three parameters within the possible range (defined by lower and
+upper limits) and evaluates model performance (predictions against
+available observations) for the calibration period (specified in
+'years') by calculating several "goodness-of-fit" metrics. The function
+returns a dataframe with parameters and goodness-of-fit scores that can
+be further analyzed.
 
-The function applies the following goodness-of-fit metrics [@althoff2021goodness]:
+The function applies the following goodness-of-fit metrics
+[@althoff2021goodness]:
 
-+ NSE: Nash-Sutcliffe efficiency 
-+ rNSE: Relative Nash-Sutcliffe efficiency 
-+ mNSE: Modified Nash-Sutcliffe efficiency 
-+ cp: Coefficient of Persistence 
-+ VE: Volumetric Efficiency 
-+ KGE: Kling-Gupta efficiency 
-+ d: Index of Agreement 
-+ md: Modified index of agreement 
-+ rd: Relative Index of Agreement 
-+ r: Linear correlation coefficient 
-+ R2: Coefficient of determination
-+ PBIAS: Percent bias 
-+ MAE: mean absolute error
-+ RMSE: Root mean square error
-+ ME:  Mean error 
-+ MSE: Mean square error 
-+ NRMSE: Normalized Root Mean Square Error
+-   NSE: Nash-Sutcliffe efficiency
+-   rNSE: Relative Nash-Sutcliffe efficiency
+-   mNSE: Modified Nash-Sutcliffe efficiency
+-   cp: Coefficient of Persistence
+-   VE: Volumetric Efficiency
+-   KGE: Kling-Gupta efficiency
+-   d: Index of Agreement
+-   md: Modified index of agreement
+-   rd: Relative Index of Agreement
+-   r: Linear correlation coefficient
+-   R2: Coefficient of determination
+-   PBIAS: Percent bias
+-   MAE: mean absolute error
+-   RMSE: Root mean square error
+-   ME: Mean error
+-   MSE: Mean square error
+-   NRMSE: Normalized Root Mean Square Error
 
 ## Exploring calibration results
 
@@ -406,7 +472,8 @@ Once a parameter set has been selected, it is useful to verify graphically the d
 ```{r, message=FALSE, eval=FALSE}
 # annual scatter plot comparing observed vs modeled loads by year
 label_plot <- "NSE best params for TN in the Lay" 
-simobs_annual_plot(catch_data_TN, annual_data_TN, Param_NSE2[1], Param_NSE2[2], Param_NSE2[3], years, label_plot)
+Themx <- max(annual_data_TN$YearlyMass, na.rm = TRUE)
+simobs_annual_plot(catch_data_TN, annual_data_TN, Param_NSE2[1], Param_NSE2[2], Param_NSE2[3], years, label_plot, Themx)
 ```
 
 ```{r, echo=FALSE, out.width='100%'}
@@ -432,12 +499,12 @@ At the top left of the figure, the scores of six frequently used goodness-of-fit
 
 Once the most appropriate parameter set has been selected, it is possible to run the model to estimate nutrient loads across the basin. 
 
-The function **nut_balance()** runs the GREEN model with the selected parameter set, and returns the region nutrient mass balance of the nutrient fluxes for the whole simulation period. The results of this function can be visualized in a Sankey diagram with the function **N4_sankey()**.
+The function **region_nut_balance()** runs the GREEN model with the selected parameter set, and returns the region nutrient mass balance of the nutrient fluxes for the whole simulation period. The results of this function can be visualized in a Sankey diagram with the function **N4_sankey()**.
 
 ```{r, message=FALSE, eval=FALSE}
 # Computing the nutrient balance  
 years <- c(2003:2009)
-Nut_bal_TN <- nut_balance(catch_data_TN, annual_data_TN, Param_NSE2[1], Param_NSE2[2], Param_NSE2[3], years)
+Nut_bal_TN <- region_nut_balance(catch_data_TN, annual_data_TN, Param_NSE2[1], Param_NSE2[2], Param_NSE2[3], years, atm_coeff = 0.38)
 # Plot the sankey plot with the result of the balance
 sank <- N4_sankey(Nut_bal_TN)
 ```
@@ -447,75 +514,94 @@ knitr::include_graphics('figures/n4sankey.png')
 ```
 
 ## Share of nutrients
-The function **green_shares()** runs the GREEN model with the selected parameter set and returns for all catchments nutrient loads and contributions by each nutrient source in the simulation period. The results of the model can be examined by several functions.
-
-The function **nutrient_tserie()**, with the option "gr1", shows the temporal evolution of total load outputs for the upper, central and lower catchment area.
+The function **green_shares()** runs the GREEN model with the selected
+parameter set and returns for all catchments nutrient loads and
+contributions by each nutrient source in the simulation period.
 
 ```{r, message=FALSE, eval=FALSE}
 years <- c(2003:2009)
 basin_sa <- green_shares(catch_data_TN, annual_data_TN, Param_NSE2[1], Param_NSE2[2], Param_NSE2[3], years)
-    
+```
+
+The results of the model can be examined by several functions. The
+function **nutrient_tseries()** allows to display the time series of the
+total load (TN or TP) in the river outlet or the marian region. The
+*"gr1"* option shows the temporal evolution of the total load at the
+basin outlet in the simulation period.
+
+```{r, message=FALSE, eval=FALSE}
 # The title of the plot
 plot_title <- "Time series Load Output for the Lay Basin"    
-# Output Load Basin average time series (lines)
-nutrient_tserie(basin_sa, sh_file, plot_title, "gr1")
+outFile <- tempfile(pattern = "OutletLoad", fileext = ".csv")
+nutrient_tserie(basin_sa, plot_title, "gr1", outFile)
 ```
 
 ```{r, echo=FALSE, out.width='100%'}
 knitr::include_graphics('figures/timeserie_loadoutputLay_type1.png')
 ```
 
-The "gr2" option shows the temporal evolution of the total load at the basin outlet in the simulation period.
+The *"gr2"* option shows the temporal evolution of the total load at the
+basin outlet in the simulation period with contributions by sources.
 
 ```{r, message=FALSE, eval=FALSE}
 # Output Load Basin average time series (lines)
-nutrient_tserie(basin_sa, sh_file, plot_title, "gr2")
+nutrient_tserie(basin_sa, plot_title, "gr2")
 ```
 
 ```{r, echo=FALSE, out.width='100%'}
 knitr::include_graphics('figures/timeserie_loadoutputLay_type2.png')
 ```
 
-The "gr3" option shows the temporal evolution of the total load at the basin outlet in the simulation period with contributions by sources.
+The function **nutrient_tserie_darea()**, with the option *"gr1"*, shows
+the temporal evolution of total load outputs for the upper, central and
+lower catchment area.
 
 ```{r, message=FALSE, eval=FALSE}
 # Total Load in the Basin Outlet by source apportionment time series (lines)
-nutrient_tserie(basin_sa, sh_file, "Lay Basin", "gr3")
+nutrient_tserie_darea(basin_sa, sh_file, "Lay Basin", "gr1")
 ```
 ```{r, echo=FALSE, out.width='100%'}
 knitr::include_graphics('figures/timeserie_totalloadLay.png')
 ```
 
-The function **nutrient_maps()** shows maps of nutrient loads in the basin. The option "gr1" shows loads by source (in logarithmic scale to improve the visualization as the differences in a basin may vary over several orders of magnitude).
+The function **nutrient_maps()** shows maps of nutrient loads in the
+basin. The option *"gr1"* shows loads by source (in logarithmic scale to
+improve the visualization as the differences in a basin may vary over
+several orders of magnitude).
 
 ```{r, message=FALSE, eval=FALSE}
-# The title of the Map
-map_title <- "Output Loads for the Lay Basin"
-    
-# Basin Output Load Maps by source
-nutrient_maps(basin_sa, sh_file, map_title, "gr1", legend_position = 3)
+style <- "log10" 
+nutrient_maps(basin_sa, sh_file, "gr1", style, legend_position = 3)
 ```
 
 ```{r, echo=FALSE, out.width='100%'}
 knitr::include_graphics('figures/nutrient_maps_outputLoadsType1.png')
 ```
 
-The alternative "gr2" shows the total load at catchment outlets (in logarithmic scale to improve their visualisation, as the differences between sources and outlets are usually several orders of magnitude).
+The "***style***" parameter allows the user to automatically create
+breaks by specifying algorithms. Among others, the following styles can
+be passed: "fisher", "log10_pretty", "log10", "order", "cont",
+"quantile", "jenks".
+
+The alternative *"gr2"* shows the total load at catchment outlets (in
+logarithmic scale to improve their visualisation, as the differences
+between sources and outlets are usually several orders of magnitude).
 
 ```{r, message=FALSE, eval=FALSE}
 # Basin Output Total Load  Maps 
-nutrient_maps(basin_sa, sh_file, map_title, "gr2", legend_position = 3)
+nutrient_maps(basin_sa, sh_file, style, "gr2", legend_position = 3)
 ```
 
 ```{r, echo=FALSE, out.width='100%'}
 knitr::include_graphics('figures/nutrient_maps_outputLoadsType2.png')
 ```
 
-The alternative "gr3" produces maps of total load by catchment area (in kt/km2/y) in the basin.
+The alternative "gr3" produces maps of total load by catchment area (in
+kt/km2/y) in the basin.
 
 ```{r, message=FALSE, eval=FALSE}
 # Basin Output Specific Load by km2 Maps 
-nutrient_maps(basin_sa, sh_file, map_title, "gr3", legend_position = 3)
+nutrient_maps(basin_sa, sh_file, style, "gr3", legend_position = 3)
 ```
 
 ```{r, echo=FALSE, out.width='100%'}

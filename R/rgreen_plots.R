@@ -95,46 +95,41 @@ calib_boxplot <- function(df_cb, rate_bs) {
 
   bes_par <- NULL
   top_best <- NULL
-  ind_mtr <- c(6, 18, 19, 9, 10, 11, 17, 20)
-
-  for (ind in ind_mtr) {
-    if (ind == 6) {
+  ind_mtr <- c(18,6,9,8,5,10, 17, 19, 15, 20 )    # PBIAS.. cp  NSE    mNSE    rNSE  R2
+  for(ind in ind_mtr) {
+    # ind <- 19
+    print(ind)
+    if (ind == 6 | ind == 5) {
       irow <- which(abs(df_cb[, ind]) ==  min(abs(df_cb[, ind]),
                                               na.rm = TRUE))[1]
-    } else if (ind != 6) {
+    } else if (ind != 6 & ind != 5) {
       irow <- which(df_cb[,ind] == max(df_cb[, ind], na.rm = TRUE))[1]
     }
     bes_par <- rbind(bes_par, data.frame(metric = names(df_cb)[ind],
                                          df_cb[irow, ]))
 
-    if (ind == 6) {
+    if (ind == 6 | ind == 5) {
       top_best <-
         rbind(top_best,
               data.frame(metric = names(df_cb)[ind],
                          df_cb[order(abs(df_cb[, ind]))[1:num_best], ]))
 
-    } else if (ind != 6) {
+    } else if (ind != 6 & ind != 5) {
       top_best <-
         rbind(top_best,
               data.frame(metric = names(df_cb)[ind],
-                         df_cb[order(-df_cb[[ind]])[1:num_best],]))
+                         df_cb[order(-df_cb[,ind])[1:num_best] ,]))
     }
+
 
   }
 
   unique(bes_par$metric)
 
-  oldpar <- par(no.readonly = TRUE)
-  on.exit(par(oldpar))
-  graphics::par(mfrow = c(3, 3), mar = c(4.1, 4.1, 2.1, 2.1))
+  graphics::par(mfrow = c(3, 4), mar = c(4.1, 3.5, 2.1, 0.5))
   graphics::boxplot(top_best$KGE ~ top_best$metric,
                     las = 2,
                     main = "KGE",
-                    xlab = "",
-                    ylab = "")
-  graphics::boxplot(top_best$mNSE ~ top_best$metric,
-                    las = 2,
-                    main = "mNSE",
                     xlab = "",
                     ylab = "")
   graphics::boxplot(top_best$NSE ~ top_best$metric,
@@ -142,9 +137,19 @@ calib_boxplot <- function(df_cb, rate_bs) {
                     main = "NSE",
                     xlab = "",
                     ylab = "")
+  graphics::boxplot(top_best$mNSE ~ top_best$metric,
+                    las = 2,
+                    main = "mNSE",
+                    xlab = "",
+                    ylab = "")
   graphics::boxplot(top_best$rNSE ~ top_best$metric,
                     las = 2,
                     main = "rNSE",
+                    xlab = "",
+                    ylab = "")
+  graphics::boxplot(top_best$PBIAS ~ top_best$metric,
+                    las = 2,
+                    main ="PBIAS",
                     xlab = "",
                     ylab = "")
   graphics::boxplot(top_best$R2 ~ top_best$metric,
@@ -152,9 +157,14 @@ calib_boxplot <- function(df_cb, rate_bs) {
                     main = "R2",
                     xlab = "",
                     ylab = "")
-  graphics::boxplot(top_best$PBIAS.. ~ top_best$metric,
+  graphics::boxplot(top_best$NRMSE ~ top_best$metric,
                     las = 2,
-                    main ="PBIAS",
+                    main = "NRMSE",
+                    xlab = "",
+                    ylab = "")
+  graphics::boxplot(top_best$cp ~ top_best$metric,
+                    las = 2,
+                    main = "cp",
                     xlab = "",
                     ylab = "")
 
@@ -170,13 +180,19 @@ calib_boxplot <- function(df_cb, rate_bs) {
                     main = "alpha_L",
                     xlab = "",
                     ylab = "")
-  graphics::points(bes_par["alpha_L"], col = "red",pch = 18)
+  graphics::points(bes_par["alpha_L"], col="red",pch=18)
   graphics::boxplot(top_best$sd_coeff ~ top_best$metric,
                     las = 2,
                     main = "sd_coeff",
                     xlab = "",
                     ylab = "")
   graphics::points(bes_par["sd_coeff"], col = "red", pch = 18)
+  graphics::boxplot(top_best$SumOutLoad ~ top_best$metric,
+                    las = 2,
+                    main ="SumOutLoad",
+                    xlab = "",
+                    ylab = "")
+  graphics::points(bes_par["SumOutLoad"], col = "red", pch = 18)
 
 }
 
@@ -375,9 +391,9 @@ compare_calib <- function(catch_data, annual_data, alpha_p1, alpha_l1,
                                  df_observ_l$CatchLoad)))
   graphics::points(df_observ_l$ObsLoad,
                    df_observ_l$CatchLoad,
-                   col = "red")
+                   col = "red", pch = 8 )
   graphics::abline(coef = c(0, 1))
-  graphics::legend('bottomright', legend = c(setPlabels[1], setPlabels[2]) ,
+  graphics::legend('right', legend = c(setPlabels[1], setPlabels[2]) ,
                    col=c("black","red"), bty = 'n', pch = 15, cex = 1.3)
   graphics::legend('topleft', legend = result$gl[c(6, 9, 10, 11, 15, 17)],
                    col = "black", bty = 'n', cex = 1.0,
@@ -554,8 +570,8 @@ evolution_plot <- function(data, title = NULL, xaxis.title = NULL, yaxis.title,
 #'
 #' @description This function blah, blah, blah....
 #'
-#' @param annual_data,data data frame.
-#' @param title character. The plot title
+#' @param annual_data,new_data data frame.
+#' @param title_plot character. The plot title
 #' @param xaxis.title character. The title of x axis
 #' @param yaxis.title character. The title of y axis
 #' @param x character. The name of variable in data to represent in x axis
@@ -569,26 +585,26 @@ evolution_plot <- function(data, title = NULL, xaxis.title = NULL, yaxis.title,
 #'
 #' @keywords internal
 #'
-evolution_plot_area <- function(annual_data, data, title = NULL,
+evolution_plot_area <- function(annual_data, new_data, title_plot = NULL,
                                 xaxis.title = NULL, yaxis.title, x, y,
                                 colour = NULL, wrap = NULL){
 
   ymin <- min(annual_data$YearValue)
   ymax <- max(annual_data$YearValue)
-  p <- ggplot2::ggplot(data = data,
+  p <- ggplot2::ggplot(data = new_data,
                        ggplot2::aes_string(x = x, y = y, fill = colour)) +
     ggplot2::geom_area(alpha = 1.5, size = 1.2) +
     ggplot2::theme_bw(base_size = 15) +
-    ggplot2::labs(title = title, y = yaxis.title, x = xaxis.title) +
+    ggplot2::labs(title = title_plot, y = yaxis.title, x = xaxis.title) +
     ggplot2::theme(legend.position = "bottom",
                    legend.text = element_text(size = 12),
                    legend.margin = margin(t = -0.5, unit = 'cm') ) +
     ggplot2::guides(fill = guide_legend(nrow = 1, byrow = TRUE, title = "")) +
     ggplot2::scale_x_continuous(breaks = seq(ymin, ymax, by = 2))
 
-  if (length(annual_data) == 17) {
+  if (length(annual_data) == 17 | length(annual_data) == 14 ) {
     p <- p + ggplot2::scale_fill_brewer(palette = "Set1", name = "")
-  } else if(length(annual_data) == 15) {
+  } else if(length(annual_data) == 15 | length(annual_data) == 12 ) {
     p <- p + ggplot2::scale_fill_brewer(palette = "Dark2", name = "")
   }
 
@@ -599,6 +615,104 @@ evolution_plot_area <- function(annual_data, data, title = NULL,
   p
 
 }
+
+#' #
+#' #' @title Facet year plot
+#' #'
+#' #' @description This function blah, blah, blah....
+#' #'
+#' #' @param catch_data data frame. Definition of the topological sequence of
+#' #' catchments.
+#' #' @param annual_data data frame. Sources of nutrient for each year and
+#' #' catchments.
+#' #' @param alpha_p numeric. First model parameter, the basin retention
+#' #' coefficient.
+#' #' @param alpha_l numeric. Second model parameter, the river retention
+#' #' coefficient.
+#' #' @param sd_coef numeric. Third model parameter, fraction of domestic diffuse
+#' #' sources that reaches the stream network.
+#' #'
+#' #'
+#' #'
+#' #' @param plot_index numeric. The indexes to plot
+#' #' @param name_basin character. The name of the basin
+#' #' @param maxvalue numeric. The maximum value
+#' #' @return One object, a data frame
+#' #'
+#' #' @importFrom ggplot2 ggplot ggtitle geom_point xlim ylim theme_bw geom_abline facet_wrap
+#' #' @importFrom parallelly availableCores
+#' #' @importFrom parallel makeCluster clusterExport clusterEvalQ parLapply stopCluster
+#' #'
+#' #' @export
+#' #'
+#' facet_year_plot <- function(catch_data, annual_data, alpha_p, alpha_l,
+#'                             sd_coef, years, name_basin, maxvalue) {
+#'
+#'   years <- lapply(years, function(x){x})
+#'
+#'   n_cores <- parallelly::availableCores()
+#'   cluster <- parallel::makeCluster(n_cores)
+#'   parallel::clusterExport(cluster, list("launch_green", "check_colnames_annual",
+#'                                         "check_colnames_catch",
+#'                                         "aggregate_loop", "check_years",
+#'                                         "append_empty_cols",
+#'                                         "data_preparation"),
+#'                           envir = environment())
+#'   parallel::clusterEvalQ(cluster, c(library("data.table"), library("dplyr")))
+#'   DF_ScenGlobal <- parallel::parLapply(cluster, years, launch_green,
+#'                                  annual_data = annual_data,
+#'                                  catch_data = catch_data,
+#'                                  alpha_p = alpha_p,
+#'                                  alpha_l = alpha_l,
+#'                                  sd_coef = sd_coef)
+#'   parallel::stopCluster(cluster)
+#'   DF_ScenGlobal <- do.call("rbind", DF_ScenGlobal)
+#'
+#'   # DF_ScenGlobal <- launch_green(catch_data, annual_data, alpha_p, alpha_l,
+#'   #                               sd_coef, years)
+#'
+#'   DF_ObservadoG <- DF_ScenGlobal[!is.na(DF_ScenGlobal$ObsLoad), ]
+#'
+#'   names(DF_ObservadoG)
+#'   p <- ggplot2::ggplot(data = DF_ObservadoG, ggplot2::aes(x = ObsLoad,
+#'                                                           y = CatchLoad)) +
+#'     ggplot2::ggtitle(name_basin)  +
+#'     ggplot2::geom_point() +
+#'     ggplot2::xlim(0, maxvalue) +
+#'     ggplot2::ylim(0, maxvalue) +
+#'     ggplot2::theme_bw(base_size = 10  ) +
+#'     ggplot2::geom_abline(intercept = 0, slope = 1) +
+#'     ggplot2::facet_wrap(~Year)
+#'   print(p)
+#'
+#'   return(DF_ScenGlobal)
+#'
+#' }
+#'
+#' # ELIMINAR SI LA VERSION PARALELA ES DEFINITIVA
+#' facet_year_plot2 <- function(catch_data, annual_data, alpha_p, alpha_l,
+#'                             sd_coef, years, name_basin, maxvalue) {
+#'
+#'   DF_ScenGlobal <- launch_green(catch_data, annual_data, alpha_p, alpha_l,
+#'                                 sd_coef, years)
+#'
+#'   DF_ObservadoG <- DF_ScenGlobal[!is.na(DF_ScenGlobal$ObsLoad), ]
+#'
+#'   names(DF_ObservadoG)
+#'   p <- ggplot2::ggplot(data = DF_ObservadoG, ggplot2::aes(x = ObsLoad,
+#'                                                           y = CatchLoad)) +
+#'     ggplot2::ggtitle(name_basin)  +
+#'     ggplot2::geom_point() +
+#'     ggplot2::xlim(0, maxvalue) +
+#'     ggplot2::ylim(0, maxvalue) +
+#'     ggplot2::theme_bw(base_size = 10  ) +
+#'     ggplot2::geom_abline(intercept = 0, slope = 1) +
+#'     ggplot2::facet_wrap(~Year)
+#'   print(p)
+#'
+#'   return(DF_ScenGlobal)  #
+#'
+#' }
 
 #
 #' @title Density plot
@@ -664,7 +778,6 @@ gr_density_plot <- function(df_plot, plot_index, basin_name, cSD) {
 #' @param annual_data data frame. Sources of nutrient for each year and
 #' catchments.
 #' @param sh_file sf object. The spatial information.
-#' @param basin_name character. The title of the map
 #' @param plot.type character. Alternatives of the map: input load (kt) by type
 #' divided by year and catchment. “gr1”: by km2; “gr2”: by year/km2.
 #' @param style_map character. Alternatives to create the intervals in the maps.
@@ -690,19 +803,17 @@ gr_density_plot <- function(df_plot, plot_index, basin_name, cSD) {
 #' data(catch_data_TN)
 #' data(annual_data_TN)
 #' data(sh_file)
-#' # The title of the plot
-#' mapTitle <- "Time series for the Lay Basin"
 #' # the Input Load Map by source type 1 (lines)
-#' input_maps(catch_data_TN, annual_data_TN, sh_file, mapTitle, "gr1",
+#' input_maps(catch_data_TN, annual_data_TN, sh_file, plot.type = "gr1",
 #' legend_position = 2)
 #' # the Input Load Map by source type 2 (lines & area)
-#' input_maps(catch_data_TN, annual_data_TN, sh_file, mapTitle, "gr2",
+#' input_maps(catch_data_TN, annual_data_TN, sh_file, plot.type = "gr2",
 #' legend_position = 2)
 #' }
 #'
 #' @export
 #'
-input_maps <- function(catch_data, annual_data, sh_file, basin_name, plot.type,
+input_maps <- function(catch_data, annual_data, sh_file, plot.type,
                        style_map = "fisher", scale_barTextS = 0.7,
                        legend_position = 1){
 
@@ -773,7 +884,7 @@ input_maps <- function(catch_data, annual_data, sh_file, basin_name, plot.type,
                          unit = "t/y/km2", legend_position = legend_position))
     },
     {
-      stop("Variable type.plot should be 'gr1' or 'gr2'")
+      stop("Variable plot.type should be 'gr1' or 'gr2'")
     }
   )
 
@@ -807,7 +918,7 @@ input_maps <- function(catch_data, annual_data, sh_file, basin_name, plot.type,
 #' # The name of the basin
 #' basin_name <- "Lay"
 #' # the barplot
-#' input_plot(annual_data_TN, sh_file, basin_name, "B")
+#' input_plot(annual_data = annual_data_TN, basin_name = basin_name, plot.type = "B")
 #' # the density plots
 #' input_plot(annual_data_TN, sh_file, basin_name, "D")
 #'
@@ -816,14 +927,15 @@ input_maps <- function(catch_data, annual_data, sh_file, basin_name, plot.type,
 input_plot <- function(annual_data, sh_file, basin_name, plot.type,
                        coef_SD = 1.0){
 
-  sh_file$AreaSkm <- sf::st_area(sh_file) / 1000000
-  sh_file$AreaSkm <- as.numeric(sh_file$AreaSkm)
-
-  df_no_sf <- as.data.frame(sh_file)
-  df_no_sf <- df_no_sf[, c("HydroID","DrainAreaS","AreaSkm" )]
-  annual_data <- merge(annual_data, df_no_sf, by = "HydroID")
 
   if (plot.type == "D") {
+    sh_file$AreaSkm <- sf::st_area(sh_file) / 1000000
+    sh_file$AreaSkm <- as.numeric(sh_file$AreaSkm)
+
+    df_no_sf <- as.data.frame(sh_file)
+    df_no_sf <- df_no_sf[, c("HydroID","DrainAreaS","AreaSkm" )]
+    annual_data <- merge(annual_data, df_no_sf, by = "HydroID")
+
     oldpar <- par(no.readonly = TRUE)
     on.exit(par(oldpar))
     graphics::par(mfrow=c(1, 3))
@@ -836,10 +948,10 @@ input_plot <- function(annual_data, sh_file, basin_name, plot.type,
     }
   } else if (plot.type == "B") {
 
-    index1 <- length(annual_data) - 5
-    index2 <- length(annual_data) - 8
+    index1 <- length(annual_data) - 3
+    index2 <- length(annual_data) - 6
 
-    df_load_tot_type_year <- annual_data[, c(3, 5:index1)] %>%
+    df_load_tot_type_year <- annual_data[, c(2, 5:index1)] %>%
       dplyr::group_by(YearValue) %>%
       dplyr::summarise(dplyr::across(tidyselect::everything(), list(sum)))
 
@@ -847,9 +959,9 @@ input_plot <- function(annual_data, sh_file, basin_name, plot.type,
 
     LoadAvg <- colMeans(df_load_tot_type_year[, c(2:index2)])
 
-    if (length(annual_data) == 14) {
+    if (length(annual_data) == 12) {
       names(LoadAvg)<- c("Bg","Min","Man","Sd","PS")
-    } else if (length(annual_data) == 16) {
+    } else if (length(annual_data) == 14) {
       names(LoadAvg)<- c("Atm","Min","Man","Fix","Soil","Sd","PS")
     }
 
@@ -885,7 +997,7 @@ input_plot <- function(annual_data, sh_file, basin_name, plot.type,
 #' @param sh_file sf object. The spatial information.
 #' @param basin_name character. The title of the plot
 #' @param plot.type character. Alternative of the plot: “gr1”: stacked area;
-#' “gr2”: lines & area; “gr3”: by km2; “gr4” by km2 and Shreve.
+#' “gr2”: lines & area.
 #' @return A time-series plot
 #'
 #' @importFrom sf st_area
@@ -909,17 +1021,154 @@ input_plot <- function(annual_data, sh_file, basin_name, plot.type,
 #' input_Tserie(catch_data_TN, annual_data_TN, sh_file, plotTitle, "gr1")
 #' # the time serie plot 2 (lines & area)
 #' input_Tserie(catch_data_TN, annual_data_TN, sh_file, plotTitle, "gr2")
-#' # the time serie plot 3 (by km2)
-#' input_Tserie(catch_data_TN, annual_data_TN, sh_file, plotTitle, "gr3")
-#' # the time serie plot 4 (by km2 and Shreve)
-#' input_Tserie(catch_data_TN, annual_data_TN, sh_file, plotTitle, "gr4")
 #' }
 #'
 #' @export
 input_Tserie <- function(catch_data, annual_data, sh_file, basin_name,
                          plot.type){
 
-  sh_file$AreaSkm <- sf::st_area(sh_file) / 1000000
+  # 1 Tg (teragramos): 10^12 gr
+  # 1 Tg (teragramos): 10^6 t (Toneladas) :  10^9 kg (kilo gramos):
+  # 1 Tg (teragramos): 10^3 kt (miles de Toneladas):
+  #str(annual_data)
+
+  index1 <- length(annual_data) - 3
+  index2 <- length(annual_data) - 6
+  index3 <- length(annual_data)
+  index4 <- index2 + 1
+
+  DF_LoadTot_Type_Year <- annual_data[, c(2, 5:index1)] %>%
+    dplyr::group_by(YearValue) %>%
+    dplyr::summarise(dplyr::across(tidyselect::everything(), list(sum)))  # error codigo original era mean
+
+  DF_LoadTot_Type_Year <- data.frame(DF_LoadTot_Type_Year)
+
+  if(length(annual_data)==12){
+    names(DF_LoadTot_Type_Year)<- c("Year","Bg","Min","Man","Sd","PS")
+  }else if(length(annual_data)==14){
+    names(DF_LoadTot_Type_Year)<- c("Year","Atm","Min","Man","Fix","Soil","Sd","Ps")
+  }
+
+  ymin <- min(DF_LoadTot_Type_Year$Year)
+  ymax <- max(DF_LoadTot_Type_Year$Year)
+
+  DF_LoadTot_Type_Year_melt <- reshape2::melt(DF_LoadTot_Type_Year,
+                                              id.vars = "Year")
+
+  # para que mantenga el orden de los colores
+  if(length(annual_data)==12){
+    new_order <- c("Min","Man","Bg","Sd","PS")
+    DF_LoadTot_Type_Year_melt$variable <- factor(DF_LoadTot_Type_Year_melt$variable, levels = new_order)
+  }else if(length(annual_data)==14){
+    new_order <- c("Min","Man","Atm","Fix","Soil","Sd","Ps")
+    DF_LoadTot_Type_Year_melt$variable <- factor(DF_LoadTot_Type_Year_melt$variable, levels = new_order)
+  }
+
+  #  sum(DF_LoadTot_Type_Year_melt[DF_LoadTot_Type_Year_melt$Year == 1990, ]$value)
+
+  DF_LoadTot_Type_Year_melt$value = DF_LoadTot_Type_Year_melt$value / 1000000    #convierto ton en Tg
+
+
+  switch (
+    plot.type,
+    "gr1" = {
+
+      p1 <- evolution_plot_area(annual_data = annual_data,
+                                new_data = DF_LoadTot_Type_Year_melt,
+                                title_plot = paste0(basin_name," Input Time Series"),
+                                yaxis.title = "Input by Source (Tg/y)",
+                                xaxis.title = "Year",
+                                x = "Year",
+                                y = "value",
+                                colour = "variable")
+      print(p1)
+    },
+    "gr2" = {
+
+      p1 <-  evolution_plot(data = DF_LoadTot_Type_Year_melt,
+                            yaxis.title = "Input by Source (Tg/y)",
+                            xaxis.title = "Year", x = "Year", y = "value",
+                            colour = "variable")
+      p1 <- p1 +
+        ggplot2::theme(legend.position = "bottom", legend.text = element_text(size = 12),
+                       legend.margin = margin(t = -0.5, unit = 'cm') )+
+        ggplot2::guides(colour = guide_legend(nrow = 1, byrow = TRUE, title = "")) +
+        ggplot2::scale_x_continuous(breaks = seq(ymin, ymax, by = 2))
+      # print(p1)
+      #  ggplot2::scale_x_continuous(breaks = seq(ymin, ymax, by = 2))
+
+
+      DF_LoadTot_Type_Year$Total <- rowSums(DF_LoadTot_Type_Year[,2:index2] )   # anaddo columna con el total
+      # DF_LoadTot_Type_Year$Total <- DF_LoadTot_Type_Year$Total / 1000
+      DF_LoadTot_Type_Year_aux <- DF_LoadTot_Type_Year %>% dplyr::select(Year, Total)
+
+      DF_LoadTot_Type_Year_aux$Total <- DF_LoadTot_Type_Year_aux$Total/ 1000000
+
+      p2 <-  evolution_plot(data = DF_LoadTot_Type_Year_aux,
+                            title = paste0(basin_name," Input Time Series"),
+                            yaxis.title = "Total Input (Tg/y)",
+                            xaxis.title = "Year", x = "Year", y = "Total")
+      p2 <- p2 +
+        ggplot2::scale_x_continuous(breaks = seq(ymin, ymax, by = 2))
+
+      print(gridExtra::grid.arrange(p2, p1, nrow = 2))
+    },
+    {
+      stop("Variable plot.type should be 'gr1', 'gr2' ")
+    }
+
+  )
+
+
+  return(DF_LoadTot_Type_Year)
+
+}
+
+#
+#' @title Time series of annual load inputs by source and km2
+#'
+#' @description Creates a time series plot showing basin inputs by
+#' source
+#'
+#' @param catch_data data frame. Definition of the topological sequence of
+#' catchments.
+#' @param annual_data data frame. Sources of nutrient for each year and
+#' catchments.
+#' @param sh_file sf object. The spatial information.
+#' @param basin_name character. The title of the plot
+#' @param plot.type character. Alternative of the plot:  “gr1”:  stacked area by km2; “gr2”  lines & area by km2 and Shreve.
+#' @return A time-series plot
+#'
+#' @importFrom sf st_area
+#' @importFrom stats quantile
+#' @importFrom tidyselect everything
+#' @importFrom dplyr group_by summarise across select
+#' @importFrom magrittr %>%
+#' @importFrom reshape2 melt
+#' @importFrom ggplot2 scale_x_continuous facet_wrap
+#' @importFrom gridExtra grid.arrange
+#'
+#' @examples
+#' \donttest{
+#' # the data of the TN scenario
+#' data(catch_data_TN)
+#' data(annual_data_TN)
+#' data(sh_file)
+#' # The title of the plot
+#' plotTitle <- "Time series for the Lay Basin"
+#' # the time serie plot 1 (by km2)
+#' input_Tserie(catch_data_TN, annual_data_TN, sh_file, plotTitle, "gr1")
+#' # the time serie plot 2 (by km2 and Shreve)
+#' input_Tserie(catch_data_TN, annual_data_TN, sh_file, plotTitle, "gr2")
+#' }
+#' # catch_data <- The_Scen[[1]]
+#' # annual_data <- The_Scen[[2]]
+#' # sh_file <- The_Sf_shape
+#' @export
+input_Tserie_area <- function(catch_data, annual_data, sh_file, basin_name,
+                              plot.type){
+
+  sh_file$AreaSkm <- sf::st_area(sh_file) / 1000000  #conversion km2
   sh_file$AreaSkm <- as.numeric(sh_file$AreaSkm)
   basin_area <- as.numeric(sum(sf::st_area(sh_file)) / 1000000)
 
@@ -971,53 +1220,8 @@ input_Tserie <- function(catch_data, annual_data, sh_file, basin_name,
 
   switch (
     plot.type,
+    # LAS sos SIGUIENTES NECESITAN SHAPE FILE
     "gr1" = {
-      df_load_tot_type_year_melt <- reshape2::melt(df_load_tot_type_year,
-                                                   id.vars = "Year")
-
-      df_load_tot_type_year_melt$value <- df_load_tot_type_year_melt$value / 1000
-      p1 <- evolution_plot_area(annual_data = annual_data,
-                                data = df_load_tot_type_year_melt,
-                                title = paste0(basin_name," Input Time Series"),
-                                yaxis.title = "Input by Source (kt/y)",
-                                xaxis.title = "Year",
-                                x = "Year",
-                                y = "value",
-                                colour = "variable")
-      print(p1)
-    },
-    "gr2" = {
-      df_load_tot_type_year_melt <- reshape2::melt(df_load_tot_type_year,
-                                                   id.vars = "Year")
-      p1 <-  evolution_plot(data = df_load_tot_type_year_melt,
-                            yaxis.title = "Input by Source (kt/y)",
-                            xaxis.title = "Year",
-                            x = "Year",
-                            y = "value",
-                            colour = "variable")
-      p1 <- p1 +
-        ggplot2::theme(legend.position = "bottom",
-                       legend.text = element_text(size = 12),
-                       legend.margin = margin(t = -0.5, unit = 'cm') ) +
-        ggplot2::guides(colour = guide_legend(nrow = 1,
-                                              byrow = TRUE,
-                                              title = "")) +
-        ggplot2::scale_x_continuous(breaks = seq(ymin, ymax, by = 2))
-
-      df_load_tot_type_year$Total <- rowSums(df_load_tot_type_year[, 2:index2] )
-      df_load_tot_type_year_aux <- df_load_tot_type_year %>%
-        dplyr::select(Year, Total)
-
-      p2 <-  evolution_plot(data = df_load_tot_type_year_aux,
-                            title = paste0(basin_name," Input Time Series"),
-                            yaxis.title = "Total Input (kt/y)",
-                            xaxis.title = "Year", x = "Year", y = "Total")
-      p2 <- p2 +
-        ggplot2::scale_x_continuous(breaks = seq(ymin, ymax, by = 2))
-
-      print(gridExtra::grid.arrange(p2, p1, nrow = 2))
-    },
-    "gr3" = {
       df_load_km2_type_year <- df_load_tot_type_year
       df_load_km2_type_year[, 2:index2] <-
         df_load_km2_type_year[, 2:index2] / basin_area
@@ -1025,9 +1229,20 @@ input_Tserie <- function(catch_data, annual_data, sh_file, basin_name,
       df_load_avg_type_year_melt <- reshape2::melt(df_load_km2_type_year,
                                                    id.vars = "Year")
 
+      # para que mantenga el orden de los colores
+      if(length(annual_data)==15){
+        new_order <- c("Min","Man","Bg","Sd","PS")
+        df_load_avg_type_year_melt$variable <- factor(df_load_avg_type_year_melt$variable, levels = new_order)
+      }else if(length(annual_data)==17){
+        new_order <- c("Min","Man","Atm","Fix","Soil","Sd","Ps")
+        df_load_avg_type_year_melt$variable <- factor(df_load_avg_type_year_melt$variable, levels = new_order)
+      }
+
+
+      # en esta funcion el primer parametro es solo para saber si TP o TN y los anos
       p1 <- evolution_plot_area(annual_data = annual_data,
-                                data = df_load_avg_type_year_melt,
-                                title = paste0(basin_name,
+                                new_data = df_load_avg_type_year_melt,
+                                title_plot = paste0(basin_name,
                                                " Annual Input Time Series"),
                                 yaxis.title = "Input by source (t/y/km2)",
                                 xaxis.title = "Year",
@@ -1038,10 +1253,10 @@ input_Tserie <- function(catch_data, annual_data, sh_file, basin_name,
 
       print(p1)
     },
-    "gr4" = {
+    "gr2" = {
       df_load_km2_type_shr_year <- annual_data[, c(3, index3, 5:index1)] %>%
         dplyr::group_by(YearValue, shrLevel) %>%
-        dplyr::summarise(dplyr::across(tidyselect::everything(), list(mean)),
+        dplyr::summarise(dplyr::across(tidyselect::everything(), list(sum)),
                          .groups = "rowwise")
 
       df_load_km2_type_shr_year <- data.frame(df_load_km2_type_shr_year)
@@ -1076,6 +1291,17 @@ input_Tserie <- function(catch_data, annual_data, sh_file, basin_name,
         reshape2::melt(df_load_km2_type_shr_year,
                        id.vars = c("Year","shrLevel"))
 
+
+      # para que mantenga el orden de los colores
+      if(length(annual_data)==15){
+        new_order <- c("Min","Man","Bg","Sd","PS")
+        df_load_avg_type_shr_year_melt$variable <- factor(df_load_avg_type_shr_year_melt$variable, levels = new_order)
+      }else if(length(annual_data)==17){
+        new_order <- c("Min","Man","Atm","Fix","Soil","Sd","Ps")
+        df_load_avg_type_shr_year_melt$variable <- factor(df_load_avg_type_shr_year_melt$variable, levels = new_order)
+      }
+
+
       df_load_avg_type_shr_year_melt$etiquetas <-
         factor(df_load_avg_type_shr_year_melt$shrLevel,
                labels = c(paste0("Upper Part= " ,  floor(sh_sr1Area)," km2"),
@@ -1099,10 +1325,54 @@ input_Tserie <- function(catch_data, annual_data, sh_file, basin_name,
       print(p1)
     },
     {
-      stop("Variable type.plot should be 'gr1', 'gr2', 'gr3' or 'gr4'")
+      stop("Variable plot.type should be 'gr1', 'gr2'")
     }
 
   )
+
+}
+
+#'
+#' @title Lake retention values summary
+#'
+#' @description Summary of the reference values in the stations
+#'
+#' @param catch_data_TN data frame. Sources of nutrient for each year and
+#' catchments.
+#'
+#' @return barplot & histogram-density
+#'
+#' @importFrom graphics hist
+#'
+#' @examples
+#' \donttest{
+#' # the data of the TN scenario
+#' data(catch_data_TN)
+#' LakeRetent_plot(catch_data_TN)
+#' }
+#'
+#' @export
+#'
+LakeRetent_plot <- function(catch_data_TN) {
+
+  # Calcular porcentaje de valores nulos
+  porcentaje_nulos <- mean(catch_data_TN$LakeFrRet == 0) * 100
+
+  par(mfrow = c(1,2))
+  # Crear histograma con densidad
+  graphics::hist(catch_data_TN$LakeFrRet, probability = TRUE, breaks = 30,
+       main = "Lake Retention Fraction",
+       sub = paste("Percentage of null values: ", round(porcentaje_nulos, 2), "%"),
+       xlab = "Values", col = "lightblue")
+
+  # Superponer curva de densidad
+  densidad <- density(catch_data_TN$LakeFrRet)
+  lines(densidad, col = "darkblue", lwd = 2)
+
+  # sin considerar los nulos
+  densidad <-density(catch_data_TN$LakeFrRet[catch_data_TN$LakeFrRet!=0])
+  plot(densidad, main = "Lake Retention (only no null)",col = "lightblue", lwd = 2)
+
 
 }
 
@@ -1113,7 +1383,7 @@ input_Tserie <- function(catch_data, annual_data, sh_file, basin_name,
 #'
 #' @param hydroSf data frame.
 #' @param long_basin numeric.
-#' @param unity character. The units of hydroSf
+#' @param title string. The title of the map
 #' @param style_map character. The style of the map
 #' @param legend_position numeric. It indicates de position of the legend of the
 #' plot. (Default: 1)
@@ -1144,6 +1414,7 @@ load_map <- function(hydroSf, long_basin, title, style_map,
 #' @param refN_P numeric. The number of variables of the data frame
 #' @param long_basin numeric.
 #' @param unity character. The units of hydroSf
+#' @param style_map character. The style of the map
 #' @param legend_position numeric. It indicates de position of the legend of the
 #' plot. (Default: 1)
 #' @return A plot with map of the basin
@@ -1152,10 +1423,8 @@ load_map <- function(hydroSf, long_basin, title, style_map,
 #'
 #' @keywords internal
 #'
-load_SA_map <- function(hydroSf_merge, refN_P, long_basin, unity,
+load_SA_map <- function(hydroSf_merge, refN_P, long_basin, unity, style_map,
                         legend_position = 1) {
-
-  style_map <- "log10"
 
   c_man <- c("Man_1", "Manure", "YlOrRd")
   c_min <- c("Min_1", "Mineral", "YlOrRd")
@@ -1249,10 +1518,10 @@ multiple_map <- function(hydroSf, refN_P, long_basin, unit,
 #' function. Nutrient Load by source apportionment of nutrient for each year
 #' and catchments.
 #' @param sh_file sf object. The spatial information of the basin.
-#' @param basin_name character. The title of the map.
 #' @param plot.type character. Alternatives of the map: “gr1”: output load
 #' (kt/y) by source; “gr2”: Total Load, log10 (kt/y); “gr3”: Total Load
 #' by km2 (kt/year/km2).
+#' @param style charater. The style of the plot.
 #' @param legend_position numeric. Legend position: 1 (default): "right",
 #' "bottom"; 2: "left", "up"; 3: "right", "bottom"; 4: "right", "up".
 #' @return No return value, called for the side effect of drawing a plot
@@ -1283,22 +1552,20 @@ multiple_map <- function(hydroSf, refN_P, long_basin, unit,
 #' # Computing the source apportionment
 #' basin_sa <- green_shares(catch_data_TN, annual_data_TN, alpha_p, alpha_l,
 #' sd_coef, loc_years)
-#' # The title of the Map
-#' mapTitle <- "Output Loads  for the Lay Basin"
 #' # Basin Output Load  Maps by source
 #' Lpos <- 1
-#' nutrient_maps(basin_sa, sh_file, mapTitle, "gr1", Lpos)
+#' nutrient_maps(basin_sa, sh_file, plot.type = "gr1", style = "log10", legend_position = Lpos)
 #' # Basin Output Specific Load  Maps
 #' Lpos <- 1
-#' nutrient_maps(basin_sa, sh_file, mapTitle, "gr2", Lpos)
+#' nutrient_maps(basin_sa, sh_file, plot.type = "gr2", style = "log10", legend_position = Lpos)
 #' # Basin Output Specific Load by km2 Maps
 #' Lpos <- 1
-#' nutrient_maps(basin_sa, sh_file, mapTitle, "gr3", Lpos)
+#' nutrient_maps(basin_sa, sh_file, plot.type = "gr3", style = "fisher", legend_position = Lpos)
 #' }
 #'
 #' @export
 #'
-nutrient_maps <- function(green_file, sh_file, basin_name, plot.type,
+nutrient_maps <- function(green_file, sh_file, plot.type, style,
                           legend_position = 1) {
 
   sh_file$AreaSkm <- sf::st_area(sh_file) / 1000000
@@ -1319,18 +1586,18 @@ nutrient_maps <- function(green_file, sh_file, basin_name, plot.type,
 
   switch(plot.type,
          "gr1" = {
-           df_load_SA_hydro <- green_file[, c(1, 2, 3:index1)] %>%
-             dplyr::group_by(HydroID ) %>%
+           df_load_SA_hydro <- green_file[, c(1, 2, 4:index1)] %>%
+             dplyr::group_by(HydroID) %>%
              dplyr::summarise(dplyr::across(tidyselect::everything(), list(mean)))
-           df_load_SA_hydro[, 3:index1] <- df_load_SA_hydro[, 3:index1] + 0.1
+           df_load_SA_hydro[, 3:(index1 - 1)] <- df_load_SA_hydro[, 3:(index1 - 1)] + 0.1
 
-           hydroSf_SA_merge <- merge(sh_file, df_load_SA_hydro[, c(1, 3:index1)],
+           hydroSf_SA_merge <- merge(sh_file, df_load_SA_hydro[, c(1, 3:(index1 - 1))],
                                      by = "HydroID")
 
            numvar <- length(hydroSf_SA_merge)
 
            load_SA_map(hydroSf_merge = hydroSf_SA_merge, refN_P = numvar,
-                       long_basin = long_basin, unity = "(t/y)",
+                       long_basin = long_basin, unity = "(t/y)", style,
                        legend_position = legend_position)
          },
          "gr2" = {
@@ -1339,13 +1606,13 @@ nutrient_maps <- function(green_file, sh_file, basin_name, plot.type,
              dplyr::summarise(dplyr::across(tidyselect::everything(), list(mean)))
 
            df_load_hydro  <- data.frame(df_load_hydro)
-           names(df_load_hydro) <- c("HydroID", "Year","CatchLoad")
+           names(df_load_hydro) <- c("HydroID", "Year", "CatchLoad")
 
-           hydroSf_merge <- merge(sh_file, df_load_hydro[,c("HydroID", "CatchLoad")],
+           hydroSf_merge <- merge(sh_file, df_load_hydro[, c("HydroID", "CatchLoad")],
                                   by = "HydroID")
 
-           title <- "Total load (t/y) log10 scale"
-           load_map(hydroSf_merge, long_basin, title, "log10",
+           plot_title <- "Total load (t/y)"
+           load_map(hydroSf_merge, long_basin, plot_title, style,
                     legend_position = legend_position)
          },
          "gr3" = {
@@ -1363,12 +1630,12 @@ nutrient_maps <- function(green_file, sh_file, basin_name, plot.type,
                                     df_load_hydro_DA[, c("HydroID", "CatchLoad")],
                                     by = "HydroID")
 
-           title <- "Specific load (t/km2/y)"
-           load_map(hydroSf_mergeDA, long_basin, title, "fisher",
+           plot_title <- "Specific load (t/km2/y)"
+           load_map(hydroSf_mergeDA, long_basin, plot_title, style,
                     legend_position = legend_position)
          },
          {
-           stop("Variable type.plot should be 'gr1','gr2' or 'gr3'")
+           stop("Variable plot.type should be 'gr1','gr2' or 'gr3'")
          }
   )
 
@@ -1381,11 +1648,133 @@ nutrient_maps <- function(green_file, sh_file, basin_name, plot.type,
 #'
 #' @param green_file data frame. Nutrient Load by source apportionment of
 #' nutrient for each year and catchments.
-#' @param sh_file sf object. The spatial information.
 #' @param basin_name character. The title of the plot.
 #' @param plot.type character. Alternative of the plot: output load (t) by
-#' source; gr1: Basin average by Shreve (t/y/km2); gr2: Outlet total (kt/y);
-#' gr3: Outlet by source apportionment (kt/y).
+#' source; gr1: Basin average by Shreve (t/y/km2); gr2: Outlet total (kt/y).
+#' @param file_path character. The path to save the csv.
+#' @return No return value, called for the side effect of drawing a plot
+#'
+#' @importFrom sf st_area
+#' @importFrom reshape2 melt
+#' @importFrom ggplot2 ggplot aes geom_line theme_bw labs scale_color_brewer
+#' facet_wrap theme guides guide_legend element_text margin element_blank
+#' @importFrom gridExtra grid.arrange
+#' @importFrom dplyr group_by summarise across
+#' @importFrom magrittr %>%
+#' @importFrom tidyselect everything
+#' @importFrom tmap tmap_arrange
+#' @importFrom graphics par barplot
+#' @importFrom utils write.csv
+#'
+#' @examples
+#' \donttest{
+#' # the data of the TN scenario
+#' data(catch_data_TN)
+#' data(annual_data_TN)
+#' data(sh_file)
+#' # the parameter to assess the basin model
+#' alpha_p <- 35.09
+#' alpha_l <- 0.02
+#' sd_coef <- 0.2
+#' # years in which the model should be executed
+#' loc_years <- 1990:2018
+#' # Computing the source apportionment
+#' basin_sa <- green_shares(catch_data_TN, annual_data_TN, alpha_p, alpha_l,
+#' sd_coef, loc_years)
+#' # The title of the plot
+#' plotTitle <- "Time series Load Output for the Lay Basin"
+#' # Output Load Basin average time series (lines)
+#' nutrient_tserie(basin_sa, basin_name = plotTitle, plot.type = "gr1")
+#' # Total Load in the Basin Outlet time series (lines)
+#' nutrient_tserie(basin_sa, basin_name = plotTitle, plot.type = "gr2")
+#' }
+#'
+#' @export
+#'
+nutrient_tserie <- function(green_file, basin_name, plot.type, file_path = NULL) {
+
+  ymin<- min(green_file$Year)
+  ymax <- max(green_file$Year)
+
+  greenFile_OUT <- green_file %>%
+    filter(To_catch == -1) %>%
+    group_by(Year) %>%
+    summarize_all(sum, na.rm = TRUE)
+  greenFile_OUT <- as.data.frame(greenFile_OUT)
+  greenFile_OUT$HydroID <- NULL
+  greenFile_OUT$To_catch <- NULL
+
+  if (!is.null(file_path)) {
+    utils::write.csv(greenFile_OUT, file = file_path, row.names = FALSE)
+  }
+
+  switch (plot.type,
+          "gr1" = {
+            print(
+              ggplot2::ggplot(data = greenFile_OUT,
+                              ggplot2::aes(x = Year, y = CatchLoad/1000000)) +
+                ggplot2::geom_line(alpha = 1.5, size = 1.2) +
+                ggplot2::theme_bw(base_size = 15) +
+                ggplot2::labs(title = paste0(basin_name," Outlet Load time serie "),
+                              y = "Outlet annual load (Tg/y)",
+                              x = "Year")  +
+                ggplot2::scale_color_brewer(palette = "Set1", name = "")
+            )
+          },
+          "gr2" = {
+
+            if(length(greenFile_OUT)==9){
+              colores <- "Set1"      # Para N esta paleta
+              greenFileOut_melt <- reshape2::melt(greenFile_OUT[, c(1:8)],
+                                                  id.vars = c( "Year"))
+              # Change the order of levels
+              new_order <- c("Min","Man","Atm","Fix","Soil","Sd","Ps")
+              greenFileOut_melt$variable <- factor(greenFileOut_melt$variable, levels = new_order)
+            }
+            if(length(greenFile_OUT)==7){
+              colores <- "Dark2"  # para P esta paleta
+              greenFileOut_melt <- reshape2::melt(greenFile_OUT[, c(1:6)],
+                                                  id.vars = c( "Year"))
+              # Change the order of levels
+              new_order <- c("Min","Man","Bg","Sd","Ps")
+              greenFileOut_melt$variable <- factor(greenFileOut_melt$variable, levels = new_order)
+            }
+
+            print(
+              ggplot2::ggplot(data = greenFileOut_melt,
+                              ggplot2::aes(x = Year, y = value /1000000, fill = variable)) +
+                ggplot2::geom_area(alpha = 1.5,size = 1.2) +
+                ggplot2::theme_bw(base_size = 15  ) +
+                ggplot2::labs(title = basin_name,
+                              y = "Outlet annual load with source contribution (Tg/y)",
+                              x = "Year")  +
+                ggplot2::scale_fill_brewer(palette = colores) +
+                ggplot2::theme(legend.position = "bottom",
+                               legend.text = element_text(size = 12),
+                               legend.margin = margin(t = -0.5, unit = 'cm') ) +
+                ggplot2::guides(fill = guide_legend(nrow = 1, byrow = TRUE, title = "")) +
+                ggplot2::scale_x_continuous(breaks = seq(ymin, ymax, by = 2))
+            )
+          },
+          {
+            stop("Variable plot.type should be 'gr1','gr2' ")
+          }
+  )
+
+  return(greenFile_OUT)
+
+}
+
+
+#
+#' @title Output load time series plot
+#'
+#' @description Creates a time series plot showing basin model results
+#'
+#' @param green_file data frame. Nutrient Load by source apportionment of
+#' nutrient for each year and catchments.
+#' @param sh_file sf object. The spatial information.
+#' @param basin_name character. The title of the plot.
 #' @return No return value, called for the side effect of drawing a plot
 #'
 #' @importFrom sf st_area
@@ -1414,25 +1803,19 @@ nutrient_maps <- function(green_file, sh_file, basin_name, plot.type,
 #' # Computing the source apportionment
 #' basin_sa <- green_shares(catch_data_TN, annual_data_TN, alpha_p, alpha_l,
 #' sd_coef, loc_years)
-#' # The title of the plot
-#' plotTitle <- "Time series Load Output for the Lay Basin"
-#' # Output Load Basin average time series (lines)
-#' nutrient_tserie(basin_sa, sh_file, plotTitle, "gr1")
-#' # Total Load in the Basin Outlet time series (lines)
-#' nutrient_tserie(basin_sa, sh_file, plotTitle, "gr2")
-#' # Total Load in the Basin Outlet by source apportionment time series (lines)
-#' nutrient_tserie(basin_sa, sh_file, plotTitle, "gr3")
+#' basin_name <- "Visla Basin"
+#' nutrient_tserie_darea(basin_sa, sh_file, basin_name)
 #' }
 #'
 #' @export
 #'
-nutrient_tserie <- function(green_file, sh_file, basin_name, plot.type) {
+nutrient_tserie_darea <- function(green_file, sh_file, basin_name){
 
   sh_file$AreaSkm <- sf::st_area(sh_file) / 1000000
   sh_file$AreaSkm <- as.numeric(sh_file$AreaSkm)
 
   df_no_sf <- as.data.frame(sh_file)
-  df_no_sf <- df_no_sf[, c("HydroID", "NextDownID", "Shreve", "DrainAreaS",
+  df_no_sf <- df_no_sf[, c("HydroID", "Shreve", "DrainAreaS",
                            "AreaSkm")]
 
   result <- create_levels(green_file, df_no_sf)
@@ -1448,20 +1831,13 @@ nutrient_tserie <- function(green_file, sh_file, basin_name, plot.type) {
   sh_sr3DrAr <- sum(green_file[green_file$HydroID %in% ShrLevel3,
                                c("DrainAreaS")])
 
-  index1 <- length(green_file) - 5
-  index2 <- length(green_file) - 2
-  index3 <- length(green_file)
-  index4 <- length(green_file) - 6
-  ymin<- min(green_file$Year)
-  ymax <- max(green_file$Year)
-
   if (length(green_file) == 15) {
     colores <- "Set1"
   } else if (length(green_file) == 13) {
     colores <- "Dark2"
   }
 
-  df_load_avg_type_shr_year <- green_file[, c(2,index1,index2,index3)] %>%
+  df_load_avg_type_shr_year <- green_file[, c("Year","DrainAreaS","shrLevel","CatchLoad" )] %>%
     dplyr::group_by(Year,shrLevel) %>%
     dplyr::summarise(dplyr::across(tidyselect::everything(), list(mean)),
                      .groups = "rowwise")
@@ -1471,75 +1847,27 @@ nutrient_tserie <- function(green_file, sh_file, basin_name, plot.type) {
     df_load_avg_type_shr_year$DrainAreaS_1
 
   df_load_avg_type_shr_year_melt <- reshape2::melt(
-    df_load_avg_type_shr_year[, c(1, 2, 5)], id.vars = c("Year","shrLevel"))
+    df_load_avg_type_shr_year[, c("Year","shrLevel","LoadByDA")], id.vars = c("Year","shrLevel"))
   df_load_avg_type_shr_year_melt$etiquetas <-
     factor(df_load_avg_type_shr_year_melt$shrLevel,
            labels = c(paste("DrainArea=", floor(sh_sr1DrAr)),
                       paste("DrainArea=", floor(sh_sr2DrAr)),
                       paste("DrainArea=", floor(sh_sr3DrAr))))
 
-  switch (plot.type,
-          "gr1" = {
-            print(
-              ggplot2::ggplot(data = df_load_avg_type_shr_year_melt,
-                              ggplot2::aes(x = Year, y = value)) +
-                ggplot2::geom_line(alpha = 1.5,size = 1.2) +
-                ggplot2::theme_bw(base_size = 15) +
-                ggplot2::labs(title =
-                                paste0(basin_name,
-                                       " Load time series by shreve level "),
-                              y = expression("Mean annual specific load (t/y/" ~
-                                               km^2 ~ ")" ) ,
-                              x = "Year")  +
-                ggplot2::scale_color_brewer(palette = colores, name = "") +
-                ggplot2::facet_wrap(~ etiquetas)
-            )
-          },
-          "gr2" = {
-            greenFile_OUT <- green_file[green_file$NextDownID == -1, ]
 
-            print(
-              ggplot2::ggplot(data = greenFile_OUT,
-                              ggplot2::aes(x = Year, y = CatchLoad/1000)) +
-                ggplot2::geom_line(alpha = 1.5, size = 1.2) +
-                ggplot2::theme_bw(base_size = 15) +
-                ggplot2::labs(title = paste0(basin_name," Outlet Load time serie "),
-                              y = "Outlet annual load (kt/y)",
-                              x = "Year")  +
-                ggplot2::scale_color_brewer(palette = colores, name = "")
-            )
-          },
-          "gr3" = {
-            greenFile_OUT <- green_file[green_file$NextDownID == -1, ]
-            greenFileOut_melt <- reshape2::melt(greenFile_OUT[, c(2:index4)],
-                                                id.vars = c( "Year"))
-            greenFileOut_melt$variable <- factor(greenFileOut_melt$variable,
-                                                 levels = c("Min", "Man", "Atm",
-                                                            "Fix", "Soil", "Sd",
-                                                            "Ps"))
-
-            print(
-              ggplot2::ggplot(data = greenFileOut_melt,
-                              ggplot2::aes(x = Year, y = value / 1000,
-                                           fill = variable)) +
-                ggplot2::geom_area(alpha = 1.5,size = 1.2) +
-                ggplot2::theme_bw(base_size = 15  ) +
-                ggplot2::labs(title = basin_name,
-                              y = "Outlet annual load with source
-                        contribution (kt/y)",
-                              x = "Year")  +
-                ggplot2::scale_fill_brewer(palette = colores) +
-                ggplot2::theme(legend.position = "bottom",
-                               legend.text = ggplot2::element_text(size = 12),
-                               legend.margin = ggplot2::margin(t = -0.5, unit = 'cm') ) +
-                ggplot2::guides(fill = ggplot2::guide_legend(nrow = 1, byrow = TRUE,
-                                                    title = "")) +
-                ggplot2::scale_x_continuous(breaks = seq(ymin, ymax, by = 2))
-            )
-          },
-          {
-            stop("Variable type.plot should be 'gr1','gr2' or 'gr3'")
-          }
+  print(
+    ggplot2::ggplot(data = df_load_avg_type_shr_year_melt,
+                    ggplot2::aes(x = Year, y = value)) +
+      ggplot2::geom_line(alpha = 1.5,size = 1.2) +
+      ggplot2::theme_bw(base_size = 15) +
+      ggplot2::labs(title =
+                      paste0(basin_name,
+                             " Load time series by shreve level "),
+                    y = expression("Mean annual specific load (t/y/" ~
+                                     km^2 ~ ")" ) ,
+                    x = "Year")  +
+      ggplot2::scale_color_brewer(palette = colores, name = "") +
+      ggplot2::facet_wrap(~ etiquetas)
   )
 
 }
@@ -1659,43 +1987,54 @@ N4_sankey <- function(Nbalance_out) {
   outloads
 }
 
-#
-#' @title Preprocessing data for scenario summary
 #'
-#' @description This function blah, blah, blah....
+#' @title Reference summary plot
 #'
-#' @param annual_data data frame.
-#' @return A data frame with the total load by year and type
+#' @description Summary of the reference values in the stations
 #'
-#' @importFrom ggplot2 ggplot aes ggtitle facet_wrap geom_point geom_abline
-#' @importFrom graphics abline legend plot points
-#' @importFrom stats quantile
-#' @importFrom dplyr across
-#' @importFrom tidyselect everything
+#' @param annual_data data frame. Sources of nutrient for each year and
+#' catchments.
 #'
-#' @keywords internal
+#' @return A barplot, a histogram-density and a boxplot
 #'
-preproc_scenSummary <- function(annual_data){
+#' @importFrom graphics hist grid
+#'
+#' @examples
+#' \donttest{
+#' # the data of the TN scenario
+#' data(annual_data_TN)
+#' references_plot(annual_data_TN)
+#' }
+#' @export
+#'
+references_plot <- function(annual_data) {
 
-  df_load_avg_type_year <- annual_data[, c(2, 5:11)] %>%
-    dplyr::group_by(YearValue) %>%
-    dplyr::summarise(dplyr::across(tidyselect::everything(), list(mean)))
+  # Conteo del número de referencias totales
+  TN_ref_values <- annual_data[!is.na(annual_data$YearlyMass),]
+  total_ref <- nrow(TN_ref_values)
+  # Conteo de referencias por año
+  counts <- table(TN_ref_values$YearValue)
+  # Crear el gráfico de barras
+  par(mfrow = c(1, 1))
+  barplot(counts, ylab = "References by Year", xlab = "Year",
+          main = paste("References by year (Total references: ", total_ref, ")"),
+          col = "steelblue", border = "black")
+  graphics::grid(nx = NA, ny = NULL)    # Añadir una línea de rejilla
 
-  df_load_avg_type_year <- data.frame(DF_LoadAvg_Type_Year)
+  #distribucion de los valores de referencia
+  TheRefMass <- annual_data$YearlyMass[!is.na(annual_data$YearlyMass)]
+  par(mfrow = c(1, 2))
+  # Crear histograma con densidad
+  graphics::hist(TheRefMass, probability = TRUE, main = "References Distribution", xlab = "Yearly Mass", col = "lightblue")
+  # Crear densidad
+  densidad <- density(TheRefMass)
+  # Superponer curva de densidad
+  lines(densidad, col = "darkblue", lwd = 2)
+  # Agregar una leyenda
+  legend('topright', legend = c("Histogram", "Density"), fill = c("lightblue", "darkblue"))
+  # boxplot
+  boxplot(TheRefMass, main = "Reference values", ylab = "Values",col = "lightblue")
 
-  df_load_avg_type_shr_year <- annual_data[, c(2, 15, 5:11)] %>%
-    dplyr::group_by(YearValue,shrLevel) %>%
-    dplyr::summarise(dplyr::across(tidyselect::everything(), list(mean)))
-
-  df_load_avg_type_shr_year <- data.frame(df_load_avg_type_shr_year)
-
-  df_load_tot_type_year <- annual_data[, c(2, 5:11)] %>%
-    dplyr::group_by(YearValue) %>%
-    dplyr::summarise(dplyr::across(tidyselect::everything(), list(sum)))
-
-  df_load_tot_type_year <- data.frame(df_load_tot_type_year)
-
-  df_load_tot_type_year
 }
 
 #'
@@ -1738,7 +2077,7 @@ scatter_plot <- function(df_cb, param) {
   oldpar <- par(no.readonly = TRUE)
   on.exit(par(oldpar))
   graphics::par(mfrow = c(1, 3))
-  if (param == "PBIAS..") {
+  if (param == "PBIAS") {
     df_cb[, param] <- abs(df_cb[, param])
   }
 
@@ -1792,13 +2131,13 @@ scatter_plot <- function(df_cb, param) {
 select_params <- function(df_cb, param){
 
   best_par <- NULL
-  ind_mtr <- c(6, 15, 9, 10, 11, 17)
+  ind_mtr <- c(6, 15, 9, 10, 11, 17, 8, 19)
 
   for (ind in ind_mtr) {
     if (ind == 6 | ind == 17 ) {
       irow <- which(abs(df_cb[, ind]) ==  min(abs(df_cb[, ind]),
                                               na.rm = TRUE))[1]
-    } else if (ind %in% c(15, 9, 10, 11)) {
+    } else if (ind %in% c(15, 9, 10, 11,8,19)) {
       irow <- which(df_cb[, ind] == max(df_cb[, ind], na.rm = TRUE))[1]
     }
     best_par <- rbind(best_par, data.frame(metric = names(df_cb)[ind],
@@ -1809,10 +2148,11 @@ select_params <- function(df_cb, param){
   best_par[best_par$metric == param, c(param, "alpha_P", "alpha_L", "sd_coeff")]
 }
 
+
+#
+#' @title Facet year plot
 #'
-#' @title Scatter plot comparing observed vs modeled loads by year
-#'
-#' @description Plot
+#' @description This function blah, blah, blah....
 #'
 #' @param catch_data data frame. Definition of the topological sequence of
 #' catchments.
@@ -1824,61 +2164,55 @@ select_params <- function(df_cb, param){
 #' coefficient.
 #' @param sd_coef numeric. Third model parameter, fraction of domestic diffuse
 #' sources that reaches the stream network.
-#' @param name_basin character. The title of the plot.
-#' @param years numeric. Years to be shown in the plot.
-#' @param max_value numeric. The maximum value for x and y axis.
+#' @param years integer. Years to be used in the calibration. For sequences use
+#' c(yearini:yearend).
+#' @param name_basin character. The name of the basin
+#' @param maxvalue numeric. The maximum value
+#' @return One object, a data frame
 #'
-#' @importFrom ggplot2 ggplot ggtitle aes geom_point theme_bw geom_abline
-#' facet_wrap
-#'
-#' @return Multiple scatter plot and a data frame with annual nutrient
-#' (nitrogen or phosphorus) load for all catchments in the basin
-#'
-#' @examples
-#' \donttest{
-#'# the data of the TN scenario
-#' data(catch_data_TN)
-#' data(annual_data_TN)
-#' # the parameter to assess the basin model
-#' alpha_p <- 35.09
-#' alpha_l <- 0.02
-#' sd_coef <- 0.2
-#' # years in which the plot will we shown
-#' years <- 1990:2018
-#' maxvalue <- 10
-#' # generating the scatter plot comparing observed vs modeled loads by year
-#' name_basin <- "Lay NSE"
-#' max_value <- 10
-#' simobs_annual_plot(catch_data_TN, annual_data_TN, alpha_p, alpha_l,
-#' sd_coef, years, name_basin, max_value)
-#' }
+#' @importFrom ggplot2 ggplot ggtitle geom_point xlim ylim theme_bw geom_abline facet_wrap
+#' @importFrom parallelly availableCores
+#' @importFrom parallel makeCluster clusterExport clusterEvalQ parLapply stopCluster
 #'
 #' @export
 #'
 simobs_annual_plot <- function(catch_data, annual_data, alpha_p, alpha_l,
-                            sd_coef, years, name_basin, max_value) {
+                            sd_coef, years, name_basin, maxvalue) {
 
-  df_scen_global <- launch_green(catch_data, annual_data, alpha_p, alpha_l,
-                                sd_coef, years)
+  years <- lapply(years, function(x){x})
 
-  df_observ_g <- df_scen_global[!is.na(df_scen_global$ObsLoad), ]
-  df_observ_g <- df_observ_g %>%
-    rename(PredictLoad = CatchLoad)
+  n_cores <- parallelly::availableCores()
+  cluster <- parallel::makeCluster(n_cores)
+  parallel::clusterExport(cluster, list("launch_green", "check_colnames_annual",
+                                        "check_colnames_catch",
+                                        "aggregate_loop", "check_years",
+                                        "append_empty_cols",
+                                        "data_preparation"),
+                          envir = environment())
+  parallel::clusterEvalQ(cluster, c(library("data.table"), library("dplyr")))
+  DF_ScenGlobal <- parallel::parLapply(cluster, years, launch_green,
+                                       annual_data = annual_data,
+                                       catch_data = catch_data,
+                                       alpha_p = alpha_p,
+                                       alpha_l = alpha_l,
+                                       sd_coef = sd_coef)
+  parallel::stopCluster(cluster)
+  DF_ScenGlobal <- do.call("rbind", DF_ScenGlobal)
 
-  names(df_observ_g)
-  p <- ggplot2::ggplot(data = df_observ_g,
-                       ggplot2::aes(x = ObsLoad,
-                                    y = PredictLoad)) +
+  DF_ObservadoG <- DF_ScenGlobal[!is.na(DF_ScenGlobal$ObsLoad), ]
+
+  names(DF_ObservadoG)
+  p <- ggplot2::ggplot(data = DF_ObservadoG, ggplot2::aes(x = ObsLoad,
+                                                          y = CatchLoad)) +
     ggplot2::ggtitle(name_basin)  +
     ggplot2::geom_point() +
-    ggplot2::xlim(0, max_value) +
-    ggplot2::ylim(0, max_value) +
-    ggplot2::theme_bw(base_size = 10) +
+    ggplot2::xlim(0, maxvalue) +
+    ggplot2::ylim(0, maxvalue) +
+    ggplot2::theme_bw(base_size = 10  ) +
     ggplot2::geom_abline(intercept = 0, slope = 1) +
     ggplot2::facet_wrap(~Year)
-
   print(p)
 
-  df_scen_global
+  return(DF_ScenGlobal)
 
 }

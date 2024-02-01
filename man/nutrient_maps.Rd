@@ -4,7 +4,7 @@
 \alias{nutrient_maps}
 \title{Map average load output by source}
 \usage{
-nutrient_maps(green_file, sh_file, basin_name, plot.type, legend_position = 1)
+nutrient_maps(green_file, sh_file, plot.type, style, legend_position = 1)
 }
 \arguments{
 \item{green_file}{data frame of GREEN model results from green_shares()
@@ -13,11 +13,11 @@ and catchments.}
 
 \item{sh_file}{sf object. The spatial information of the basin.}
 
-\item{basin_name}{character. The title of the map.}
-
 \item{plot.type}{character. Alternatives of the map: “gr1”: output load
 (kt/y) by source; “gr2”: Total Load, log10 (kt/y); “gr3”: Total Load
 by km2 (kt/year/km2).}
+
+\item{style}{charater. The style of the plot.}
 
 \item{legend_position}{numeric. Legend position: 1 (default): "right",
 "bottom"; 2: "left", "up"; 3: "right", "bottom"; 4: "right", "up".}
@@ -43,17 +43,15 @@ loc_years <- 1990:2018
 # Computing the source apportionment
 basin_sa <- green_shares(catch_data_TN, annual_data_TN, alpha_p, alpha_l,
 sd_coef, loc_years)
-# The title of the Map
-mapTitle <- "Output Loads  for the Lay Basin"
 # Basin Output Load  Maps by source
 Lpos <- 1
-nutrient_maps(basin_sa, sh_file, mapTitle, "gr1", Lpos)
+nutrient_maps(basin_sa, sh_file, plot.type = "gr1", style = "log10", legend_position = Lpos)
 # Basin Output Specific Load  Maps
 Lpos <- 1
-nutrient_maps(basin_sa, sh_file, mapTitle, "gr2", Lpos)
+nutrient_maps(basin_sa, sh_file, plot.type = "gr2", style = "log10", legend_position = Lpos)
 # Basin Output Specific Load by km2 Maps
 Lpos <- 1
-nutrient_maps(basin_sa, sh_file, mapTitle, "gr3", Lpos)
+nutrient_maps(basin_sa, sh_file, plot.type = "gr3", style = "fisher", legend_position = Lpos)
 }
 
 }

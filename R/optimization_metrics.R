@@ -91,8 +91,8 @@ gof <- function(sim, obs, na.rm=TRUE, digits=2){
 
   gof <- rbind(ME, MAE, MSE, RMSE, NRMSE, PBIAS, RSR, rSD, NSE, mNSE, rNSE, d, md, rd, cp, r, R2, bR2, KGE, VE)
 
-  rownames(gof)[5] <- "NRMSE %"
-  rownames(gof)[6] <- "PBIAS %"
+  # rownames(gof)[5] <- "NRMSE %"
+  # rownames(gof)[6] <- "PBIAS %"
 
   gof <- round(gof, digits)
 
@@ -106,7 +106,7 @@ gof <- function(sim, obs, na.rm=TRUE, digits=2){
 # 's'   : scaling factors.
 # 'Result': Kling-Gupta Efficiency between 'sim' and 'obs'
 KGE <- function(sim, obs, s=c(1,1,1), na.rm=TRUE,
-                        method="2012") {
+                        method="2009") {
 
   # Mean values
   mean.sim <- mean(sim, na.rm=na.rm)
