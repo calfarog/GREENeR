@@ -43,6 +43,7 @@ and coastal waters. Global Environmental Change, 69, 102281.
 Useful links:
 \itemize{
   \item \url{https://github.com/calfarog/GREENeR}
+  \item \url{https://calfarog.github.io/GREENeR/}
   \item Report bugs at \url{https://github.com/calfarog/GREENeR/issues}
 }
 
@@ -60,3 +61,4 @@ Authors:
 }
 
 }
+\keyword{internal}

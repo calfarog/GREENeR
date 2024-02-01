@@ -32,5 +32,5 @@
 #' (2021). How EU policies could reduce nutrient pollution in European inland
 #' and coastal waters. Global Environmental Change, 69, 102281.
 #' \doi{doi:10.1016/j.gloenvcha.2021.102281}
-#'
+#' @keywords internal
 "_PACKAGE"
