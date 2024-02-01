@@ -6,6 +6,7 @@
 # 'sim'   : numeric 'data.frame', 'matrix' or 'vector' with simulated values
 # 'Result': weighted R2 between 'sim' and 'obs'
 #' @importFrom stats coefficients cor lm
+#' @noRd
 br2 <- function (sim, obs, na.rm=TRUE){
 
   x.lm <- stats::lm(sim ~ obs - 1)
@@ -65,8 +66,15 @@ d <- function (sim, obs, na.rm=TRUE){
 
 }
 
-# 'obs'   : numeric 'data.frame', 'matrix' or 'vector' with observed values
-# 'sim'   : numeric 'data.frame', 'matrix' or 'vector' with simulated values
+#' GOF
+#'
+#' @param obs numeric 'data.frame', 'matrix' or 'vector' with observed values
+#' @param sim numeric 'data.frame', 'matrix' or 'vector' with simulated values
+#' @param digits Number of digits
+#' @param na.rm Should remove NA
+#' @export
+#' @keywords internal
+#' @returns A data frame
 gof <- function(sim, obs, na.rm=TRUE, digits=2){
   ME     <- me(sim, obs, na.rm=na.rm)
   MAE    <- mae(sim, obs, na.rm=na.rm)

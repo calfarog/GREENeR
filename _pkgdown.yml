@@ -1,1 +1,8 @@
+url: https://calfarog.github.io/GREENeR/
 destination: docs
+template:
+  bootstrap: 5
+  bslib:
+    primary: "#2665aa"
+    secondary: "#d8eff5"
+    link-color: "#82b82d"
