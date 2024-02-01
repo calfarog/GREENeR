@@ -44,7 +44,7 @@ Imports:
 Depends:
     R (>= 3.5.0)
 RoxygenNote: 7.3.1
-URL: https://github.com/calfarog/GREENeR
+URL: https://github.com/calfarog/GREENeR, https://calfarog.github.io/GREENeR/
 BugReports: https://github.com/calfarog/GREENeR/issues
 Suggests: 
     knitr,

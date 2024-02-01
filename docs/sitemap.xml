@@ -1,162 +1,177 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>/404.html</loc>
+    <loc>https://calfarog.github.io/GREENeR/404.html</loc>
   </url>
   <url>
-    <loc>/articles/GREENeR.html</loc>
+    <loc>https://calfarog.github.io/GREENeR/articles/GREENeR.html</loc>
   </url>
   <url>
-    <loc>/articles/index.html</loc>
+    <loc>https://calfarog.github.io/GREENeR/articles/index.html</loc>
   </url>
   <url>
-    <loc>/authors.html</loc>
+    <loc>https://calfarog.github.io/GREENeR/authors.html</loc>
   </url>
   <url>
-    <loc>/index.html</loc>
+    <loc>https://calfarog.github.io/GREENeR/index.html</loc>
   </url>
   <url>
-    <loc>/LICENSE-text.html</loc>
+    <loc>https://calfarog.github.io/GREENeR/LICENSE-text.html</loc>
   </url>
   <url>
-    <loc>/LICENSE.html</loc>
+    <loc>https://calfarog.github.io/GREENeR/LICENSE.html</loc>
   </url>
   <url>
-    <loc>/news/index.html</loc>
+    <loc>https://calfarog.github.io/GREENeR/news/index.html</loc>
   </url>
   <url>
-    <loc>/reference/aggregate_loop.html</loc>
+    <loc>https://calfarog.github.io/GREENeR/reference/aggregate_loop.html</loc>
   </url>
   <url>
-    <loc>/reference/annual_data_TN.html</loc>
+    <loc>https://calfarog.github.io/GREENeR/reference/annual_data_TN.html</loc>
   </url>
   <url>
-    <loc>/reference/annual_data_TP.html</loc>
+    <loc>https://calfarog.github.io/GREENeR/reference/annual_data_TP.html</loc>
   </url>
   <url>
-    <loc>/reference/append_empty_cols.html</loc>
+    <loc>https://calfarog.github.io/GREENeR/reference/append_empty_cols.html</loc>
   </url>
   <url>
-    <loc>/reference/calculate_shreve.html</loc>
+    <loc>https://calfarog.github.io/GREENeR/reference/calculate_shreve.html</loc>
   </url>
   <url>
-    <loc>/reference/calib_boxplot.html</loc>
+    <loc>https://calfarog.github.io/GREENeR/reference/calib_boxplot.html</loc>
   </url>
   <url>
-    <loc>/reference/calib_dot.html</loc>
+    <loc>https://calfarog.github.io/GREENeR/reference/calib_dot.html</loc>
   </url>
   <url>
-    <loc>/reference/calib_green.html</loc>
+    <loc>https://calfarog.github.io/GREENeR/reference/calib_green.html</loc>
   </url>
   <url>
-    <loc>/reference/calib_green_help.html</loc>
+    <loc>https://calfarog.github.io/GREENeR/reference/calib_green_help.html</loc>
   </url>
   <url>
-    <loc>/reference/catch_data_TN.html</loc>
+    <loc>https://calfarog.github.io/GREENeR/reference/catch_data_TN.html</loc>
   </url>
   <url>
-    <loc>/reference/catch_data_TP.html</loc>
+    <loc>https://calfarog.github.io/GREENeR/reference/catch_data_TP.html</loc>
   </url>
   <url>
-    <loc>/reference/check_colnames_annual.html</loc>
+    <loc>https://calfarog.github.io/GREENeR/reference/check_colnames_annual.html</loc>
   </url>
   <url>
-    <loc>/reference/check_colnames_catch.html</loc>
+    <loc>https://calfarog.github.io/GREENeR/reference/check_colnames_catch.html</loc>
   </url>
   <url>
-    <loc>/reference/check_years.html</loc>
+    <loc>https://calfarog.github.io/GREENeR/reference/check_years.html</loc>
   </url>
   <url>
-    <loc>/reference/compare_calib.html</loc>
+    <loc>https://calfarog.github.io/GREENeR/reference/compare_calib.html</loc>
   </url>
   <url>
-    <loc>/reference/create_levels.html</loc>
+    <loc>https://calfarog.github.io/GREENeR/reference/create_levels.html</loc>
   </url>
   <url>
-    <loc>/reference/create_lits_of_maps.html</loc>
+    <loc>https://calfarog.github.io/GREENeR/reference/create_lits_of_maps.html</loc>
   </url>
   <url>
-    <loc>/reference/create_map.html</loc>
+    <loc>https://calfarog.github.io/GREENeR/reference/create_map.html</loc>
   </url>
   <url>
-    <loc>/reference/data_preparation.html</loc>
+    <loc>https://calfarog.github.io/GREENeR/reference/data_preparation.html</loc>
   </url>
   <url>
-    <loc>/reference/evolution_plot.html</loc>
+    <loc>https://calfarog.github.io/GREENeR/reference/evolution_plot.html</loc>
   </url>
   <url>
-    <loc>/reference/evolution_plot_area.html</loc>
+    <loc>https://calfarog.github.io/GREENeR/reference/evolution_plot_area.html</loc>
   </url>
   <url>
-    <loc>/reference/GREENeR-package.html</loc>
+    <loc>https://calfarog.github.io/GREENeR/reference/gof.html</loc>
   </url>
   <url>
-    <loc>/reference/green_shares.html</loc>
+    <loc>https://calfarog.github.io/GREENeR/reference/GREENeR-package.html</loc>
   </url>
   <url>
-    <loc>/reference/gr_density_plot.html</loc>
+    <loc>https://calfarog.github.io/GREENeR/reference/green_shares.html</loc>
   </url>
   <url>
-    <loc>/reference/index.html</loc>
+    <loc>https://calfarog.github.io/GREENeR/reference/gr_density_plot.html</loc>
   </url>
   <url>
-    <loc>/reference/input_maps.html</loc>
+    <loc>https://calfarog.github.io/GREENeR/reference/index.html</loc>
   </url>
   <url>
-    <loc>/reference/input_plot.html</loc>
+    <loc>https://calfarog.github.io/GREENeR/reference/input_maps.html</loc>
   </url>
   <url>
-    <loc>/reference/input_Tserie.html</loc>
+    <loc>https://calfarog.github.io/GREENeR/reference/input_plot.html</loc>
   </url>
   <url>
-    <loc>/reference/launch_green.html</loc>
+    <loc>https://calfarog.github.io/GREENeR/reference/input_Tserie.html</loc>
   </url>
   <url>
-    <loc>/reference/load_map.html</loc>
+    <loc>https://calfarog.github.io/GREENeR/reference/input_Tserie_area.html</loc>
   </url>
   <url>
-    <loc>/reference/load_SA_map.html</loc>
+    <loc>https://calfarog.github.io/GREENeR/reference/LakeRetent_plot.html</loc>
   </url>
   <url>
-    <loc>/reference/multiple_map.html</loc>
+    <loc>https://calfarog.github.io/GREENeR/reference/launch_green.html</loc>
   </url>
   <url>
-    <loc>/reference/N4_sankey.html</loc>
+    <loc>https://calfarog.github.io/GREENeR/reference/load_map.html</loc>
   </url>
   <url>
-    <loc>/reference/nutrient_maps.html</loc>
+    <loc>https://calfarog.github.io/GREENeR/reference/load_SA_map.html</loc>
   </url>
   <url>
-    <loc>/reference/nutrient_tserie.html</loc>
+    <loc>https://calfarog.github.io/GREENeR/reference/multiple_map.html</loc>
   </url>
   <url>
-    <loc>/reference/nut_balance.html</loc>
+    <loc>https://calfarog.github.io/GREENeR/reference/N4_sankey.html</loc>
   </url>
   <url>
-    <loc>/reference/preproc_scenSummary.html</loc>
+    <loc>https://calfarog.github.io/GREENeR/reference/nutrient_maps.html</loc>
   </url>
   <url>
-    <loc>/reference/read_geometry.html</loc>
+    <loc>https://calfarog.github.io/GREENeR/reference/nutrient_tserie.html</loc>
   </url>
   <url>
-    <loc>/reference/read_NSdata.html</loc>
+    <loc>https://calfarog.github.io/GREENeR/reference/nutrient_tserie_darea.html</loc>
   </url>
   <url>
-    <loc>/reference/region_nut_balance.html</loc>
+    <loc>https://calfarog.github.io/GREENeR/reference/nut_balance.html</loc>
   </url>
   <url>
-    <loc>/reference/scatter_plot.html</loc>
+    <loc>https://calfarog.github.io/GREENeR/reference/preproc_scenSummary.html</loc>
   </url>
   <url>
-    <loc>/reference/select_params.html</loc>
+    <loc>https://calfarog.github.io/GREENeR/reference/read_geometry.html</loc>
   </url>
   <url>
-    <loc>/reference/shreve.html</loc>
+    <loc>https://calfarog.github.io/GREENeR/reference/read_NSdata.html</loc>
   </url>
   <url>
-    <loc>/reference/sh_file.html</loc>
+    <loc>https://calfarog.github.io/GREENeR/reference/references_plot.html</loc>
   </url>
   <url>
-    <loc>/reference/simobs_annual_plot.html</loc>
+    <loc>https://calfarog.github.io/GREENeR/reference/region_nut_balance.html</loc>
+  </url>
+  <url>
+    <loc>https://calfarog.github.io/GREENeR/reference/scatter_plot.html</loc>
+  </url>
+  <url>
+    <loc>https://calfarog.github.io/GREENeR/reference/select_params.html</loc>
+  </url>
+  <url>
+    <loc>https://calfarog.github.io/GREENeR/reference/shreve.html</loc>
+  </url>
+  <url>
+    <loc>https://calfarog.github.io/GREENeR/reference/sh_file.html</loc>
+  </url>
+  <url>
+    <loc>https://calfarog.github.io/GREENeR/reference/simobs_annual_plot.html</loc>
   </url>
 </urlset>
