@@ -37,7 +37,6 @@ Imports:
     magrittr (>= 2.0.1),
     tmap (>= 3.3-2),
     gridExtra (>= 2.3),
-    tidyselect (>= 1.1.0),
     classInt (>= 0.4-3),
     grDevices (>= 3.5),
     networkD3 (>= 0.4),

@@ -692,8 +692,7 @@ gr_density_plot <- function(df_plot, plot_index, basin_name, cSD) {
 #' @return No return value, called for the side effect of drawing a plot
 #'
 #' @importFrom sf st_area
-#' @importFrom tidyselect everything
-#' @importFrom dplyr group_by summarise across
+#' @importFrom dplyr group_by summarise across everything
 #' @importFrom magrittr %>%
 #' @importFrom reshape2 melt
 #' @importFrom ggplot2 scale_x_continuous facet_wrap
@@ -738,7 +737,7 @@ input_maps <- function(catch_data, annual_data, sh_file, plot.type,
     "gr1" = {
       df_load_hydro <- annual_data_aux[, c(1, 3, 5:index1)] %>%
         dplyr::group_by(HydroID) %>%
-        dplyr::summarise(dplyr::across(tidyselect::everything(), list(mean)))
+        dplyr::summarise(dplyr::across(dplyr::everything(), list(mean)))
 
       df_load_hydro <- data.frame(df_load_hydro)
 
@@ -767,7 +766,7 @@ input_maps <- function(catch_data, annual_data, sh_file, plot.type,
 
       df_load_hydroSkm <- df_temp[, 1:index2] %>%
         dplyr::group_by(HydroID) %>%
-        dplyr::summarise(dplyr::across(tidyselect::everything(), list(mean)))
+        dplyr::summarise(dplyr::across(dplyr::everything(), list(mean)))
 
       df_load_hydroSkm  <- data.frame(df_load_hydroSkm)
       df_load_hydroSkm$TOTAL <- rowSums(df_load_hydroSkm[, 3:index2])
@@ -855,7 +854,7 @@ input_plot <- function(annual_data, sh_file, basin_name, plot.type,
 
     df_load_tot_type_year <- annual_data[, c(2, 5:index1)] %>%
       dplyr::group_by(YearValue) %>%
-      dplyr::summarise(dplyr::across(tidyselect::everything(), list(sum)))
+      dplyr::summarise(dplyr::across(dplyr::everything(), list(sum)))
 
     df_load_tot_type_year <- data.frame(df_load_tot_type_year)
 
@@ -904,8 +903,7 @@ input_plot <- function(annual_data, sh_file, basin_name, plot.type,
 #'
 #' @importFrom sf st_area
 #' @importFrom stats quantile
-#' @importFrom tidyselect everything
-#' @importFrom dplyr group_by summarise across select
+#' @importFrom dplyr group_by summarise across select everything
 #' @importFrom magrittr %>%
 #' @importFrom reshape2 melt
 #' @importFrom ggplot2 scale_x_continuous facet_wrap
@@ -941,7 +939,7 @@ input_Tserie <- function(catch_data, annual_data, sh_file, basin_name,
 
   DF_LoadTot_Type_Year <- annual_data[, c(2, 5:index1)] %>%
     dplyr::group_by(YearValue) %>%
-    dplyr::summarise(dplyr::across(tidyselect::everything(), list(sum)))  # error codigo original era mean
+    dplyr::summarise(dplyr::across(dplyr::everything(), list(sum)))  # error codigo original era mean
 
   DF_LoadTot_Type_Year <- data.frame(DF_LoadTot_Type_Year)
 
@@ -1043,8 +1041,7 @@ input_Tserie <- function(catch_data, annual_data, sh_file, basin_name,
 #'
 #' @importFrom sf st_area
 #' @importFrom stats quantile
-#' @importFrom tidyselect everything
-#' @importFrom dplyr group_by summarise across select
+#' @importFrom dplyr group_by summarise across select everything
 #' @importFrom magrittr %>%
 #' @importFrom reshape2 melt
 #' @importFrom ggplot2 scale_x_continuous facet_wrap
@@ -1106,7 +1103,7 @@ input_Tserie_area <- function(catch_data, annual_data, sh_file, basin_name,
 
   df_load_tot_type_year <- annual_data[, c(3, 5:index1)] %>%
     dplyr::group_by(YearValue) %>%
-    dplyr::summarise(dplyr::across(tidyselect::everything(), list(sum)))
+    dplyr::summarise(dplyr::across(dplyr::everything(), list(sum)))
 
   df_load_tot_type_year <- data.frame(df_load_tot_type_year)
 
@@ -1158,7 +1155,7 @@ input_Tserie_area <- function(catch_data, annual_data, sh_file, basin_name,
     "gr2" = {
       df_load_km2_type_shr_year <- annual_data[, c(3, index3, 5:index1)] %>%
         dplyr::group_by(YearValue, shrLevel) %>%
-        dplyr::summarise(dplyr::across(tidyselect::everything(), list(sum)),
+        dplyr::summarise(dplyr::across(dplyr::everything(), list(sum)),
                          .groups = "rowwise")
 
       df_load_km2_type_shr_year <- data.frame(df_load_km2_type_shr_year)
@@ -1433,9 +1430,8 @@ multiple_map <- function(hydroSf, refN_P, long_basin, unit,
 #' @importFrom ggplot2 ggplot aes geom_line theme_bw labs scale_color_brewer
 #' facet_wrap theme guides guide_legend element_text margin element_blank
 #' @importFrom gridExtra grid.arrange
-#' @importFrom dplyr group_by summarise across
+#' @importFrom dplyr group_by summarise across everything
 #' @importFrom magrittr %>%
-#' @importFrom tidyselect everything
 #' @importFrom tmap tmap_arrange
 #' @importFrom graphics par barplot
 #'
@@ -1490,7 +1486,7 @@ nutrient_maps <- function(green_file, sh_file, plot.type, style,
          "gr1" = {
            df_load_SA_hydro <- green_file[, c(1, 2, 4:index1)] %>%
              dplyr::group_by(HydroID) %>%
-             dplyr::summarise(dplyr::across(tidyselect::everything(), list(mean)))
+             dplyr::summarise(dplyr::across(dplyr::everything(), list(mean)))
            df_load_SA_hydro[, 3:(index1 - 1)] <- df_load_SA_hydro[, 3:(index1 - 1)] + 0.1
 
            hydroSf_SA_merge <- merge(sh_file, df_load_SA_hydro[, c(1, 3:(index1 - 1))],
@@ -1505,7 +1501,7 @@ nutrient_maps <- function(green_file, sh_file, plot.type, style,
          "gr2" = {
            df_load_hydro <- green_file[, c(1, 2, index1)] %>%
              dplyr::group_by(HydroID) %>%
-             dplyr::summarise(dplyr::across(tidyselect::everything(), list(mean)))
+             dplyr::summarise(dplyr::across(dplyr::everything(), list(mean)))
 
            df_load_hydro  <- data.frame(df_load_hydro)
            names(df_load_hydro) <- c("HydroID", "Year", "CatchLoad")
@@ -1520,7 +1516,7 @@ nutrient_maps <- function(green_file, sh_file, plot.type, style,
          "gr3" = {
            df_load_hydro_km <- green_file[, c(1, 2, index1, index2)] %>%
              dplyr::group_by(HydroID, DrainAreaS) %>%
-             dplyr::summarise(dplyr::across(tidyselect::everything(), list(mean)),
+             dplyr::summarise(dplyr::across(dplyr::everything(), list(mean)),
                               .groups = "rowwise")
 
            df_load_hydro_DA  <- data.frame(df_load_hydro_km)
@@ -1561,9 +1557,8 @@ nutrient_maps <- function(green_file, sh_file, plot.type, style,
 #' @importFrom ggplot2 ggplot aes geom_line theme_bw labs scale_color_brewer
 #' facet_wrap theme guides guide_legend element_text margin element_blank
 #' @importFrom gridExtra grid.arrange
-#' @importFrom dplyr group_by summarise across
+#' @importFrom dplyr group_by summarise across everything
 #' @importFrom magrittr %>%
-#' @importFrom tidyselect everything
 #' @importFrom tmap tmap_arrange
 #' @importFrom graphics par barplot
 #' @importFrom utils write.csv
@@ -1684,9 +1679,8 @@ nutrient_tserie <- function(green_file, basin_name, plot.type, file_path = NULL)
 #' @importFrom ggplot2 ggplot aes geom_line theme_bw labs scale_color_brewer
 #' facet_wrap theme guides guide_legend element_text margin element_blank
 #' @importFrom gridExtra grid.arrange
-#' @importFrom dplyr group_by summarise across
+#' @importFrom dplyr group_by summarise across everything
 #' @importFrom magrittr %>%
-#' @importFrom tidyselect everything
 #' @importFrom tmap tmap_arrange
 #' @importFrom graphics par barplot
 #'
@@ -1741,7 +1735,7 @@ nutrient_tserie_darea <- function(green_file, sh_file, basin_name){
 
   df_load_avg_type_shr_year <- green_file[, c("Year","DrainAreaS","shrLevel","CatchLoad" )] %>%
     dplyr::group_by(Year,shrLevel) %>%
-    dplyr::summarise(dplyr::across(tidyselect::everything(), list(mean)),
+    dplyr::summarise(dplyr::across(dplyr::everything(), list(mean)),
                      .groups = "rowwise")
 
   df_load_avg_type_shr_year <- data.frame(df_load_avg_type_shr_year)
