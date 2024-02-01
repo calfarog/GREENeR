@@ -44,11 +44,10 @@ Imports:
     parallelly (>= 1.30.0)
 Depends:
     R (>= 3.5.0)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
 URL: https://github.com/calfarog/GREENeR
 BugReports: https://github.com/calfarog/GREENeR/issues
 Suggests: 
-    testthat,
     knitr,
     rmarkdown,
     codetools

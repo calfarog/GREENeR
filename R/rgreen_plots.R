@@ -1423,7 +1423,7 @@ multiple_map <- function(hydroSf, refN_P, long_basin, unit,
 #' @param plot.type character. Alternatives of the map: “gr1”: output load
 #' (kt/y) by source; “gr2”: Total Load, log10 (kt/y); “gr3”: Total Load
 #' by km2 (kt/year/km2).
-#' @param style charater. The style of the plot.
+#' @param style character. The style of the plot.
 #' @param legend_position numeric. Legend position: 1 (default): "right",
 #' "bottom"; 2: "left", "up"; 3: "right", "bottom"; 4: "right", "up".
 #' @return No return value, called for the side effect of drawing a plot
