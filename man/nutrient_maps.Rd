@@ -17,7 +17,7 @@ and catchments.}
 (kt/y) by source; “gr2”: Total Load, log10 (kt/y); “gr3”: Total Load
 by km2 (kt/year/km2).}
 
-\item{style}{charater. The style of the plot.}
+\item{style}{character. The style of the plot.}
 
 \item{legend_position}{numeric. Legend position: 1 (default): "right",
 "bottom"; 2: "left", "up"; 3: "right", "bottom"; 4: "right", "up".}

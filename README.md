@@ -5,12 +5,11 @@
 
 <!-- badges: start -->
 
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/GREENeR?color=green)](https://cran.r-project.org/package=GREENeR)
-[![Package
-checks](https://github.com/calfarog/GREENeR/workflows/R-CMD-check/badge.svg)](https://github.com/calfarog/GREENeR/actions)
-[![License: GPL
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/GREENeR?color=green)](https://cran.r-project.org/package=GREENeR)
+[![R-CMD-check](https://github.com/calfarog/GREENeR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/calfarog/GREENeR/actions/workflows/R-CMD-check.yaml)
+i[![License: GPL
 v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![](http://cranlogs.r-pkg.org/badges/grand-total/GREENeR?color=green)](https://cran.r-project.org/package=GREENeR)
+[![](https://cranlogs.r-pkg.org/badges/grand-total/GREENeR?color=green)](https://cran.r-project.org/package=GREENeR)
 <!-- badges: end -->
 
 The goal of GREENeR is to provide a conceptual model to assess nutrient
@@ -54,13 +53,13 @@ tools and the analysis steps for a generic region.
 
 The quality of model calibration depends on the quality and number of
 available observations. To run the calibration process for a scenario
-(function **calib_green()**), the following settings must be defined:
+(function `calib_green()`), the following settings must be defined:
 
 1.  The expected range for each parameter. This range is defined by two
     vectors of three values, one for the lower limits and one for the
     upper limits of the three parameters. The values correspond to each
-    of the parameters of the model in sequence: alpha_P, alpha_L, and
-    sd_coeff.
+    of the parameters of the model in sequence: `alpha_P`, `alpha_L`,
+    and `sd_coeff`.
 
 2.  The number of iterations to be performed during the calibration
     process. The higher the number of iterations, the more likely it is
@@ -75,7 +74,6 @@ This is a basic example which shows you how to solve a common problem:
 
 ``` r
 library(GREENeR)
-#> Warning: package 'GREENeR' was built under R version 4.1.3
 
 data("catch_data_TN")
 data("annual_data_TN")
@@ -108,29 +106,29 @@ the three parameters within the possible range (defined by lower and
 upper limits) and evaluates model performance (predictions against
 available observations) for the calibration period (specified in years)
 by calculating several “goodness-of-fit” metrics. The function returns a
-dataframe with parameters and goodness-of-fit scores that can be further
-analyzed.
+data frame with parameters and goodness-of-fit scores that can be
+further analyzed.
 
 The function applies the following goodness-of-fit metrics (Althoff and
 Rodrigues 2021):
 
--   NSE: Nash-Sutcliffe efficiency
--   rNSE: Relative Nash-Sutcliffe efficiency
--   mNSE: Modified Nash-Sutcliffe efficiency
--   cp: Coefficient of Persistence
--   VE: Volumetric Efficiency
--   KGE: Kling-Gupta efficiency
--   d: Index of Agreement
--   md: Modified index of agreement
--   rd: Relative Index of Agreement
--   r: Linear correlation coefficient
--   R2: Coefficient of determination
--   PBIAS: Percent bias
--   MAE: mean absolute error
--   RMSE: Root mean square error
--   ME: Mean error
--   MSE: Mean square error
--   NRMSE: Normalized Root Mean Square Error
+- NSE: Nash-Sutcliffe efficiency
+- rNSE: Relative Nash-Sutcliffe efficiency
+- mNSE: Modified Nash-Sutcliffe efficiency
+- cp: Coefficient of Persistence
+- VE: Volumetric Efficiency
+- KGE: Kling-Gupta efficiency
+- d: Index of Agreement
+- md: Modified index of agreement
+- rd: Relative Index of Agreement
+- r: Linear correlation coefficient
+- R2: Coefficient of determination
+- PBIAS: Percent bias
+- MAE: mean absolute error
+- RMSE: Root mean square error
+- ME: Mean error
+- MSE: Mean square error
+- NRMSE: Normalized Root Mean Square Error
 
 ## Exploring calibration results and visualization tools
 

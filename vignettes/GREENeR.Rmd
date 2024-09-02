@@ -145,7 +145,7 @@ head(sh_file)
 ## Exploring scenario inputs
 The library includes functions to examine the nutrient sources in a Basin, and explore how these are applied, either globally, or distributed over time or in space.
 
-A first summary is provided by the **input_plot()** function, which - when option "B" is given, shows the mean annual nutrient loads per source for the whole period of analysis.
+A first summary is provided by the `input_plot()` function, which - when option "B" is given, shows the mean annual nutrient loads per source for the whole period of analysis.
 
 ```{r, message=FALSE, eval=FALSE}
 # the barplot for the Lay TN and TP Scenarios
@@ -161,7 +161,7 @@ knitr::include_graphics('figures/barplot_LayTN.png')
 knitr::include_graphics('figures/barplot_LayTP.png')
 ```
 
-By selecting option "D", input_plot() returns density plots of nutrient loads per catchment. These are useful to see the distribution of nutrient source inputs in the Basin. The coef_SD parameter is a scale factor for the standard deviation of the data. This can be useful for defining the limits on a graph, for example. If cSD is 2, then xlim will be calculated as the mean plus two standard deviations, which could represent, for example, 95% of the data in a normal distribution.
+By selecting option "D", `input_plot()` returns density plots of nutrient loads per catchment. These are useful to see the distribution of nutrient source inputs in the Basin. The `coef_SD` parameter is a scale factor for the standard deviation of the data. This can be useful for defining the limits on a graph, for example. If cSD is 2, then `xlim` will be calculated as the mean plus two standard deviations, which could represent, for example, 95% of the data in a normal distribution.
 
 ```{r, message=FALSE, eval=FALSE}
 # the density plots for the Lay TN and TP Scenarios
@@ -177,7 +177,7 @@ knitr::include_graphics('figures/densityplot_LayTN.png')
 knitr::include_graphics('figures/densityplot_LayTP.png')
 ```
 
-The function **input_Tserie()** allows to examine the temporal evolution of the inputs. There are two options, the first, displaying cumulative
+The function `input_Tserie()` allows to examine the temporal evolution of the inputs. There are two options, the first, displaying cumulative
 total amounts by source ("gr1"). 
 
 ```{r, message=FALSE, eval=FALSE}
@@ -202,7 +202,7 @@ input_Tserie(catch_data_TP, annual_data_TP,  "Lay", "gr2")
 knitr::include_graphics(c("figures/timeserieTN_type2.png","figures/timeserieTP_type2.png"))
 ```
 
-The function **input_Tserie_area()** allows to examine the temporal
+The function `input_Tserie_area()` allows to examine the temporal
 evolution of the inputs in relation to the area. There are also two
 options, the first, displaying cumulative total amounts by source per
 unit area ("gr1")
@@ -223,7 +223,7 @@ catchments. In the Lay river example, these graphs show, among other
 things, how the amount of P from mineral fertilization (Min) has
 decreased over time, whereas the amount of P from manure has increased.
 
-There is a second alternative for the function input_Tseries_area(),
+There is a second alternative for the function `input_Tseries_area()`,
 "gr2". This option compares the levels of nutrient inputs in three zones
 of the basin (upper, middle and lower part). The upper zone includes the
 catchments up to the median (50%) shreve value, the middle zone includes
@@ -243,7 +243,7 @@ input_Tserie_area(catch_data_TP, annual_data_TP, sh_file, "Lay", "gr2")
 knitr::include_graphics(c("figures/timeserieTN_type4.png","figures/timeserieTP_type4.png"))
 ```
 
-The function **input_maps()** shows nutrient inputs distribution in the Basin. The function generates a map for each nutrient source, plus a map (in yellow-green scale) of the total diffuse nutrient sources, which can be contrasted to the point sources map. The first option ("gr1") shows total inputs (kt/year).
+The function `input_maps()` shows nutrient inputs distribution in the Basin. The function generates a map for each nutrient source, plus a map (in yellow-green scale) of the total diffuse nutrient sources, which can be contrasted to the point sources map. The first option ("gr1") shows total inputs (kt/year).
 
 
 
@@ -296,7 +296,7 @@ often not dependent on the model used to generate the scenario and
 includes actual field data. Therefore, viewing the distribution of lake
 retention data can be insightful because it directly impacts the
 outcomes of the entire GREEN model. The function that carries out this
-analysis is **LakeRetent_plot**().
+analysis is `LakeRetent_plot()`.
 
 ```{r, message=FALSE, eval=FALSE}
 LakeRetent_plot(catch_data_TN)
@@ -316,7 +316,7 @@ it is noted as NA. This information is crucial for the calibration
 process of the model, as it allows the adjustment of model parameters.
 Therefore, having a substantial amount of observed loads is essential
 for the calibration process. The package includes a function called
-**references_plot()**, which can be used to create a preliminary summary
+`references_plot()`, which can be used to create a preliminary summary
 of the data available at the monitoring stations. Before diving into
 calibration it is thus useful to start by exploring observations.
 
@@ -343,7 +343,7 @@ complete time-series).
 ## Model calibration
 
 To run the calibration process for a scenario (function
-**calib_green()**), the following settings must be defined:
+`calib_green()`), the following settings must be defined:
 
 #. The expected range for each parameter. This range is defined by two vectors of three values, one for the lower limits and one for the upper limits of the three parameters. The values correspond to each of the parameters of the model in sequence: alpha_P (eq 4), alpha_L (eq 5), and sd_coeff (eqs 6 and 7).
 #. The number of iterations to be performed during the calibration process. The higher the number of iterations, the more likely it is to achieve quality parameters, but the longer the computation time required. Although it depends on the catchment and the proposed intervals, it is recommended to run at least 200 iterations to have enough information to continue the calibration process.
@@ -379,7 +379,7 @@ the three parameters within the possible range (defined by lower and
 upper limits) and evaluates model performance (predictions against
 available observations) for the calibration period (specified in
 'years') by calculating several "goodness-of-fit" metrics. The function
-returns a dataframe with parameters and goodness-of-fit scores that can
+returns a data frame with parameters and goodness-of-fit scores that can
 be further analyzed.
 
 The function applies the following goodness-of-fit metrics
@@ -407,7 +407,7 @@ The function applies the following goodness-of-fit metrics
 
 Choosing the right goodness-of-fit metric to select the best set of parameters for a model largely depends on the overall study scope, the area of interest (e.g. high or low load, upper or lower catchment area), and the available observation dataset (size and quality). The library includes a series of functions to examine the calibration results and help select the most suitable set of parameters.
 
-The **calib_boxplot()** function shows relationships between best parameter sets chosen according to one goodness-of-fit parameter (title of each boxplot) according to one goodness-of-fit metric (title of plot) in relation to others (x label). Only the six metrics that are used most frequently in hydrological calibration are included in this figure. In the lower panel, the figure shows as well the distribution of model parameters in the best parameter sets. The absolute best parameter set according to each goodness-of-fit metrics is marked as red dots in each boxplot. 
+The `calib_boxplot()` function shows relationships between best parameter sets chosen according to one goodness-of-fit parameter (title of each boxplot) according to one goodness-of-fit metric (title of plot) in relation to others (x label). Only the six metrics that are used most frequently in hydrological calibration are included in this figure. In the lower panel, the figure shows as well the distribution of model parameters in the best parameter sets. The absolute best parameter set according to each goodness-of-fit metrics is marked as red dots in each boxplot. 
 
 ```{r, message=FALSE, eval=FALSE}
 # Generating the box plots  
@@ -419,7 +419,7 @@ calib_boxplot(DF_calib_TN, rateBS)
 knitr::include_graphics('figures/calibration_boxplotTN.png')
 ```
 
-The **calib_dot()** function shows the distribution of parameters in relation to each other for a chosen goodness-of-fit metric. With this function the figure can be generated for all the previously described goodness-of-fit metrics.
+The `calib_dot()` function shows the distribution of parameters in relation to each other for a chosen goodness-of-fit metric. With this function the figure can be generated for all the previously described goodness-of-fit metrics.
 
 ```{r, message=FALSE, eval=FALSE}
 # Generating the dot plots  
@@ -433,7 +433,7 @@ knitr::include_graphics('figures/calibration_dotTN.png')
 
 In the example figure, the best results for alpha_P to achieve best NSE are in the range 0.25-0.30 (cyan color), while there are no clear patterns for the other two parameters. Also, no significant interaction between parameters can be appreciated. We can conclude that the most sensitive parameter in this case is alpha_P.
  
-The **scatter_plot()** function shows all parameter realizations in the calibration dataset against a selected goodness-of-fit metric to visualize the influence of each parameter on model results. The result depends on the goodness-of-fit metric the user wants to consider. With this function the figure can be generated for all metrics generated by **green_calib()** function.
+The `scatter_plot()` function shows all parameter realizations in the calibration dataset against a selected goodness-of-fit metric to visualize the influence of each parameter on model results. The result depends on the goodness-of-fit metric the user wants to consider. With this function the figure can be generated for all metrics generated by `green_calib()` function.
 
 ```{r, message=FALSE, eval=FALSE}
 # Generating the scatter plots  
@@ -447,7 +447,7 @@ knitr::include_graphics('figures/calibration_scatterTN.png')
 
 ## Selecting the best parameter sets
 
-The best parameter set according to a selected goodness-of-fit metrics can be extracted with the **select_params()** function:
+The best parameter set according to a selected goodness-of-fit metrics can be extracted with the `select_params()` function:
 
 
 ```{r, message=FALSE, eval=FALSE}
@@ -467,7 +467,7 @@ Param_rNSE2 <- as.numeric(rNSE_bestParams[2:4])
 (note that actual values returned by the function could change at each calibration run)
 
 ## Annual observed vs predicted values for a parameter set
-Once a parameter set has been selected, it is useful to verify graphically the differences between the observations (ObsLoad) and the model predictions (PredictLoad). Included in the tool is the function **simobs_annual_plot()**, which allows a year-to-year comparison of observed and predicted values for a given parameter sets.
+Once a parameter set has been selected, it is useful to verify graphically the differences between the observations (ObsLoad) and the model predictions (PredictLoad). Included in the tool is the function `simobs_annual_plot()`, which allows a year-to-year comparison of observed and predicted values for a given parameter sets.
 
 ```{r, message=FALSE, eval=FALSE}
 # annual scatter plot comparing observed vs modeled loads by year
@@ -481,7 +481,7 @@ knitr::include_graphics('figures/annual_scatter_vs_modeled_loadsTN.png')
 ```
 
 ## Comparing Observed vs Predicted for two sets of parameters
-The best parameter set depends on the goodness-of-fit metric. It is advisable to pre-select alternative parameter sets (according to different GoF) and compare model results, before making the final selection of the parameter set. The **compare_calib()** function shows simultaneously all observations against modelled values obtained from two parameter sets.
+The best parameter set depends on the goodness-of-fit metric. It is advisable to pre-select alternative parameter sets (according to different GoF) and compare model results, before making the final selection of the parameter set. The `compare_calib()` function shows simultaneously all observations against modelled values obtained from two parameter sets.
 
 ```{r, message=FALSE, eval=FALSE}
 setPlabels <- c("NSE", "rNSE")    
@@ -499,7 +499,7 @@ At the top left of the figure, the scores of six frequently used goodness-of-fit
 
 Once the most appropriate parameter set has been selected, it is possible to run the model to estimate nutrient loads across the basin. 
 
-The function **region_nut_balance()** runs the GREEN model with the selected parameter set, and returns the region nutrient mass balance of the nutrient fluxes for the whole simulation period. The results of this function can be visualized in a Sankey diagram with the function **N4_sankey()**.
+The function `region_nut_balance()` runs the GREEN model with the selected parameter set, and returns the region nutrient mass balance of the nutrient fluxes for the whole simulation period. The results of this function can be visualized in a Sankey diagram with the function `N4_sankey()`.
 
 ```{r, message=FALSE, eval=FALSE}
 # Computing the nutrient balance  
@@ -514,7 +514,7 @@ knitr::include_graphics('figures/n4sankey.png')
 ```
 
 ## Share of nutrients
-The function **green_shares()** runs the GREEN model with the selected
+The function `green_shares()` runs the GREEN model with the selected
 parameter set and returns for all catchments nutrient loads and
 contributions by each nutrient source in the simulation period.
 
@@ -524,7 +524,7 @@ basin_sa <- green_shares(catch_data_TN, annual_data_TN, Param_NSE2[1], Param_NSE
 ```
 
 The results of the model can be examined by several functions. The
-function **nutrient_tseries()** allows to display the time series of the
+function `nutrient_tseries()` allows to display the time series of the
 total load (TN or TP) in the river outlet or the marian region. The
 *"gr1"* option shows the temporal evolution of the total load at the
 basin outlet in the simulation period.
@@ -552,7 +552,7 @@ nutrient_tserie(basin_sa, plot_title, "gr2")
 knitr::include_graphics('figures/timeserie_loadoutputLay_type2.png')
 ```
 
-The function **nutrient_tserie_darea()**, with the option *"gr1"*, shows
+The function `nutrient_tserie_darea()`, with the option *"gr1"*, shows
 the temporal evolution of total load outputs for the upper, central and
 lower catchment area.
 
@@ -564,7 +564,7 @@ nutrient_tserie_darea(basin_sa, sh_file, "Lay Basin", "gr1")
 knitr::include_graphics('figures/timeserie_totalloadLay.png')
 ```
 
-The function **nutrient_maps()** shows maps of nutrient loads in the
+The function `nutrient_maps()` shows maps of nutrient loads in the
 basin. The option *"gr1"* shows loads by source (in logarithmic scale to
 improve the visualization as the differences in a basin may vary over
 several orders of magnitude).
@@ -683,7 +683,7 @@ where:
 + $FF_i$ = Non-agricultural land cover in the catchment (fraction) 
 + $SdN_i$ = Nitrogen input from scattered dwellings (ton/yr)
 + $PsN_i$ = Nitrogen input from point sources (ton/yr)
-+ $U_i$ = Nitrogen load from upstream cacthments (ton/yr).
++ $U_i$ = Nitrogen load from upstream catchments (ton/yr).
 
 Note that nitrogen atmospheric deposition losses are split into two parts, i.e. inputs to agricultural land undergo the basin retention (which includes also the crop uptake), while in all other areas (FF fraction) they are reduced by a fixed rate, derived from the literature, before entering into the stream. Background losses for nitrogen are thus estimated as $0.38 * FF * AtmN$. For an atmospheric deposition of $10$ kgN/ha this corresponds to a background of $3.8$ kgN/ha (in line with the values reported by @helsinki2004fourth).
 

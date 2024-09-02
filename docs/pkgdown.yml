@@ -1,7 +1,10 @@
-pandoc: 2.17.1.1
-pkgdown: 2.0.6
+pandoc: 3.1.8
+pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   GREENeR: GREENeR.html
-last_built: 2022-07-28T12:49Z
+last_built: 2024-02-01T16:51Z
+urls:
+  reference: https://calfarog.github.io/GREENeR/reference
+  article: https://calfarog.github.io/GREENeR/articles
 

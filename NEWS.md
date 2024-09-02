@@ -2,7 +2,7 @@
 
 * Added some new functions, generally to summarize information
 * Modified other functions to modularize code
-* Parallelized the simobs_annual_plot function to speed up the generation of 
+* Parallelized the `simobs_annual_plot()` function to speed up the generation of 
 the figure
 * Fixed some minor bugs
 
@@ -13,12 +13,12 @@ archived in CRAN.
 
 # GREENeR 0.1.2
 
-* Solved warning messages in calib_boxplot function.
+* Solved warning messages in `calib_boxplot()` function.
 
 # GREENeR 0.1.1
 
-* Add three new functions: read_NSdata, read_geometry and shreve.
-* Change the name of the function nut_balace to region_nut_balance.
+* Add three new functions: `read_NSdata()`, `read_geometry()` and `shreve()`.
+* Change the name of the function `nut_balace()` to `region_nut_balance()`.
 * Edit some typos in legend of plots.
 
 # GREENeR 0.1.0

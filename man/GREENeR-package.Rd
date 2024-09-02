@@ -2,9 +2,9 @@
 % Please edit documentation in R/GREENeR-package.R
 \docType{package}
 \name{GREENeR-package}
-\alias{GREENeR-package}
 \alias{GREENeR}
-\title{GREENeR: Geospatial Regression Equation for European Nutrient Losses}
+\alias{GREENeR-package}
+\title{GREENeR: Geospatial Regression Equation for European Nutrient Losses (GREEN)}
 \description{
 The package provides tools and methods to apply the model Geospatial
 Regression Equation for European Nutrient losses (GREEN;
@@ -30,7 +30,7 @@ Grizzetti, B., Bouraoui, F., De Marsily, G., (2008). Assessing nitrogen
 pressures on European surface water. Global Biogeochem. Cycles 22..
 
 Grizzetti, B., Bouraoui, F., & Aloe, A. (2012). Changes of nitrogen and
-phosphorus loads to E uropean seas. Global Change Biology, 18(2), 769-782.
+phosphorus loads to European seas. Global Change Biology, 18(2), 769-782.
 \doi{doi:10.1111/j.1365-2486.2011.02576.x}
 
 Grizzetti, B., Vigiak, O., Udias, A., Aloe, A., Zanni, M., Bouraoui, F.,
@@ -39,3 +39,26 @@ Pistocchi, A., Dorati, C., Friedland, R., De Roo, A., others & Bielza, M.
 and coastal waters. Global Environmental Change, 69, 102281.
 \doi{doi:10.1016/j.gloenvcha.2021.102281}
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/calfarog/GREENeR}
+  \item \url{https://calfarog.github.io/GREENeR/}
+  \item Report bugs at \url{https://github.com/calfarog/GREENeR/issues}
+}
+
+}
+\author{
+\strong{Maintainer}: C. Alfaro \email{c.alfarog@gmail.com}
+
+Authors:
+\itemize{
+  \item A. Udias \email{angeludias@gmail.com}
+  \item B. Grizzetti \email{bruna.grizzetti@jrc.it}
+  \item O. Vigiak \email{Olga.VIGIAK@ec.europa.eu}
+  \item J. Gomez \email{javier.gomez@urjc.es}
+  \item A. Aloe \email{alberto.aloe@jrc.it}
+}
+
+}
+\keyword{internal}
