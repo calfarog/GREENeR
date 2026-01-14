@@ -7,7 +7,7 @@
 
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/GREENeR?color=green)](https://cran.r-project.org/package=GREENeR)
 [![R-CMD-check](https://github.com/calfarog/GREENeR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/calfarog/GREENeR/actions/workflows/R-CMD-check.yaml)
-i[![License: GPL
+i[[License: GPL
 v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![](https://cranlogs.r-pkg.org/badges/grand-total/GREENeR?color=green)](https://cran.r-project.org/package=GREENeR)
 <!-- badges: end -->
