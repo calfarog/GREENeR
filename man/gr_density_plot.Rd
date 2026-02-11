@@ -19,6 +19,10 @@ gr_density_plot(df_plot, plot_index, basin_name, cSD)
 No return value, called for the side effect of drawing a plot
 }
 \description{
-This function blah, blah, blah....
+This function calculates and plots kernel density estimations
+for normalized hydrological indices. The function normalizes selected
+variables by a reference column, computes statistical parameters (mean and
+standard deviation) to automatically scale the axes, and overlays density
+lines for comparison across different data groups.
 }
 \keyword{internal}

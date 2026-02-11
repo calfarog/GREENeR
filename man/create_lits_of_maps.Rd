@@ -31,6 +31,8 @@ plot. (Default: 1)}
 A list with maps
 }
 \description{
-This function blah, blah, blah....
+This function iterates through a list of parameters to generate multiple
+thematic maps based on a shared spatial dataset. It automates the styling,
+scaling, and labeling for each map to ensure consistency across a series.
 }
 \keyword{internal}

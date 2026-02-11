@@ -442,7 +442,9 @@ create_levels <- function(df, no_sf){
 #
 #' @title Preprocessing data for scenario summary
 #'
-#' @description This function blah, blah, blah....
+#' @description This function iterates through a list of parameters to generate multiple
+#' thematic maps based on a shared spatial dataset. It automates the styling,
+#' scaling, and labeling for each map to ensure consistency across a series.
 #'
 #' @param hydroSf data frame.
 #' @param long_basin numeric. The longitude of the basin.
@@ -568,7 +570,10 @@ evolution_plot <- function(data, title = NULL, xaxis.title = NULL, yaxis.title,
 #
 #' @title Evolution plot area
 #'
-#' @description This function blah, blah, blah....
+#' @description This function generates a stacked area plot to visualize the
+#' temporal evolution of a variable. The function automatically adjusts the
+#' X-axis scale based on the input data range and applies specific ColorBrewer
+#' palettes according to the dimensions of the dataset.
 #'
 #' @param annual_data,new_data data frame.
 #' @param title_plot character. The plot title
@@ -619,7 +624,11 @@ evolution_plot_area <- function(annual_data, new_data, title_plot = NULL,
 #
 #' @title Density plot
 #'
-#' @description This function blah, blah, blah....
+#' @description This function calculates and plots kernel density estimations
+#' for normalized hydrological indices. The function normalizes selected
+#' variables by a reference column, computes statistical parameters (mean and
+#' standard deviation) to automatically scale the axes, and overlays density
+#' lines for comparison across different data groups.
 #'
 #' @param df_plot data frame.
 #' @param plot_index numeric. The indexes to plot
@@ -2048,7 +2057,11 @@ select_params <- function(df_cb, param){
 #
 #' @title Facet year plot
 #'
-#' @description This function blah, blah, blah....
+#' @description This function executes a parallelized hydrological simulation
+#' and generates a comparison plot of simulated vs. observed loads. The function
+#' leverages multiple CPU cores to run the launch_green model across several
+#' years, aggregates the results, and produces a faceted scatter plot with a
+#' 1:1 reference line to evaluate model performance by year.
 #'
 #' @param catch_data data frame. Definition of the topological sequence of
 #' catchments.

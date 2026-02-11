@@ -42,5 +42,9 @@ c(yearini:yearend).}
 One object, a data frame
 }
 \description{
-This function blah, blah, blah....
+This function executes a parallelized hydrological simulation
+and generates a comparison plot of simulated vs. observed loads. The function
+leverages multiple CPU cores to run the launch_green model across several
+years, aggregates the results, and produces a faceted scatter plot with a
+1:1 reference line to evaluate model performance by year.
 }

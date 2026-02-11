@@ -1,3 +1,7 @@
+# GREENeR 1.0.1
+
+* Updated roxygen2 metadata for key functions (`create_lits_of_maps`, `evolution_plot_area`, `gr_density_plot`, and `simobs_annual_plot`) to provide clearer technical descriptions and parameter details.
+
 # GREENeR 1.0.0
 
 * Added some new functions, generally to summarize information

@@ -37,6 +37,9 @@ evolution_plot_area(
 A plot
 }
 \description{
-This function blah, blah, blah....
+This function generates a stacked area plot to visualize the
+temporal evolution of a variable. The function automatically adjusts the
+X-axis scale based on the input data range and applies specific ColorBrewer
+palettes according to the dimensions of the dataset.
 }
 \keyword{internal}
