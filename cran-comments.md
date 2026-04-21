@@ -1,6 +1,37 @@
 ## New version
 This is a new version of the library. In this version we have:
 
+* Updated technical descriptions and parameter details for some functions (`create_lits_of_maps`, `evolution_plot_area`, `gr_density_plot`, and `simobs_annual_plot`) 
+
+## Test environments
+* local OS (windows) install, R 4.2.3
+* ubuntu-latest (on GitHub Actions), R release, devel, oldrel-1
+* windows-latest (on GitHub Actions), R release
+* R-hub Windows Server 2022 (r-release)
+
+## R CMD check results
+
+> On ubuntu-latest (release, devel, oldrel-1)
+
+0 errors | 0 warnings | 0 notes
+
+> On windows-latest (release)
+
+0 errors | 0 warnings | 0 notes
+
+> On windows-x86_64-devel (r-devel)
+
+0 errors v | 0 warnings v | 0 notes v
+
+> On ubuntu-gcc-devel (r-devel)
+
+0 errors v | 0 warnings v | 0 notes v
+
+## Previous cran-comments
+
+## New version
+This is a new version of the library. In this version we have:
+
 * Added some new functions, generally to summarize information
 * Modified other functions to modularize code
 * Parallelized the simobs_annual_plot function to speed up the generation of 
@@ -30,8 +61,6 @@ the figure
 > On ubuntu-gcc-devel (r-devel)
 
 0 errors v | 0 warnings v | 0 notes v
-
-## Previous cran-comments
 
 ## New version
 This is a new version of the library. In this version we have:
