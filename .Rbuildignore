@@ -1,5 +1,6 @@
 ^GREENeR\.Rproj$
 ^\.Rproj\.user$
+^inst/doc$
 ^doc$
 ^README\.Rmd$
 ^LICENSE\.md$

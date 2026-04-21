@@ -1,0 +1,338 @@
+pkgname <- "GREENeR"
+source(file.path(R.home("share"), "R", "examples-header.R"))
+options(warn = 1)
+options(pager = "console")
+library('GREENeR')
+
+base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+cleanEx()
+nameEx("LakeRetent_plot")
+### * LakeRetent_plot
+
+flush(stderr()); flush(stdout())
+
+### Name: LakeRetent_plot
+### Title: Lake retention values summary
+### Aliases: LakeRetent_plot
+
+### ** Examples
+
+
+
+
+
+cleanEx()
+nameEx("N4_sankey")
+### * N4_sankey
+
+flush(stderr()); flush(stdout())
+
+### Name: N4_sankey
+### Title: Nutrient balance flow plot
+### Aliases: N4_sankey
+
+### ** Examples
+
+
+
+
+
+cleanEx()
+nameEx("calib_boxplot")
+### * calib_boxplot
+
+flush(stderr()); flush(stdout())
+
+### Name: calib_boxplot
+### Title: Boxplot of best parameters
+### Aliases: calib_boxplot
+
+### ** Examples
+
+
+
+
+
+cleanEx()
+nameEx("calib_dot")
+### * calib_dot
+
+flush(stderr()); flush(stdout())
+
+### Name: calib_dot
+### Title: Dot plot of goodness-of-fit metric vs parameter value
+### Aliases: calib_dot
+
+### ** Examples
+
+
+
+
+
+cleanEx()
+nameEx("calib_green")
+### * calib_green
+
+flush(stderr()); flush(stdout())
+
+### Name: calib_green
+### Title: Calibration of the GREEN model
+### Aliases: calib_green
+
+### ** Examples
+
+
+
+
+
+cleanEx()
+nameEx("compare_calib")
+### * compare_calib
+
+flush(stderr()); flush(stdout())
+
+### Name: compare_calib
+### Title: Plot comparing observed vs modeled loads for two set of
+###   parameters
+### Aliases: compare_calib
+
+### ** Examples
+
+
+
+
+
+cleanEx()
+nameEx("green_shares")
+### * green_shares
+
+flush(stderr()); flush(stdout())
+
+### Name: green_shares
+### Title: Geospatial Regression Equation parallel execution returning the
+###   source apportionment
+### Aliases: green_shares
+
+### ** Examples
+
+
+
+
+
+cleanEx()
+nameEx("input_Tserie")
+### * input_Tserie
+
+flush(stderr()); flush(stdout())
+
+### Name: input_Tserie
+### Title: Time series of annual load inputs by source
+### Aliases: input_Tserie
+
+### ** Examples
+
+
+
+
+
+cleanEx()
+nameEx("input_Tserie_area")
+### * input_Tserie_area
+
+flush(stderr()); flush(stdout())
+
+### Name: input_Tserie_area
+### Title: Time series of annual load inputs by source and km2
+### Aliases: input_Tserie_area
+
+### ** Examples
+
+# catch_data <- The_Scen[[1]]
+# annual_data <- The_Scen[[2]]
+# sh_file <- The_Sf_shape
+
+
+
+cleanEx()
+nameEx("input_maps")
+### * input_maps
+
+flush(stderr()); flush(stdout())
+
+### Name: input_maps
+### Title: Map average load input by source
+### Aliases: input_maps
+
+### ** Examples
+
+
+
+
+
+cleanEx()
+nameEx("input_plot")
+### * input_plot
+
+flush(stderr()); flush(stdout())
+
+### Name: input_plot
+### Title: Plot input load by source
+### Aliases: input_plot
+
+### ** Examples
+
+# the data of the TN scenario
+data(annual_data_TN)
+data(sh_file)
+# The name of the basin
+basin_name <- "Lay"
+# the barplot
+input_plot(annual_data = annual_data_TN, basin_name = basin_name, plot.type = "B")
+# the density plots
+input_plot(annual_data_TN, sh_file, basin_name, "D")
+
+
+
+
+cleanEx()
+nameEx("nutrient_maps")
+### * nutrient_maps
+
+flush(stderr()); flush(stdout())
+
+### Name: nutrient_maps
+### Title: Map average load output by source
+### Aliases: nutrient_maps
+
+### ** Examples
+
+
+
+
+
+cleanEx()
+nameEx("nutrient_tserie")
+### * nutrient_tserie
+
+flush(stderr()); flush(stdout())
+
+### Name: nutrient_tserie
+### Title: Output load time series plot
+### Aliases: nutrient_tserie
+
+### ** Examples
+
+
+
+
+
+cleanEx()
+nameEx("nutrient_tserie_darea")
+### * nutrient_tserie_darea
+
+flush(stderr()); flush(stdout())
+
+### Name: nutrient_tserie_darea
+### Title: Output load time series plot
+### Aliases: nutrient_tserie_darea
+
+### ** Examples
+
+
+
+
+
+cleanEx()
+nameEx("read_NSdata")
+### * read_NSdata
+
+flush(stderr()); flush(stdout())
+
+### Name: read_NSdata
+### Title: Read NS data
+### Aliases: read_NSdata
+
+### ** Examples
+
+
+
+
+
+cleanEx()
+nameEx("references_plot")
+### * references_plot
+
+flush(stderr()); flush(stdout())
+
+### Name: references_plot
+### Title: Reference summary plot
+### Aliases: references_plot
+
+### ** Examples
+
+
+
+
+cleanEx()
+nameEx("region_nut_balance")
+### * region_nut_balance
+
+flush(stderr()); flush(stdout())
+
+### Name: region_nut_balance
+### Title: Nutrient balance based in the application of the Geospatial
+###   Regression Equation returning the diffuse, land retention, point
+###   sources
+### Aliases: region_nut_balance
+
+### ** Examples
+
+
+
+
+
+cleanEx()
+nameEx("scatter_plot")
+### * scatter_plot
+
+flush(stderr()); flush(stdout())
+
+### Name: scatter_plot
+### Title: Scatter plot of goodness-of-fit metric vs parameters
+### Aliases: scatter_plot
+
+### ** Examples
+
+
+
+
+
+cleanEx()
+nameEx("select_params")
+### * select_params
+
+flush(stderr()); flush(stdout())
+
+### Name: select_params
+### Title: Selection of best calibration parameters
+### Aliases: select_params
+
+### ** Examples
+
+
+
+
+
+### * <FOOTER>
+###
+cleanEx()
+options(digits = 7L)
+base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
+grDevices::dev.off()
+###
+### Local variables: ***
+### mode: outline-minor ***
+### outline-regexp: "\\(> \\)?### [*]+" ***
+### End: ***
+quit('no')

@@ -1,0 +1,33 @@
+LakeRetent_plot         Lake retention values summary
+N4_sankey               Nutrient balance flow plot
+annual_data_TN          Annual data TN
+annual_data_TP          Annual data TP
+calib_boxplot           Boxplot of best parameters
+calib_dot               Dot plot of goodness-of-fit metric vs parameter
+                        value
+calib_green             Calibration of the GREEN model
+catch_data_TN           Catch data TN
+catch_data_TP           Catch data TP
+compare_calib           Plot comparing observed vs modeled loads for
+                        two set of parameters
+green_shares            Geospatial Regression Equation parallel
+                        execution returning the source apportionment
+input_Tserie            Time series of annual load inputs by source
+input_Tserie_area       Time series of annual load inputs by source and
+                        km2
+input_maps              Map average load input by source
+input_plot              Plot input load by source
+nutrient_maps           Map average load output by source
+nutrient_tserie         Output load time series plot
+nutrient_tserie_darea   Output load time series plot
+read_NSdata             Read NS data
+read_geometry           Read geometry
+references_plot         Reference summary plot
+region_nut_balance      Nutrient balance based in the application of
+                        the Geospatial Regression Equation returning
+                        the diffuse, land retention, point sources
+scatter_plot            Scatter plot of goodness-of-fit metric vs
+                        parameters
+select_params           Selection of best calibration parameters
+shreve                  Shreve
+simobs_annual_plot      Facet year plot

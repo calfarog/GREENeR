@@ -491,7 +491,7 @@ create_lits_of_maps <- function(hydroSf, long_basin, unit, legend_position,
 #'
 #' @return A plot with map of the basin
 #'
-#' @importFrom tmap tm_shape tm_fill tm_layout tm_scale_bar
+#' @importFrom tmap tm_shape tm_fill tm_layout tm_scalebar
 #'
 #' @keywords internal
 #'
@@ -503,7 +503,7 @@ create_map <- function(hydroSf, var_name, style_map, scale_barRefs,
                   style = style_map,
                   title = title,
                   palette = palette) +
-    tmap::tm_scale_bar(breaks = scale_barRefs,
+    tmap::tm_scalebar(breaks = scale_barRefs,
                        text.size = scale_barTexts)
 
   if (legend_position == 1){
@@ -1297,7 +1297,7 @@ LakeRetent_plot <- function(catch_data_TN) {
 #' plot. (Default: 1)
 #' @return A plot with map of the basin
 #'
-#' @importFrom tmap tm_shape tm_fill tm_layout tm_scale_bar
+#' @importFrom tmap tm_shape tm_fill tm_layout tm_scalebar
 #'
 #' @keywords internal
 #'
@@ -1327,7 +1327,7 @@ load_map <- function(hydroSf, long_basin, title, style_map,
 #' plot. (Default: 1)
 #' @return A plot with map of the basin
 #'
-#' @importFrom tmap tm_shape tm_fill tm_layout tm_scale_bar
+#' @importFrom tmap tm_shape tm_fill tm_layout tm_scalebar
 #'
 #' @keywords internal
 #'

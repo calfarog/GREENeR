@@ -1,0 +1,125 @@
+* using log directory 'C:/Users/cesar.alfaro/GitHub/GREENeR/..Rcheck'
+* using R version 4.5.3 (2026-03-11 ucrt)
+* using platform: x86_64-w64-mingw32
+* R was compiled by
+    gcc.exe (GCC) 14.3.0
+    GNU Fortran (GCC) 14.3.0
+* running under: Windows 11 x64 (build 26200)
+* using session charset: UTF-8
+* using options '--no-manual --no-build-vignettes'
+* checking for file './DESCRIPTION' ... OK
+* checking extension type ... Package
+* this is package 'GREENeR' version '1.0.2'
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... NOTE
+Found the following hidden files and directories:
+  .RData
+  .Rhistory
+  .github/.gitignore
+  .gitignore
+  vignettes/.gitignore
+  ..Rcheck
+  .Rproj.user
+  .git
+  .github
+These were most likely included in error. See section 'Package
+structure' in the 'Writing R Extensions' manual.
+* checking for portable file names ... NOTE
+Found the following non-portable file paths:
+  GREENeR/docs/deps/bootstrap-5.3.1/fonts/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0Rk0ZjaVQ.woff
+  GREENeR/docs/deps/bootstrap-5.3.1/fonts/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0Rk5hkWVAexg.woff
+  GREENeR/docs/deps/bootstrap-5.3.1/fonts/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0Rk5hkaVQ.woff
+  GREENeR/docs/deps/bootstrap-5.3.1/fonts/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0Rk8ZkWVAexg.woff
+  GREENeR/docs/deps/bootstrap-5.3.1/fonts/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0Rk8ZkaVQ.woff
+  GREENeR/docs/deps/bootstrap-5.3.1/fonts/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0Rk_RkaVQ.woff
+  GREENeR/docs/deps/bootstrap-5.3.1/fonts/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0RkxhjaVQ.woff
+  GREENeR/docs/deps/bootstrap-5.3.1/fonts/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0RkyFjWVAexg.woff
+  GREENeR/docs/deps/bootstrap-5.3.1/fonts/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0RkyFjaVQ.woff
+  GREENeR/docs/deps/bootstrap-5.3.1/fonts/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsg-1x4gaVQ.woff
+  GREENeR/docs/deps/bootstrap-5.3.1/fonts/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsg-1y4k.woff
+  GREENeR/docs/deps/bootstrap-5.3.1/fonts/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsgH1y4k.woff
+  GREENeR/docs/deps/bootstrap-5.3.1/fonts/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgshZ1y4k.woff
+  GREENeR/docs/deps/bootstrap-5.3.1/fonts/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsiH0B4gaVQ.woff
+  GREENeR/docs/deps/bootstrap-5.3.1/fonts/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsiH0C4k.woff
+  GREENeR/docs/deps/bootstrap-5.3.1/fonts/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsjZ0B4gaVQ.woff
+  GREENeR/docs/deps/bootstrap-5.3.1/fonts/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsjZ0C4k.woff
+  GREENeR/docs/deps/bootstrap-5.3.1/fonts/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsjr0C4k.woff
+
+Tarballs are only required to store paths of up to 100 bytes and cannot
+store those of more than 256 bytes, with restrictions including to 100
+bytes for the final component.
+See section 'Package structure' in the 'Writing R Extensions' manual.
+* checking whether package 'GREENeR' can be installed ... OK
+* checking installed package size ... OK
+* checking package directory ... OK
+* checking DESCRIPTION meta-information ... NOTE
+Checking should be performed on sources prepared by 'R CMD build'.
+* checking top-level files ... OK
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... WARNING
+Found the following directory with the name of a check directory:
+  ./..Rcheck
+Most likely, these were included erroneously.
+* checking code files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking dependencies in R code ... OK
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... OK
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... OK
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... OK
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking contents of 'data' directory ... OK
+* checking data for non-ASCII characters ... OK
+* checking LazyData ... OK
+* checking data for ASCII and uncompressed saves ... OK
+* checking files in 'vignettes' ... WARNING
+Files in the 'vignettes' directory but no files in 'inst/doc':
+  'GREENeR.Rmd' 'figures/LakeRetent_plot.png'
+  'figures/annual_scatter_vs_modeled_loadsTN.png'
+  'figures/barplot_LayTN.png' 'figures/barplot_LayTP.png'
+  'figures/calibration_boxplotTN.png' 'figures/calibration_dotTN.png'
+  'figures/calibration_scatterTN.png'
+  'figures/comparing_twosets_paramsTN.png'
+  'figures/densityplot_LayTN.png' 'figures/densityplot_LayTP.png'
+  'figures/input_maps.png' 'figures/input_mapsTN_type1.png'
+  'figures/input_mapsTN_type2.png' 'figures/input_mapsTP_type1.png'
+  'figures/input_mapsTP_type2.png' 'figures/n4sankey.png'
+  'figures/nutrient_maps_outputLoadsType1.png'
+  'figures/nutrient_maps_outputLoadsType2.png'
+  'figures/nutrient_maps_outputLoadsType3.png' 'figures/references.png'
+  'figures/timeserieTN_type1.png' 'figures/timeserieTN_type2.png'
+  'figures/timeserieTN_type3.png' 'figures/timeserieTN_type4.png'
+  'figures/timeserieTP_type1.png' 'figures/timeserieTP_type2.png'
+  'figures/timeserieTP_type3.png' 'figures/timeserieTP_type4.png'
+  'figures/timeserie_loadoutputLay_type1.png'
+  'figures/timeserie_loadoutputLay_type2.png'
+  'figures/timeserie_totalloadLay.png' 'papers_GREENeR.bib'
+* checking examples ... OK
+* checking for unstated dependencies in vignettes ... OK
+* checking package vignettes ... WARNING
+Directory 'inst/doc' does not exist.
+Package vignette without corresponding single PDF/HTML:
+  'GREENeR.Rmd'
+* checking running R code from vignettes ... OK
+  'GREENeR.Rmd' using 'UTF-8'... OK
+* checking re-building of vignette outputs ... SKIPPED
+* DONE
+Status: 3 WARNINGs, 3 NOTEs

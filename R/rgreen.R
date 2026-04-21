@@ -135,7 +135,7 @@ calib_green <- function(catch_data, annual_data, n_iter, low, upp, years){
   par_range <- data.frame(min = low, max = upp)
   latin_range <- as.data.frame(FME::Latinhyper(par_range, n_iter))
 
-  n_cores <- parallelly::availableCores()
+  n_cores <- max(1, parallelly::availableCores() - 2)
   cluster <- parallel::makeCluster(n_cores)
   parallel::clusterExport(cluster, list("launch_green", "check_colnames_annual",
                                         "check_colnames_catch",
