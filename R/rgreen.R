@@ -346,6 +346,7 @@ data_preparation <- function(catch_data, annual_data){
 #' @param sd_coef numeric. Third model parameter, fraction of domestic diffuse
 #' sources that reaches the stream network.
 #' @param loc_years integer. Years in which the model should be executed.
+#' @param n_cores integer. The number of cores to run function.
 #' @return One object, a data frame with the nutrient load by each source for
 #' all catchments in the Basin
 #'
@@ -375,7 +376,20 @@ data_preparation <- function(catch_data, annual_data){
 #' @export
 #'
 green_shares <- function(catch_data, annual_data, alpha_p, alpha_l, sd_coef,
-                         loc_years){
+                         loc_years, n_cores = NULL){
+
+  # 1. Gestión de Cores (Seguro para CRAN y estable para tu RAM)
+  if (is.null(n_cores)) {
+    # Usamos 2 por defecto (límite CRAN), pero permitimos más al usuario
+    n_cores <- min(2, parallelly::availableCores() - 1)
+  }
+  n_cores <- max(1, n_cores)
+
+  # 2. Control estricto de OpenBLAS
+  # Esto evita que cada core intente usar hilos extra de RAM
+  old_threads <- Sys.getenv("OPENBLAS_NUM_THREADS")
+  Sys.setenv(OPENBLAS_NUM_THREADS = 1)
+  on.exit(Sys.setenv(OPENBLAS_NUM_THREADS = old_threads), add = TRUE)
 
   catch_data <- check_colnames_catch(catch_data)
   annual_data <- check_colnames_annual(annual_data)
@@ -389,42 +403,53 @@ green_shares <- function(catch_data, annual_data, alpha_p, alpha_l, sd_coef,
   annual_data <- append_empty_cols(annual_data)
 
   inputs_df <- lapply(seq_len(length(inputs)), function(x){
-    annual_data[inputs[-x]] <- 0
-    return(annual_data)
+    temp <- annual_data
+    temp[inputs[-x]] <- 0
+    return(temp)
   })
   names(inputs_df) <- inputs
 
-  n_cores <- parallelly::availableCores()
+  # 3. Cluster con exportación SELECTIVA
   cluster <- parallel::makeCluster(n_cores)
-  parallel::clusterExport(cluster, list("launch_green", "check_colnames_annual",
-                                        "check_colnames_catch",
-                                        "aggregate_loop", "check_years",
-                                        "append_empty_cols",
-                                        "data_preparation"),
-                          envir = environment())
-  parallel::clusterEvalQ(cluster, c(library("data.table"), library("dplyr")))
+
+  # Solo exportamos las funciones necesarias, NO el entorno completo
+  parallel::clusterExport(cluster, varlist = c("launch_green", "check_colnames_annual",
+                                               "check_colnames_catch", "aggregate_loop",
+                                               "check_years", "append_empty_cols",
+                                               "data_preparation"),
+                          envir = asNamespace("GREENeR")) # Exporta desde el paquete
+
+  parallel::clusterEvalQ(cluster, {
+    library(data.table)
+    library(dplyr)
+  })
+
+  # Al usar parLapply, catch_data se envía de forma eficiente
   results <- parallel::parLapply(cluster, inputs_df, launch_green,
                                  catch_data = catch_data,
                                  alpha_p = alpha_p,
                                  alpha_l = alpha_l,
                                  sd_coef = sd_coef,
                                  loc_years = loc_years)
+
   parallel::stopCluster(cluster)
   names(results) <- inputs
 
+  # 4. Procesamiento de resultados
   results2 <- dplyr::bind_rows(results, .id = "group")
-  results2_cast <- reshape2::dcast(results2[, c("group","HydroID","To_catch","Year","CatchLoad")],
-                                   HydroID + To_catch + Year ~ group,
-                                   value.var = "CatchLoad")
 
-  if (length(results2_cast) == 8) {
-    results2_cast$CatchLoad <- rowSums(results2_cast[, c(4:8)])
-  } else if(length(results2_cast) == 10) {
-    results2_cast$CatchLoad <- rowSums(results2_cast[, c(4:10)])
-  }
+  # Usar data.table para el dcast es mucho más rápido y ligero en memoria
+  results2_cast <- data.table::dcast(data.table::as.data.table(results2),
+                                     HydroID + To_catch + Year ~ group,
+                                     value.var = "CatchLoad")
 
-  return(results2_cast)
+  # Suma de columnas más eficiente
+  idx <- which(names(results2_cast) %in% inputs)
+  results2_cast[["CatchLoad"]] <- rowSums(results2_cast[, idx, with = FALSE])
+
+  return(as.data.frame(results2_cast))
 }
+
 
 #
 #' @title GREEN execution

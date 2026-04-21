@@ -1,6 +1,5 @@
 ^GREENeR\.Rproj$
 ^\.Rproj\.user$
-^inst/doc$
 ^doc$
 ^README\.Rmd$
 ^LICENSE\.md$
@@ -12,3 +11,4 @@
 ^\.github$
 ^CRAN-RELEASE$
 ^CRAN-SUBMISSION$
+^Meta$

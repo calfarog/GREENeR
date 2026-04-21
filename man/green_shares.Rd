@@ -5,7 +5,15 @@
 \title{Geospatial Regression Equation parallel execution returning the source
 apportionment}
 \usage{
-green_shares(catch_data, annual_data, alpha_p, alpha_l, sd_coef, loc_years)
+green_shares(
+  catch_data,
+  annual_data,
+  alpha_p,
+  alpha_l,
+  sd_coef,
+  loc_years,
+  n_cores = NULL
+)
 }
 \arguments{
 \item{catch_data}{data frame. Definition of the topological sequence of
@@ -24,6 +32,8 @@ coefficient.}
 sources that reaches the stream network.}
 
 \item{loc_years}{integer. Years in which the model should be executed.}
+
+\item{n_cores}{integer. The number of cores to run function.}
 }
 \value{
 One object, a data frame with the nutrient load by each source for
