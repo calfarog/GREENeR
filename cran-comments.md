@@ -1,6 +1,39 @@
 ## New version
 This is a new version of the library. In this version we have:
 
+* Memory optimization: refactored green_shares with OpenBLAS thread control to prevent memory allocation failures.
+* Compatibility: updated visualization functions to comply with the new tmap v4 API (migrated to tm_scalebar).
+* System requirements: set R dependency to >= 4.3 to ensure compatibility with updated spatial and numerical libraries.
+
+## Test environments
+* local OS (windows) install, R 4.5.3
+* ubuntu-latest (on GitHub Actions), R release, devel, oldrel-1
+* windows-latest (on GitHub Actions), R release
+* R-hub Windows Server 2022 (r-release)
+
+## R CMD check results
+
+> On ubuntu-latest (release, devel, oldrel-1)
+
+0 errors | 0 warnings | 0 notes
+
+> On windows-latest (release)
+
+0 errors | 0 warnings | 0 notes
+
+> On windows-x86_64-devel (r-devel)
+
+0 errors v | 0 warnings v | 0 notes v
+
+> On ubuntu-gcc-devel (r-devel)
+
+0 errors v | 0 warnings v | 0 notes v
+
+## Previous cran-comments
+
+## New version
+This is a new version of the library. In this version we have:
+
 * Updated technical descriptions and parameter details for some functions (`create_lits_of_maps`, `evolution_plot_area`, `gr_density_plot`, and `simobs_annual_plot`) 
 
 ## Test environments
@@ -26,8 +59,6 @@ This is a new version of the library. In this version we have:
 > On ubuntu-gcc-devel (r-devel)
 
 0 errors v | 0 warnings v | 0 notes v
-
-## Previous cran-comments
 
 ## New version
 This is a new version of the library. In this version we have:

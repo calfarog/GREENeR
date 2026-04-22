@@ -1,3 +1,9 @@
+# GREENeR 1.0.2
+
+* Memory optimization: refactored green_shares with OpenBLAS thread control to prevent memory allocation failures.
+* Compatibility: updated visualization functions to comply with the new tmap v4 API (migrated to tm_scalebar).
+* System requirements: set R dependency to >= 4.3 to ensure compatibility with updated spatial and numerical libraries.
+
 # GREENeR 1.0.1
 
 * Updated roxygen2 metadata for key functions (`create_lits_of_maps`, `evolution_plot_area`, `gr_density_plot`, and `simobs_annual_plot`) to provide clearer technical descriptions and parameter details.

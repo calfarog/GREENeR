@@ -346,7 +346,6 @@ data_preparation <- function(catch_data, annual_data){
 #' @param sd_coef numeric. Third model parameter, fraction of domestic diffuse
 #' sources that reaches the stream network.
 #' @param loc_years integer. Years in which the model should be executed.
-#' @param n_cores integer. The number of cores to run function.
 #' @return One object, a data frame with the nutrient load by each source for
 #' all catchments in the Basin
 #'
@@ -376,17 +375,10 @@ data_preparation <- function(catch_data, annual_data){
 #' @export
 #'
 green_shares <- function(catch_data, annual_data, alpha_p, alpha_l, sd_coef,
-                         loc_years, n_cores = NULL){
+                         loc_years){
 
-  # 1. Gestión de Cores (Seguro para CRAN y estable para tu RAM)
-  if (is.null(n_cores)) {
-    # Usamos 2 por defecto (límite CRAN), pero permitimos más al usuario
-    n_cores <- min(2, parallelly::availableCores() - 1)
-  }
-  n_cores <- max(1, n_cores)
+  n_cores <- parallelly::availableCores() - 1
 
-  # 2. Control estricto de OpenBLAS
-  # Esto evita que cada core intente usar hilos extra de RAM
   old_threads <- Sys.getenv("OPENBLAS_NUM_THREADS")
   Sys.setenv(OPENBLAS_NUM_THREADS = 1)
   on.exit(Sys.setenv(OPENBLAS_NUM_THREADS = old_threads), add = TRUE)
@@ -409,22 +401,19 @@ green_shares <- function(catch_data, annual_data, alpha_p, alpha_l, sd_coef,
   })
   names(inputs_df) <- inputs
 
-  # 3. Cluster con exportación SELECTIVA
   cluster <- parallel::makeCluster(n_cores)
 
-  # Solo exportamos las funciones necesarias, NO el entorno completo
   parallel::clusterExport(cluster, varlist = c("launch_green", "check_colnames_annual",
                                                "check_colnames_catch", "aggregate_loop",
                                                "check_years", "append_empty_cols",
                                                "data_preparation"),
-                          envir = asNamespace("GREENeR")) # Exporta desde el paquete
+                          envir = asNamespace("GREENeR"))
 
   parallel::clusterEvalQ(cluster, {
     library(data.table)
     library(dplyr)
   })
 
-  # Al usar parLapply, catch_data se envía de forma eficiente
   results <- parallel::parLapply(cluster, inputs_df, launch_green,
                                  catch_data = catch_data,
                                  alpha_p = alpha_p,
@@ -435,15 +424,12 @@ green_shares <- function(catch_data, annual_data, alpha_p, alpha_l, sd_coef,
   parallel::stopCluster(cluster)
   names(results) <- inputs
 
-  # 4. Procesamiento de resultados
   results2 <- dplyr::bind_rows(results, .id = "group")
 
-  # Usar data.table para el dcast es mucho más rápido y ligero en memoria
   results2_cast <- data.table::dcast(data.table::as.data.table(results2),
                                      HydroID + To_catch + Year ~ group,
                                      value.var = "CatchLoad")
 
-  # Suma de columnas más eficiente
   idx <- which(names(results2_cast) %in% inputs)
   results2_cast[["CatchLoad"]] <- rowSums(results2_cast[, idx, with = FALSE])
 
